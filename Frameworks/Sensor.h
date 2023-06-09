@@ -28,7 +28,8 @@ private:
     int sampleRate;
 
 
-
+    //We can either use a map of times and data as the storage medium
+    //Or we could just store data and then have a large map with all the sensors at every time
 
 };
 
