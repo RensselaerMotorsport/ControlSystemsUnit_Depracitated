@@ -11,7 +11,13 @@
  *
  * ------------------------------------------------------------------
  *
- * Class Function: This classes function is to act as a top level class to call all sub tests for all classes in the project
+ * Class Function: This classes function is to act as a top level class to call all sub-tests for all classes in the project
+ *
+ * Sub-test classes:
+ * DataLoggerTest
+ * MotorControllerTest
+ * SensorTest
+ * TemperatureTest
  *
  */
 #include <string>

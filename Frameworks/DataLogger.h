@@ -13,6 +13,7 @@
  *
  * Class Function: The function of this class is to act as a high level class for lower level classes (sensor specific) to extend
  *                      This class will allow the various sensors to log the data that they receive for later retrieval
+ *                          *** EACH SENSOR OBJECT HAS EXACTLY ONE DATA LOGGER OBJECT ***
  *
  * Member Variables:
  * dataMap - This variable is a map with a key of type time to log certain input values at specific times
