@@ -20,3 +20,13 @@ template<typename T>
 T DataLogger<T>::getDataAtTime(std::time_t time){
     return dataMap[time];
 }
+
+template<typename T>
+bool DataLogger<T>::addValue(std::time_t time, T value){
+    if (time > lastTime) {
+        dataMap[time] = value;
+        lastTime = time;
+        return true;
+    }
+    return false;
+}

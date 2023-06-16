@@ -33,10 +33,15 @@
 template<typename T>
 class DataLogger {
 public:
+    DataLogger(){ lastTime = std::time_t(0); }
     T getDataAtTime(std::time_t time);
+    bool addValue(std::time_t time, T value);
 private:
     //member variables
     std::map<std::time_t, T> dataMap;
+
+    //Used to ensure that it does not accidentally edit old times
+    std::time_t lastTime;
 };
 
 
