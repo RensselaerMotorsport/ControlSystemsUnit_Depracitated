@@ -1,0 +1,47 @@
+/*****
+* Written by Amar Maksumić
+* Date: 06/13/2023
+* Purspose: Basic layout of classes, their variables, and functions
+*/
+
+=====
+frameworks/io
+
+variables:
+  (bool, private) alive
+  (bool, private) enable
+
+functions:
+  getter for alive (checks if this IO is working)
+  getter and setter for enable
+
+=====
+frameworks/dataLogger
+  (io, private) io_module #thing you are analyzing
+  (int, private) time_step # in ms, lets us know how to index the array below
+  (some array thing, private) log #array, vector, etc of the data
+
+=====
+frameworks/baseSensor (extends frameworks/io)
+
+variables: 
+  (dataLogger, private) dataLog
+
+=====
+frameworks/baseAnalogSensor (extends frameworks/baseSensor)
+
+variables:
+  (int, private) channel
+
+functions:
+  getter and setter
+=====
+frameworks/baseDigitalSensor (extends frameworks/baseSensor)
+
+variables:
+  (int, private) port
+
+functions:
+  getter and setter
+=====
+motor/motorController
