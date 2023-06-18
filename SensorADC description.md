@@ -46,6 +46,11 @@ When fetching sensor data, it is recommended to do so one channel at a time to a
 
 Note that the official Waveshare ADC1263 documentation also refers to its 10 analog inputs as "channels". Here, we instead refer to them as "inputs" or "ports". 
 
+## Pinout for Multiplexer Board
+
+LSB: GPIO pin ??? -> a0 for all multiplexers
+
+MSB: GPIO pin ??? -> a1 for all multiplexers
 
 
 
