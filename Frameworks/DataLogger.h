@@ -36,6 +36,7 @@ public:
     DataLogger(){ lastTime = std::time_t(0); }
     T getDataAtTime(std::time_t time);
     bool addValue(std::time_t time, T value);
+    void getMap(const std::map<std::time_t, T> &map);
 private:
     //member variables
     std::map<std::time_t, T> dataMap;
