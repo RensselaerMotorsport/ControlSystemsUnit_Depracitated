@@ -70,5 +70,6 @@ private:
             return false;
         }
     }
+    std::time_t knownTime;
     DataLogger<double> dl;
 };
