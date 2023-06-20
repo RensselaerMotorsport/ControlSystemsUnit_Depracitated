@@ -16,6 +16,7 @@
 
 #include <string>
 #include <iostream>
+#include "../Frameworks/DataLogger.h"
 #include "DataLoggerTest.cpp"
 
 int main(int argc, char* argv[]) {

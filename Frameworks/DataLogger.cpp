@@ -32,6 +32,6 @@ bool DataLogger<T>::addValue(std::time_t time, T value){
 }
 
 template<typename T>
-void DataLogger<T>::getMap(const std::map<std::time_t, T> &map) {
+void DataLogger<T>::getMap(std::map<std::time_t, T> &map) {
     map = this->dataMap;
 }

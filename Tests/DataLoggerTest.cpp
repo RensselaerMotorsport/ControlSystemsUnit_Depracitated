@@ -22,10 +22,11 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <unistd.h>
 #include "../Frameworks/DataLogger.h"
+#include "../Frameworks/DataLogger.cpp"
 
 class DataLoggerTest{
-private:
 
 public:
     DataLoggerTest(){ dl = DataLogger<double>(); std::time(&knownTime); }
@@ -48,6 +49,7 @@ private:
         std::time(&preTime);
         for (int i = 1; i < 10; ++i) {
             value = (double) (i);
+            sleep(1);
             std::time(&time);
             t = dl.addValue(time, value);
             if (!t) return false;
@@ -56,6 +58,7 @@ private:
         value = 21;
         t = dl.addValue(preTime, value);
         if (t) return false;
+        return true;
     }
 
     //This is to make sure that by calling getMap, we cannot edit the values.
