@@ -8,8 +8,8 @@
 #include <string.h>
 
 //Change this to whatever the Jetson Nano calls its pins
-#define GPIO_MUX_LSB 0
-#define GPIO_MUX_MSB 0
+#define GPIO_MUX_LSB GPIO20 //20 on the ADC, 38 on the Jetson Nano
+#define GPIO_MUX_MSB GPIO21 //21 on the ADC, 40 on the Jetson Nano
 
 // ADC1 test part
 #define TEST_ADC1       1

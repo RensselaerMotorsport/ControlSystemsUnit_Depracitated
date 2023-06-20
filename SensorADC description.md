@@ -22,7 +22,7 @@ When fetching sensor data, it is recommended to do so one channel at a time to a
 
 The multiplexers effectively split the ADC into 4 "channels", with 8 analog input ports on each channel (one for each multiplexer). To allow the ADC to obtain an updated signal after the multiplexer switches signals, there is a 30 microsecond delay after switching channels. This channel switching (and delay) occurs automatically when a request is made for sensor data on a different channel. 
 
-To avoid this delay, it is best to minimize channel switching; this can be done by putting high-speed signals on the same channel (recommended breakdown for RM25 is shown below). Inputs 9 and 10 (the two "fast" inputs) are not connected to a multiplexer. They therefore have no delay and can be considered part of every channel. 
+To avoid this delay, it is best to minimize channel switching; this can be done by putting high-speed signals on the same channel (recommended breakdown for RM25 is shown below). Inputs 8 and 9 (the two "fast" inputs) are not connected to a multiplexer. They therefore have no delay and can be considered part of every channel. 
 
 Recommended breakdown for last year's sensors:
 
@@ -48,9 +48,8 @@ Note that the official Waveshare ADC1263 documentation also refers to its 10 ana
 
 ## Pinout for Multiplexer Board
 
-LSB: GPIO pin ??? -> a0 for all multiplexers
+LSB: GPIO pin 20 on the ADC (aka 38 on the Jetson Nano) -> a0 for all multiplexers
 
-MSB: GPIO pin ??? -> a1 for all multiplexers
+MSB: GPIO pin 21 on the ADC (aka 40 on the Jetson Nano) -> a1 for all multiplexers
 
-
-
+It is recommended to use four ADG1309 multiplexers (see LTSpice schematic).
