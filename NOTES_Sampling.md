@@ -27,6 +27,7 @@ Startup:
 * Strain Gauges (need to check this, I believe this is the fastest possible due to CAN speed limits)
 
 500 Hz:
+* IMD
 
 1000 Hz:
 * Shock Position Sensors (4 corners)
