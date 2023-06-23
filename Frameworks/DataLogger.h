@@ -13,6 +13,7 @@
  *
  * Class Function: The function of this class is to act as a high level class for lower level classes (sensor specific) to extend
  *                      This class will allow the various sensors to log the data that they receive for later retrieval
+ *                          *** EACH SENSOR OBJECT HAS EXACTLY ONE DATA LOGGER OBJECT ***
  *
  * Member Variables:
  * dataMap - This variable is a map with a key of type time to log certain input values at specific times
@@ -32,10 +33,16 @@
 template<typename T>
 class DataLogger {
 public:
+    DataLogger(){ lastTime = std::time_t(0); }
     T getDataAtTime(std::time_t time);
+    bool addValue(std::time_t time, T value);
+    void getMap(std::map<std::time_t, T> &map);
 private:
     //member variables
     std::map<std::time_t, T> dataMap;
+
+    //Used to ensure that it does not accidentally edit old times
+    std::time_t lastTime;
 };
 
 
