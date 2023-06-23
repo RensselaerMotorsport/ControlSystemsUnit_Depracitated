@@ -7,6 +7,10 @@
 #include "stdio.h"
 #include <string.h>
 
+//Change this to whatever the Jetson Nano calls its pins
+#define GPIO_MUX_LSB GPIO20 //20 on the ADC, 38 on the Jetson Nano
+#define GPIO_MUX_MSB GPIO21 //21 on the ADC, 40 on the Jetson Nano
+
 // ADC1 test part
 #define TEST_ADC1       1
 // ADC1 rate test par
@@ -30,10 +34,6 @@ void Handler(int signo)
 //Provided with demo, uses developer functions
 void InitADC(void)
 {
-    UDOUBLE ADC[10];
-    UWORD i;
-    double RES, TEMP;
-    
     // Exception handling:ctrl + c
     signal(SIGINT, Handler);
     
@@ -59,12 +59,39 @@ void InitADC(void)
 //Not written yet!
 //Sets the correct channel group on the multiplexer
 void SetChannelGroup(int channelGroup){
+    //Format this to however the Jetson Nano
+    UWORD LSB = GPIO_MUX_LSB;
+    UWORD MSB = GPIO_MUX_MSB;
 
+    if(channelGroup == 1){
+        DEV_Digital_Write(MSB, 0);
+        DEV_Digital_Write(LSB, 0);
+    }
+    else if(channelGroup == 2){
+        DEV_Digital_Write(MSB, 0);
+        DEV_Digital_Write(LSB, 1);
+    }
+    else if(channelGroup == 3){
+        DEV_Digital_Write(MSB, 1);
+        DEV_Digital_Write(LSB, 0);
+    }
+    else if(channelGroup == 4){
+        DEV_Digital_Write(MSB, 1);
+        DEV_Digital_Write(LSB, 1);
+    }
+    //channel 0 is the "fake" channel, don't do anything
+
+
+    //Waiting for data is already in GetChannalValue, but in case that doesn't work: 
+    //struct timespec remaining, request = { 0, 30000 };
+    //nanosleep(&request, &remaining);
 }
 
 //(Doesn't work yet) Returns voltage of port
-UDOUBLE FetchSensor(int channelGroup, int port){
-    SetChannelGroup(channelGroup);
+UDOUBLE FetchSensor(int muxChannel, int port){
+    SetChannelGroup(muxChannel);
+
+    //This function includes waiting for the data to be ready
     //also sets pin mode, etc
     UDOUBLE rawData = ADS1263_GetChannalValue(port);
     if((rawData>>31) == 1)
@@ -78,6 +105,9 @@ UDOUBLE FetchSensor(int channelGroup, int port){
 //Run the included demo code from Waveshare
 void RunWaveshareTests(void)
 {
+    UDOUBLE ADC[10];
+    UWORD i;
+    double RES, TEMP;
     /* Test DAC */
     // ADS1263_DAC(ADS1263_DAC_VLOT_3, Positive_A6, Open);      
     // ADS1263_DAC(ADS1263_DAC_VLOT_2, Negative_A7, Open);

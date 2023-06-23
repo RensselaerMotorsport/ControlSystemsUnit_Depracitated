@@ -15,3 +15,9 @@
  */
 
 #include "Temperature.h"
+float Temperature::getCelsius(){
+    return temp;
+}
+float Temperature::getFahrenheit(){
+    return temp * (9/5) + 32;
+}
