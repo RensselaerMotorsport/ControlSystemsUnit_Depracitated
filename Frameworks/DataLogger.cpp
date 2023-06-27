@@ -17,6 +17,23 @@
 #include "DataLogger.h"
 
 template<typename T>
-T DataLogger<T>::getDataAtTime(std::time_t time){
+T DataLogger<T>::getDataAtTime(highResTime time){
     return dataMap[time];
+}
+
+template<typename T>
+bool DataLogger<T>::addValue(highResTime time, T value){
+    if (time > lastTime) {
+        dataMap[time] = value;
+        lastTime = time;
+        return true;
+    }
+    return false;
+}
+
+template<typename T>
+typename std::map<highResTime, T>::const_iterator DataLogger<T>::getMap() {
+    typename std::map<highResTime, T>::const_iterator it = dataMap.begin();
+
+    return it;
 }

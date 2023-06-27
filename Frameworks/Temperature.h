@@ -26,11 +26,21 @@
 #define CONTROLSYSTEMSUNIT_TEMPERATURE_H
 
 
-
 class Temperature {
+public:
+    Temperature(float t){ temp = t; }
 
+    Temperature() { temp = 0.0; }
+
+    float getCelsius();
+    float getFahrenheit();
+
+private:
+    //Member Variables:
+
+    //Stored in Celsius:
+    float temp;
 };
-
 
 
 #endif //CONTROLSYSTEMSUNIT_TEMPERATURE_H

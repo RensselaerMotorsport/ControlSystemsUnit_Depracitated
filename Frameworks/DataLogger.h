@@ -13,6 +13,7 @@
  *
  * Class Function: The function of this class is to act as a high level class for lower level classes (sensor specific) to extend
  *                      This class will allow the various sensors to log the data that they receive for later retrieval
+ *                          *** EACH SENSOR OBJECT HAS EXACTLY ONE DATA LOGGER OBJECT ***
  *
  * Member Variables:
  * dataMap - This variable is a map with a key of type time to log certain input values at specific times
@@ -27,15 +28,25 @@
 #define RENNSMOTORSPORT_DATALOGGER_H
 
 #include <ctime>
+#include <chrono>
 #include <map>
+#include <iterator>
+
+typedef std::chrono::time_point<std::chrono::high_resolution_clock> highResTime;
 
 template<typename T>
 class DataLogger {
 public:
-    T getDataAtTime(std::time_t time);
+    DataLogger(){ lastTime = std::chrono::system_clock::now(); }
+    T getDataAtTime(highResTime time);
+    bool addValue(highResTime time, T value);
+    typename std::map<highResTime, T>::const_iterator getMap();
 private:
     //member variables
-    std::map<std::time_t, T> dataMap;
+    std::map<highResTime, T> dataMap;
+
+    //Used to ensure that it does not accidentally edit old times
+    highResTime lastTime;
 };
 
 
