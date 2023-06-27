@@ -29,6 +29,7 @@
 
 #include <ctime>
 #include <map>
+#include <iterator>
 
 template<typename T>
 class DataLogger {
@@ -36,7 +37,7 @@ public:
     DataLogger(){ lastTime = std::time_t(0); }
     T getDataAtTime(std::time_t time);
     bool addValue(std::time_t time, T value);
-    void getMap(std::map<std::time_t, T> &map);
+    const_iterator getMap();
 private:
     //member variables
     std::map<std::time_t, T> dataMap;
