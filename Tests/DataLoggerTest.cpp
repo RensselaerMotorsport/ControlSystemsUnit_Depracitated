@@ -44,13 +44,13 @@ private:
         if (!t) return false;
 
         double value;
-        std::time_t time;
-        std::time_t preTime;
-        std::time(&preTime);
+        highResTime time;
+        highResTime preTime;
+        preTime = std::chrono::system_clock::now();
         for (int i = 1; i < 10; ++i) {
             value = (double) (i);
-            sleep(1);
-            std::time(&time);
+            usleep(5000);
+            time = std::chrono::system_clock::now();
             t = dl.addValue(time, value);
             if (!t) return false;
         }
@@ -63,16 +63,12 @@ private:
 
     //This is to make sure that by calling getMap, we cannot edit the values.
     bool immutableRefTest() {
-        std::map<std::time_t, double> map;
-        dl.getMap(map);
-        //should throw an error maybe
-        map[knownTime] = 13;
-        if (map[knownTime] == 10.2){
-            return true;
-        } else {
+        std::map<highResTime, double>::const_iterator itr;
+        itr = dl.getMap();
+        if (itr->first != knownTime){
             return false;
         }
     }
-    std::time_t knownTime;
+    highResTime knownTime;
     DataLogger<double> dl;
 };

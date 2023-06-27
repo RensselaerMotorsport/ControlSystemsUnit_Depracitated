@@ -19,5 +19,9 @@ float Temperature::getCelsius(){
     return temp;
 }
 float Temperature::getFahrenheit(){
-    return temp * (9/5) + 32;
+    return temp * (9.0/5.0) + 32;
 }
+
+
+
+

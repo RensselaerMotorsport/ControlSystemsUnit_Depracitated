@@ -29,8 +29,12 @@
 class Temperature {
 public:
     Temperature(float t){ temp = t; }
+
+    Temperature() { temp = 0.0; }
+
     float getCelsius();
     float getFahrenheit();
+
 private:
     //Member Variables:
 

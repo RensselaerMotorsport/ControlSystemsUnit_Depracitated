@@ -17,12 +17,12 @@
 #include "DataLogger.h"
 
 template<typename T>
-T DataLogger<T>::getDataAtTime(std::time_t time){
+T DataLogger<T>::getDataAtTime(highResTime time){
     return dataMap[time];
 }
 
 template<typename T>
-bool DataLogger<T>::addValue(std::time_t time, T value){
+bool DataLogger<T>::addValue(highResTime time, T value){
     if (time > lastTime) {
         dataMap[time] = value;
         lastTime = time;
@@ -32,7 +32,8 @@ bool DataLogger<T>::addValue(std::time_t time, T value){
 }
 
 template<typename T>
-const_iterator DataLogger<T>::getMap() {
-    std::map<std::time_t, T>::const_iterator it = this.dataMap.begin();
+typename std::map<highResTime, T>::const_iterator DataLogger<T>::getMap() {
+    typename std::map<highResTime, T>::const_iterator it = dataMap.begin();
+
     return it;
 }
