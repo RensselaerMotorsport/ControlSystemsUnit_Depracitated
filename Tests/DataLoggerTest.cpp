@@ -29,7 +29,7 @@
 class DataLoggerTest{
 
 public:
-    DataLoggerTest(){ dl = DataLogger<double>(); std::time(&knownTime); }
+    DataLoggerTest(){ dl = DataLogger<double>(); knownTime = std::chrono::system_clock::now(); }
 
     void RunTests() {
         std::cout<<"Running DataLogger Tests"<<std::endl;
@@ -68,6 +68,10 @@ private:
         if (itr->first != knownTime){
             return false;
         }
+        // The following line of code is what would edit values in the map, and causes and error.
+        // Thus it can be said that the immutable reference works correctly.
+        //itr->second = 12.2;
+        return true;
     }
     highResTime knownTime;
     DataLogger<double> dl;

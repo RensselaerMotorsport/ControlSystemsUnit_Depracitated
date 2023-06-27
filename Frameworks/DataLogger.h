@@ -28,22 +28,25 @@
 #define RENNSMOTORSPORT_DATALOGGER_H
 
 #include <ctime>
+#include <chrono>
 #include <map>
 #include <iterator>
+
+typedef std::chrono::time_point<std::chrono::high_resolution_clock> highResTime;
 
 template<typename T>
 class DataLogger {
 public:
-    DataLogger(){ lastTime = std::time_t(0); }
-    T getDataAtTime(std::time_t time);
-    bool addValue(std::time_t time, T value);
-    const_iterator getMap();
+    DataLogger(){ lastTime = std::chrono::system_clock::now(); }
+    T getDataAtTime(highResTime time);
+    bool addValue(highResTime time, T value);
+    typename std::map<highResTime, T>::const_iterator getMap();
 private:
     //member variables
-    std::map<std::time_t, T> dataMap;
+    std::map<highResTime, T> dataMap;
 
     //Used to ensure that it does not accidentally edit old times
-    std::time_t lastTime;
+    highResTime lastTime;
 };
 
 
