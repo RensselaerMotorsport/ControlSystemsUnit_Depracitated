@@ -1,0 +1,8 @@
+waveshare:
+	g++ -o canbus-demo.out ./waveshare-lib/Canbus/main.cpp ./waveshare-lib/Canbus/libcontrolcan.so  -lpthread 
+
+motorsport:
+	g++ -o canbus.out canbus.cpp ./waveshare-lib/Canbus/libcontrolcan.so  -lpthread
+
+clean:
+	rm -f *.o hello
