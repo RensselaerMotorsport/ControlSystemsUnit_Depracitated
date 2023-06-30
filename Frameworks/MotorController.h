@@ -33,14 +33,14 @@ public:
     MotorController();
 
     float getSensorValue();
-    Temperature getMotorTemp();
+    float getMotorTemp();
 private:
     //Member Variables:
     //Motor torque in N/m
     float torque;
 
     //Motor Temperature stored in Celsius
-    Temperature temp;
+    float temp;
 };
 
 
