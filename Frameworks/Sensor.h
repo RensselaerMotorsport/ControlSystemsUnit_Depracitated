@@ -27,9 +27,13 @@
 #ifndef RENNSMOTORSPORT_SENSOR_H
 #define RENNSMOTORSPORT_SENSOR_H
 #include <string>
+#include "DataLogger.h"
+#include "IO.h"
 
-class Sensor {
+template<typename T>
+class Sensor: private IO {
 public:
+    Sensor(): IO() { sensorName = "0"; dataLog = DataLogger<T>(); }
     /*
     //clears stored data
     void clear();
@@ -42,12 +46,7 @@ private:
     //Contains name of the input sensor
     std::string sensorName;
 
-    //Sample rate of the sensor in Hz
-    int sampleRate;
-
-
-    //We can either use a map of times and data as the storage medium
-    //Or we could just store data and then have a large map with all the sensors at every time
+    DataLogger<T> dataLog;
 
 };
 

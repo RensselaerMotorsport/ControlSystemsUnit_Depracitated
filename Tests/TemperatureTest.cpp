@@ -23,8 +23,8 @@
 #include <iostream>
 #include <ctime>
 #include <unistd.h>
-#include "../Frameworks/Temperature.h"
-#include "../Frameworks/Temperature.cpp"
+#include "../Frameworks/Sensors/Temperature.h"
+#include "../Frameworks/Sensors/Temperature.cpp"
 
 class TemperatureTest{
 public:

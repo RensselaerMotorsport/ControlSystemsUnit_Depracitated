@@ -24,19 +24,23 @@
 #ifndef CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 #define CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 
+#include "Sensors/Temperature.h"
 
 class MotorController {
 public:
     MotorController(float to, float te);
+
+    MotorController();
+
     float getSensorValue();
-    Temperature getMotorTemp();
+    float getMotorTemp();
 private:
     //Member Variables:
     //Motor torque in N/m
     float torque;
 
     //Motor Temperature stored in Celsius
-    Temperature temp;
+    float temp;
 };
 
 
