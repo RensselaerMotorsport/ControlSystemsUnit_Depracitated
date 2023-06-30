@@ -63,7 +63,7 @@ void *receive_func(void* param) //receiving thread.
 	pthread_exit(0);
 }
 
-int startCanbus() 
+int startCanbus(int dataRateKbps) 
 {
 	printf("Starting Canbus...\r\n");//Indicates that the program has run
 
@@ -84,16 +84,11 @@ int startCanbus()
 		}
 		printf("\n");
 
-		printf(">>hw_Type:%c", pInfo1[i].str_hw_Type[0]);
-		printf("%c", pInfo1[i].str_hw_Type[1]);
-		printf("%c", pInfo1[i].str_hw_Type[2]);
-		printf("%c", pInfo1[i].str_hw_Type[3]);
-		printf("%c", pInfo1[i].str_hw_Type[4]);
-		printf("%c", pInfo1[i].str_hw_Type[5]);
-		printf("%c", pInfo1[i].str_hw_Type[6]);
-		printf("%c", pInfo1[i].str_hw_Type[7]);
-		printf("%c", pInfo1[i].str_hw_Type[8]);
-		printf("%c", pInfo1[i].str_hw_Type[9]);printf("\n");	
+		printf(">>hw_Type:");
+		for(int j=0; j<10; j++){
+			printf("%c", pInfo1[i].str_hw_Type[j]);
+		}
+		printf("\n");
 
 		printf(">>Firmware Version:V");
 		printf("%x", (pInfo1[i].fw_Version&0xF00)>>8);
@@ -115,7 +110,7 @@ int startCanbus()
 	}
 	if(VCI_ReadBoardInfo(VCI_USBCAN2,0,&pInfo)==1)//Read device serial number, version and other information.
 	{
-                printf(">>Get VCI_ReadBoardInfo success!\n");
+		printf(">>Obtained board info: \n");
 		
 		//printf(" %08X", pInfo.hw_Version);printf("\n");
 		//printf(" %08X", pInfo.fw_Version);printf("\n");
@@ -123,37 +118,18 @@ int startCanbus()
 		//printf(" %08X", pInfo.in_Version);printf("\n");
 		//printf(" %08X", pInfo.irq_Num);printf("\n");
 		//printf(" %08X", pInfo.can_Num);printf("\n");
-		printf(">>Serial_Num:%c", pInfo.str_Serial_Num[0]);
-		printf("%c", pInfo.str_Serial_Num[1]);
-		printf("%c", pInfo.str_Serial_Num[2]);
-		printf("%c", pInfo.str_Serial_Num[3]);
-		printf("%c", pInfo.str_Serial_Num[4]);
-		printf("%c", pInfo.str_Serial_Num[5]);
-		printf("%c", pInfo.str_Serial_Num[6]);
-		printf("%c", pInfo.str_Serial_Num[7]);
-		printf("%c", pInfo.str_Serial_Num[8]);
-		printf("%c", pInfo.str_Serial_Num[9]);
-		printf("%c", pInfo.str_Serial_Num[10]);
-		printf("%c", pInfo.str_Serial_Num[11]);
-		printf("%c", pInfo.str_Serial_Num[12]);
-		printf("%c", pInfo.str_Serial_Num[13]);
-		printf("%c", pInfo.str_Serial_Num[14]);
-		printf("%c", pInfo.str_Serial_Num[15]);
-		printf("%c", pInfo.str_Serial_Num[16]);
-		printf("%c", pInfo.str_Serial_Num[17]);
-		printf("%c", pInfo.str_Serial_Num[18]);
-		printf("%c", pInfo.str_Serial_Num[19]);printf("\n");
+		printf(">>Serial_Num:");
 
-		printf(">>hw_Type:%c", pInfo.str_hw_Type[0]);
-		printf("%c", pInfo.str_hw_Type[1]);
-		printf("%c", pInfo.str_hw_Type[2]);
-		printf("%c", pInfo.str_hw_Type[3]);
-		printf("%c", pInfo.str_hw_Type[4]);
-		printf("%c", pInfo.str_hw_Type[5]);
-		printf("%c", pInfo.str_hw_Type[6]);
-		printf("%c", pInfo.str_hw_Type[7]);
-		printf("%c", pInfo.str_hw_Type[8]);
-		printf("%c", pInfo.str_hw_Type[9]);printf("\n");
+		for(int j=0; j<20; j++){
+			printf("%c", pInfo.str_Serial_Num[j]);
+		}
+		printf("\n");
+
+		printf(">>hw_Type:");
+		for(int j=0; j<10; j++){
+			printf("%c", pInfo.str_hw_Type[j]);
+		}
+		printf("\n");
 
 		printf(">>Firmware Version:V");
 		printf("%x", (pInfo.fw_Version&0xF00)>>8);
@@ -173,8 +149,31 @@ int startCanbus()
 	config.AccCode=0;
 	config.AccMask=0xFFFFFFFF;
 	config.Filter=1;//Receive all frames
-	config.Timing0=0x03;/*baud rate 125 Kbps 0x03 0x1C*/
-	config.Timing1=0x1C;
+
+
+	//RCOS new section for adjustable data rate
+	//To add new data rates, see table on page 7 of https://www.waveshare.com/w/upload/7/7d/Interface_Function_Library_User_Instruction.pdf
+
+	if(dataRateKbps == 250){
+		config.Timing0=0x01;
+		config.Timing1=0x1C;
+	}
+	else if(dataRateKbps == 500){
+		config.Timing0=0x00;
+		config.Timing1=0x1C;
+	}
+	else if(dataRateKbps == 1000){
+		config.Timing0=0x00;
+		config.Timing1=0x14;
+	}
+	else{
+		printf("This data rate has not been configured. ");
+		printf("Please choose 250, 500, or 1000 kpbs, or add your new speed to ");
+		printf("the data rate section of canbus.cpp. \n");
+		exit(1);
+	}
+	
+
 	config.Mode=0;//normal mode	
 	
 	if(VCI_InitCAN(VCI_USBCAN2,0,0,&config)!=1)
@@ -202,6 +201,16 @@ int startCanbus()
 		VCI_CloseDevice(VCI_USBCAN2,0);
 
 	}
+
+
+	//RCOS: Seems like all of that was setup. Below is where we actually start sending data
+	//I need to make that into a separate, customizable function. I will start on that next time
+	
+
+	printf("Setup complete\n")
+
+
+
 	//Frames to be sent, structure settings
 	VCI_CAN_OBJ send[1];
 	send[0].ID=0;
@@ -285,5 +294,5 @@ int startCanbus()
 
 //RCOS
 int main(){
-	startCanbus()
+	startCanbus(250)
 }
