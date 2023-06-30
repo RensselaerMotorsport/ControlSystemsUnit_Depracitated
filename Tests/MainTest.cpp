@@ -14,32 +14,62 @@
  *
  */
 
-#include <string>
+#include <cstring>
 #include <iostream>
 #include "../Frameworks/DataLogger.h"
 #include "DataLoggerTest.cpp"
-#include "../Frameworks/Temperature.h"
+#include "../Frameworks/Sensors/Temperature.h"
 #include "TemperatureTest.cpp"
+#include "MotorControllerTest.cpp"
+#include "SensorTest.cpp"
+
+void DataLoggerT(){
+    DataLoggerTest dlt = DataLoggerTest();
+    dlt.RunTests();
+}
+
+void TemperatureT(){
+    TemperatureTest tmpTest = TemperatureTest();
+    tmpTest.RunTests();
+}
+
+void MotorControllerT(){
+    MotorControllerTest mct = MotorControllerTest();
+    mct.RunTests();
+}
+
+void SensorT(){
+    SensorTest st = SensorTest();
+    st.RunTests();
+}
 
 int main(int argc, char* argv[]) {
-    std::string input = argv[1];
-    if (input == "All") {
-        DataLoggerTest dlt = DataLoggerTest();
-        dlt.RunTests();
-        TemperatureTest tmpTest = TemperatureTest();
-        tmpTest.RunTests();
-    } else if (input == "DataLogger") {
-        DataLoggerTest dlt = DataLoggerTest();
-        dlt.RunTests();
-    } else if (input == "Temperature") {
-        TemperatureTest tmpTest = TemperatureTest();
-        tmpTest.RunTests();
-    }
-    else {
-        std::cerr << "INCORRECT USAGE:\n" <<
-                  "USAGE: ./MainTest.o \"Test\"\n" <<
-                  "Available Tests:\n" <<
-                  "All\n" <<
-                  "DataLogger\n" << std::endl;
+    for(int i = 0; i < argc; i++) {
+        if (0 == strcmp(argv[i], "All")) {
+            std::cout<<"Here"<<std::endl;
+            DataLoggerT();
+            TemperatureT();
+            MotorControllerT();
+            SensorT();
+        } else if (0 == strcmp(argv[i], "DataLogger")) {
+            DataLoggerT();
+        } else if (0 == strcmp(argv[i], "Temperature")) {
+            TemperatureT();
+        } else if (0 == strcmp(argv[i], "MotorController")) {
+            MotorControllerT();
+        } else if (0 == strcmp(argv[i], "Sensor")) {
+            SensorT();
+        } else {
+            std::cerr << "INCORRECT USAGE:\n" <<
+                      "USAGE: ./MainTest.o \"Test\"\n" <<
+                      "Available Tests:\n" <<
+                      "All\n" <<
+                      "DataLogger\n" <<
+                      "Temperature\n" <<
+                      "MotorController\n" <<
+                      "Sensor\n";
+        }
     }
 }
+
+

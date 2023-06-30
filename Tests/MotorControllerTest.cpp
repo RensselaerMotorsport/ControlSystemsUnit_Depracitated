@@ -18,3 +18,27 @@
  *          Expected behavior:
  *
  */
+#include <iostream>
+#include "../Frameworks/MotorController.cpp"
+
+class MotorControllerTest{
+public:
+
+    MotorControllerTest(){ MC = MotorController(ExpectedTourqe, ExpectedTemp); }
+
+    void RunTests(){
+        std::cout<<"Running Motor Controller Tests"<<std::endl;
+        std::cout<<"Test Get Value status: "<< ( GetVal() ? "Passed" : "Failed") <<std::endl;
+    }
+
+private:
+    bool GetVal(){
+        if((MC.getSensorValue() - ExpectedTourqe) > 0.01)
+            return true;
+        return false;
+    }
+
+    float ExpectedTourqe = 450.0;
+    float ExpectedTemp = 98.0;
+    MotorController MC;
+};

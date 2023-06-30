@@ -24,10 +24,14 @@
 #ifndef CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 #define CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 
+#include "Sensors/Temperature.h"
 
 class MotorController {
 public:
     MotorController(float to, float te);
+
+    MotorController();
+
     float getSensorValue();
     Temperature getMotorTemp();
 private:
