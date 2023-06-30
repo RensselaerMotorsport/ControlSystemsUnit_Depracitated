@@ -19,7 +19,7 @@ functions:
 frameworks/dataLogger
   (io, private) io_module #thing you are analyzing
   (int, private) time_step # in ms, lets us know how to index the array below
-  (some array thing, private) log #array, vector, etc of the data
+  (some map thing, private) log #array, vector, etc of the data
 
 =====
 frameworks/baseSensor (extends frameworks/io)
@@ -32,16 +32,100 @@ frameworks/baseAnalogSensor (extends frameworks/baseSensor)
 
 variables:
   (int, private) channel
+  (int, private) hZ
 
-functions:
-  getter and setter
 =====
 frameworks/baseDigitalSensor (extends frameworks/baseSensor)
 
 variables:
   (int, private) port
 
-functions:
-  getter and setter
 =====
-motor/motorController
+frameworks/baseCanSensor (extends frameworks/baseSensor)
+
+james is doing this
+
+variables:
+  (int, private) frequency
+  (int, private) id
+  tbd
+
+=====
+sensors/temperature (extends frameworks/baseAnalogSensor)
+
+variables:
+  (double, private) raw_signal
+  (double, private) temp
+  (double, private) number
+
+functions:
+  (void, private) transfer_function
+  (double, public) get_temp
+  (double, public) get_number
+
+=====
+sensors/gps (extends frameworks/baseAnalogSensor)
+
+=====
+sensors/brakePressure (extends frameworks/baseAnalogSensor)
+
+variables:
+  (double, private) raw_signal
+  (double, private) pressure
+
+functions:
+  (void, private) transfer_function
+  (double, public) get_pressure
+
+=====
+sensors/accelerometer (extends frameworks/baseAnalogSensor)
+
+variables:
+  (double, private) raw_signal_x
+  (double, private) raw_signal_y
+  (double, private) raw_signal_z
+  (double, private) x_a
+  (double, private) y_a
+  (double, private) z_a
+  
+functions:
+  (void, private) transfer_function_x
+  (void, private) transfer_function_y
+  (void, private) transfer_function_z
+  (double, public) get_x_a
+  (double, public) get_y_a
+  (double, public) get_z_a
+
+=====
+sensors/wheelSpeed (extends frameworks/baseAnalogSensor)
+
+variables
+  (double, private) raw_signal
+  (double, private) speed
+  (double, private) radius
+  (string, private) wheel_location //front left, front right, back left, back right
+
+functions:
+  (void, private) transfer_function
+  (double, public) get_speed
+  (string, public) get_wheel_location
+
+  
+=====
+sensors/apps (extends frameworks/baseAnalogSensor)
+
+=====
+sensors/shockPot (extends frameworks/baseAnalogSensor)
+
+=====
+sensors/steeringColumn (extends frameworks/baseAnalogSensor)
+
+=====
+sensors/imd (extends frameworks/baseCanSensor)
+  (bool, private) imd_status
+
+=====
+output/mux (extends frameworks/io)
+
+=====
+output/motorController (extends frameworks/io)

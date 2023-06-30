@@ -1,0 +1,4 @@
+https://www.newegg.com/nvidia-945134500000100/p/N82E16813190010?Description=jetson%20nano&cm_re=jetson_nano-_-13-190-010-_-Product
+
+https://www.amazon.com/NVIDIA-Jetson-Nano-Developer-945-13450-0000-100/dp/B084DSDDLT/ref=sr_1_3?crid=A70V5OVL3T0T&keywords=nvidia+jetson+nano&qid=1686941405&sprefix=nvidia+jetson+nano%2Caps%2C118&sr=8-3
+
