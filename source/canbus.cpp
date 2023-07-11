@@ -18,10 +18,7 @@
 
 
 
-VCI_BOARD_INFO pInfo;//Used to obtain device information.
-int count=0;//In the data list, it is used to store the serial number of the list.
-VCI_BOARD_INFO pInfo1 [50];
-int num=0;
+
 
 //RCOS: This function hasn't been modified yet, come back to it
 void *receive_func(void* param) //receiving thread.
@@ -63,12 +60,25 @@ void *receive_func(void* param) //receiving thread.
 	pthread_exit(0);
 }
 
-int startCanbus(int dataRateKbps) 
+
+//RCOS: Initialize Canbus modules with custom settings. 
+//portCount: How many Canbus ports are being initialized. For example, setting this to 3 will initialize 3 Canbus ports across 2 modules.
+//rates: Array of data rates. Length must be deviceNumber.
+//Data rates are in Kbps and must be 250, 500, or 1000
+int startCanbus(int portCount, int rates[]) 
 {
 	printf("Starting Canbus...\r\n");//Indicates that the program has run
 
-	num=VCI_FindUsbDevice2(pInfo1);
+	VCI_BOARD_INFO pInfo;//Used to obtain device information.
+	int count=0;//In the data list, it is used to store the serial number of the list.
+	VCI_BOARD_INFO pInfo1 [50];
 
+	int num=VCI_FindUsbDevice2(pInfo1); // number of modules
+	if (num * 2 < portCount){
+		printf("\n\n\n\n\n***** WARNING: You are trying to initialize %d ports, but only %d CANBUS boards are connected. The program is probably about to crash. *****\r\n\n\n\n\n", portCount, num);
+	}
+
+	//print info for each module
 	printf(">>USBCAN DEVICE NUM:");printf("%d", num);printf(" PCS");printf("\n");
 
 	for(int i=0;i<num;i++)
@@ -100,130 +110,203 @@ int startCanbus(int dataRateKbps)
 	printf(">>\n");
 	printf(">>\n");
 	printf(">>\n");
-	if(VCI_OpenDevice(VCI_USBCAN2,0,0)==1)//turn on the device
-	{
-		printf(">>open deivce success!\n");//Open the device successfully
-	}else
-	{
-		printf(">>open deivce error!\n");
-		exit(1);
-	}
-	if(VCI_ReadBoardInfo(VCI_USBCAN2,0,&pInfo)==1)//Read device serial number, version and other information.
-	{
-		printf(">>Obtained board info: \n");
+
+
+	//start opening each board
+	int desiredDeviceCount = (portCount + 1) / 2;
+	int oddPortCount = portCount % 2; //If we need an odd number of ports, port CAN2 on the highest CANBUS port will not be used. 
+
+	for (int i=0; i<desiredDeviceCount; i++){
+		printf("Device %d: \r\n", i);
+		if(VCI_OpenDevice(VCI_USBCAN2,i,0)==1)//turn on the device
+		{
+			printf(">>open deivce success!\n");//Open the device successfully
+		}else
+		{
+			printf(">>open deivce error!\n");
+			exit(1);
+		}
+		if(VCI_ReadBoardInfo(VCI_USBCAN2,i,&pInfo)==1)//Read device serial number, version and other information.
+		{
+			printf(">>Obtained board info: \n");
+			
+			//printf(" %08X", pInfo.hw_Version);printf("\n");
+			//printf(" %08X", pInfo.fw_Version);printf("\n");
+			//printf(" %08X", pInfo.dr_Version);printf("\n");
+			//printf(" %08X", pInfo.in_Version);printf("\n");
+			//printf(" %08X", pInfo.irq_Num);printf("\n");
+			//printf(" %08X", pInfo.can_Num);printf("\n");
+			printf(">>Serial_Num:");
+
+			for(int j=0; j<20; j++){
+				printf("%c", pInfo.str_Serial_Num[j]);
+			}
+			printf("\n");
+
+			printf(">>hw_Type:");
+			for(int j=0; j<10; j++){
+				printf("%c", pInfo.str_hw_Type[j]);
+			}
+			printf("\n");
+
+			printf(">>Firmware Version:V");
+			printf("%x", (pInfo.fw_Version&0xF00)>>8);
+			printf(".");
+			printf("%x", (pInfo.fw_Version&0xF0)>>4);
+			printf("%x", pInfo.fw_Version&0xF);
+			printf("\n");	
+		}else
+		{
+			printf(">>Get VCI_ReadBoardInfo error!\n");
+			exit(1);
+		}
+	
+
+	
+		//Initialization parameters, strict parameters secondary development function library instructions.
+		VCI_INIT_CONFIG config;
+		config.AccCode=0;
+		config.AccMask=0xFFFFFFFF;
+		config.Filter=1;//Receive all frames
+
+
+		//RCOS new section for adjustable data rate
+		//To add new data rates, see table on page 7 of https://www.waveshare.com/w/upload/7/7d/Interface_Function_Library_User_Instruction.pdf
+
+		//CAN1 data rate
+		int dataRateKbps = rates[i*2];
+
+		if(dataRateKbps == 250){
+			config.Timing0=0x01;
+			config.Timing1=0x1C;
+		}
+		else if(dataRateKbps == 500){
+			config.Timing0=0x00;
+			config.Timing1=0x1C;
+		}
+		else if(dataRateKbps == 1000){
+			config.Timing0=0x00;
+			config.Timing1=0x14;
+		}
+		else{
+			printf("This data rate has not been configured. ");
+			printf("Please choose 250, 500, or 1000 kpbs, or add your new speed to ");
+			printf("the data rate section of canbus.cpp. \n");
+			exit(1);
+		}
 		
-		//printf(" %08X", pInfo.hw_Version);printf("\n");
-		//printf(" %08X", pInfo.fw_Version);printf("\n");
-		//printf(" %08X", pInfo.dr_Version);printf("\n");
-		//printf(" %08X", pInfo.in_Version);printf("\n");
-		//printf(" %08X", pInfo.irq_Num);printf("\n");
-		//printf(" %08X", pInfo.can_Num);printf("\n");
-		printf(">>Serial_Num:");
 
-		for(int j=0; j<20; j++){
-			printf("%c", pInfo.str_Serial_Num[j]);
+		config.Mode=0;//normal mode	
+		
+		if(VCI_InitCAN(VCI_USBCAN2,i,0,&config)!=1)
+		{
+			printf(">>Init CAN1 error\n");
+			VCI_CloseDevice(VCI_USBCAN2,0);
 		}
-		printf("\n");
 
-		printf(">>hw_Type:");
-		for(int j=0; j<10; j++){
-			printf("%c", pInfo.str_hw_Type[j]);
+		if(VCI_StartCAN(VCI_USBCAN2,i,0)!=1)
+		{
+			printf(">>Start CAN1 error\n");
+			VCI_CloseDevice(VCI_USBCAN2,0);
+
 		}
-		printf("\n");
-
-		printf(">>Firmware Version:V");
-		printf("%x", (pInfo.fw_Version&0xF00)>>8);
-		printf(".");
-		printf("%x", (pInfo.fw_Version&0xF0)>>4);
-		printf("%x", pInfo.fw_Version&0xF);
-		printf("\n");	
-	}else
-	{
-		printf(">>Get VCI_ReadBoardInfo error!\n");
-		exit(1);
-	}
-
-	
-	//Initialization parameters, strict parameters secondary development function library instructions.
-	VCI_INIT_CONFIG config;
-	config.AccCode=0;
-	config.AccMask=0xFFFFFFFF;
-	config.Filter=1;//Receive all frames
 
 
-	//RCOS new section for adjustable data rate
-	//To add new data rates, see table on page 7 of https://www.waveshare.com/w/upload/7/7d/Interface_Function_Library_User_Instruction.pdf
 
-	if(dataRateKbps == 250){
-		config.Timing0=0x01;
-		config.Timing1=0x1C;
-	}
-	else if(dataRateKbps == 500){
-		config.Timing0=0x00;
-		config.Timing1=0x1C;
-	}
-	else if(dataRateKbps == 1000){
-		config.Timing0=0x00;
-		config.Timing1=0x14;
-	}
-	else{
-		printf("This data rate has not been configured. ");
-		printf("Please choose 250, 500, or 1000 kpbs, or add your new speed to ");
-		printf("the data rate section of canbus.cpp. \n");
-		exit(1);
-	}
-	
+		//CAN2 needs a different data rate
+		int dataRateKbps = rates[(i*2)+1];
 
-	config.Mode=0;//normal mode	
-	
-	if(VCI_InitCAN(VCI_USBCAN2,0,0,&config)!=1)
-	{
-		printf(">>Init CAN1 error\n");
-		VCI_CloseDevice(VCI_USBCAN2,0);
-	}
+		if(dataRateKbps == 250){
+			config.Timing0=0x01;
+			config.Timing1=0x1C;
+		}
+		else if(dataRateKbps == 500){
+			config.Timing0=0x00;
+			config.Timing1=0x1C;
+		}
+		else if(dataRateKbps == 1000){
+			config.Timing0=0x00;
+			config.Timing1=0x14;
+		}
+		else{
+			printf("This data rate has not been configured. ");
+			printf("Please choose 250, 500, or 1000 kpbs, or add your new speed to ");
+			printf("the data rate section of canbus.cpp. \n");
+			exit(1);
+		}
 
-	if(VCI_StartCAN(VCI_USBCAN2,0,0)!=1)
-	{
-		printf(">>Start CAN1 error\n");
-		VCI_CloseDevice(VCI_USBCAN2,0);
+		if(VCI_InitCAN(VCI_USBCAN2,i,1,&config)!=1)
+		{
+			printf(">>Init can2 error\n");
+			VCI_CloseDevice(VCI_USBCAN2,0);
+
+		}
+		if(VCI_StartCAN(VCI_USBCAN2,i,1)!=1)
+		{
+			printf(">>Start can2 error\n");
+			VCI_CloseDevice(VCI_USBCAN2,0);
+
+		}
 
 	}
-
-	if(VCI_InitCAN(VCI_USBCAN2,0,1,&config)!=1)
-	{
-		printf(">>Init can2 error\n");
-		VCI_CloseDevice(VCI_USBCAN2,0);
-
-	}
-	if(VCI_StartCAN(VCI_USBCAN2,0,1)!=1)
-	{
-		printf(">>Start can2 error\n");
-		VCI_CloseDevice(VCI_USBCAN2,0);
-
-	}
-
-
 	//RCOS: Seems like all of that was setup. Below is where we actually start sending data
 	//I need to make that into a separate, customizable function. I will start on that next time
-	
-
 	printf("Setup complete\n")
+}
 
 
+
+//RCOS: Initialize all three Canbus modules with the default Rensselaer Motorsport settings. 
+//These settings are: 
+//CANBUS module 0 port CAN1 set to 250 kbps
+//CANBUS module 0 port CAN2 set to 500 kbps
+//CANBUS module 1 port CAN1 set to 1000 kbps
+//CANBUS module 1 port CAN2 unused
+int startCanbus(){
+	int dataRates[] = [250, 500, 1000];
+	return startCanbus(3, dataRates);
+}
+
+
+//Next time, add to initialization function: return device serial numbers so individual boards can be found across reboots. 
+//To-do list: finish send Canbus message (remove the send[0] stuff + make it work for multiple devices), fix the "close" function, make the read function
+
+
+
+//RCOS: 
+//Send a CANBUS message. 
+//MessageID: Message identifier. Direct ID format, right-aligned.
+//MessageSendType: = 0 indicates Normal type, = 1 indicates Single Send.
+//MessageRemoteFlag: = 1 indicates remote flag, = 0 indicates data flag.
+//MessageExternFlag: = 1 indicates extern flag, = 0 indicates standard flag.
+//messageData: Array of 1-8 bytes of data. This is the data that will be sent as the body of the CANBUS message. 
+//Length: Length of messageData.
+//
+//For more details see: https://www.waveshare.com/w/upload/f/f3/USB-CAN-B_Manual.pdf 
+int sendCanbusData(int MessageID, int MessageSendType, int MessageRemoteFlag, int MessageExternFlag, int messageData[], int Length){
 
 	//Frames to be sent, structure settings
 	VCI_CAN_OBJ send[1];
-	send[0].ID=0;
-	send[0].SendType=0;
-	send[0].RemoteFlag=0;
-	send[0].ExternFlag=1;
-	send[0].DataLen=8;
-	
+	send[0].ID = MessageID;
+	send[0].SendType=MessageSendType;
+	send[0].RemoteFlag=MessageRemoteFlag;
+	send[0].ExternFlag=MessageExternFlag;
+	send[0].DataLen=Length;
+	send[0].Data = messageData;
+
+	//VCI_Transmit(VCI_USBCAN2, DeviceNumber, 
+
+
+}
+
+//This is the debug "demo" function to send data. It will be removed when Canbus is complete.
+	/*
 	int i=0;
 	for(i = 0; i < send[0].DataLen; i++)
 	{
 		send[0].Data[i] = i;
 	}
+	
 
 	int m_run0=1;
 	pthread_t threadid;
@@ -276,6 +359,10 @@ int startCanbus(int dataRateKbps)
 		}
 		else	break;
 	}
+	*/
+
+//Still need to adapt this into something useful
+void stopCanbus(){
 
 	usleep(10000000);//Delay unit us, here set 10 000 000=10s After 10s, close the receiving thread and exit the main program.
 	m_run0=0;//Thread shutdown instruction.
@@ -288,8 +375,8 @@ int startCanbus(int dataRateKbps)
 	VCI_CloseDevice(VCI_USBCAN2,0);//Close the device.
 	//Besides the sending and receiving functions, it is better to add a millisecond-level delay before and after calling other functions, which will not affect the running of the program and allow the USBCAN device to have sufficient time to process instructions.
 	//goto ext;
-
 }
+
 
 
 //RCOS
