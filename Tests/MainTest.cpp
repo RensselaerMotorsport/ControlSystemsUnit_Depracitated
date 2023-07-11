@@ -44,9 +44,8 @@ void SensorT(){
 }
 
 int main(int argc, char* argv[]) {
-    for(int i = 0; i < argc; i++) {
+    for(int i = 1; i < argc; i++) {
         if (0 == strcmp(argv[i], "All")) {
-            std::cout<<"Here"<<std::endl;
             DataLoggerT();
             TemperatureT();
             MotorControllerT();
