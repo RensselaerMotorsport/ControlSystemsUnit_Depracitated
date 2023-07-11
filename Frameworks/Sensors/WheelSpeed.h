@@ -12,8 +12,26 @@
 #ifndef RENNSMOTORSPORT_WHEELSPEED_H
 #define RENNSMOTORSPORT_WHEELSPEED_H
 
+#include "../AnalogSensor.h"
 
-class WheelSpeed {
+enum WHEEL_LOCATION{ front_left, front_right, back_left, back_right };
+
+class WheelSpeed : AnalogSensor<float>{
+public:
+    /*Constructors:*/
+    WheelSpeed() : AnalogSensor<float>() {raw_signal = -1; speed = -1; radius = -1; wheel_location = front_right; }
+
+    float get_speed(){ return speed; }
+    WHEEL_LOCATION get_wheel_location(){ return wheel_location; }
+private:
+    //variables
+    float raw_signal;
+    float speed;
+    float radius;
+    WHEEL_LOCATION wheel_location;
+
+    //functions:
+    void transfer_function();
 
 };
 

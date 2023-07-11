@@ -33,7 +33,7 @@
 template<typename T>
 class Sensor: private IO {
 public:
-    Sensor(): IO() { sensorName = "0"; dataLog = DataLogger<T>(); }
+    Sensor(): IO() { sensorName = "0"; dataLog = DataLogger<T>(); port = 0; }
     /*
     //clears stored data
     void clear();
@@ -47,6 +47,8 @@ private:
     std::string sensorName;
 
     DataLogger<T> dataLog;
+
+    int port;
 
 };
 
