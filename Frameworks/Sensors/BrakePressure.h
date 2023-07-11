@@ -1,0 +1,14 @@
+//
+// Created by kyle on 7/11/23.
+//
+
+#ifndef RENNSMOTORSPORT_BRAKEPRESSURE_H
+#define RENNSMOTORSPORT_BRAKEPRESSURE_H
+
+
+class BrakePressure {
+
+};
+
+
+#endif //RENNSMOTORSPORT_BRAKEPRESSURE_H

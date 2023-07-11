@@ -33,7 +33,7 @@ public:
 
 private:
     bool GetVal(){
-        if((MC.getSensorValue() - ExpectedTourqe) > 0.01)
+        if((MC.getSensorValue() - ExpectedTourqe) < 0.01)
             return true;
         return false;
     }
