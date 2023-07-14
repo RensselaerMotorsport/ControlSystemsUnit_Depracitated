@@ -65,13 +65,19 @@ void *receive_func(void* param) //receiving thread.
 //portCount: How many Canbus ports are being initialized. For example, setting this to 3 will initialize 3 Canbus ports across 2 modules.
 //rates: Array of data rates. Length must be deviceNumber.
 //Data rates are in Kbps and must be 250, 500, or 1000
-int startCanbus(int portCount, int rates[]) 
+//deviceSerialNumbers: Must be initialized as a deviceCount by 20 array. Serial numbers of each device will be passed into here. 
+void startCanbus(int portCount, int rates[], char deviceSerialNumbers[(portCount + 1) / 2][20]) 
 {
 	printf("Starting Canbus...\r\n");//Indicates that the program has run
 
 	VCI_BOARD_INFO pInfo;//Used to obtain device information.
 	int count=0;//In the data list, it is used to store the serial number of the list.
 	VCI_BOARD_INFO pInfo1 [50];
+
+	int desiredDeviceCount = (portCount + 1) / 2;
+	int oddPortCount = portCount % 2; //If we need an odd number of ports, port CAN2 on the highest CANBUS port will not be used. 
+
+	
 
 	int num=VCI_FindUsbDevice2(pInfo1); // number of modules
 	if (num * 2 < portCount){
@@ -91,6 +97,7 @@ int startCanbus(int portCount, int rates[])
 
 		for(int j=0; j<20; j++){
 			printf("%c", pInfo1[i].str_Serial_Num[j]);
+			deviceSerialNumbers[i] = pInfo1[i].str_Serial_Num[j];
 		}
 		printf("\n");
 
@@ -113,9 +120,6 @@ int startCanbus(int portCount, int rates[])
 
 
 	//start opening each board
-	int desiredDeviceCount = (portCount + 1) / 2;
-	int oddPortCount = portCount % 2; //If we need an odd number of ports, port CAN2 on the highest CANBUS port will not be used. 
-
 	for (int i=0; i<desiredDeviceCount; i++){
 		printf("Device %d: \r\n", i);
 		if(VCI_OpenDevice(VCI_USBCAN2,i,0)==1)//turn on the device
@@ -262,28 +266,26 @@ int startCanbus(int portCount, int rates[])
 //CANBUS module 0 port CAN2 set to 500 kbps
 //CANBUS module 1 port CAN1 set to 1000 kbps
 //CANBUS module 1 port CAN2 unused
-int startCanbus(){
+void startCanbus(char deviceSerialNumbers[2][20]){
 	int dataRates[] = [250, 500, 1000];
-	return startCanbus(3, dataRates);
+	return startCanbus(3, dataRates, deviceSerialNumbers);
 }
-
-
-//Next time, add to initialization function: return device serial numbers so individual boards can be found across reboots. 
-//To-do list: finish send Canbus message (remove the send[0] stuff + make it work for multiple devices), fix the "close" function, make the read function
 
 
 
 //RCOS: 
 //Send a CANBUS message. 
+//DeviceNumber: Which CANBUS module to send the message to. For Rensselaer Motorsport this will always be 0 or 1. 
+//Port: 1 to send on CAN1 port, 2 to send on CAN2 port
 //MessageID: Message identifier. Direct ID format, right-aligned.
+//messageData: Array of 1-8 bytes of data. This is the data that will be sent as the body of the CANBUS message. 
+//Length: Length of messageData.
 //MessageSendType: = 0 indicates Normal type, = 1 indicates Single Send.
 //MessageRemoteFlag: = 1 indicates remote flag, = 0 indicates data flag.
 //MessageExternFlag: = 1 indicates extern flag, = 0 indicates standard flag.
-//messageData: Array of 1-8 bytes of data. This is the data that will be sent as the body of the CANBUS message. 
-//Length: Length of messageData.
 //
 //For more details see: https://www.waveshare.com/w/upload/f/f3/USB-CAN-B_Manual.pdf 
-int sendCanbusData(int MessageID, int MessageSendType, int MessageRemoteFlag, int MessageExternFlag, int messageData[], int Length){
+int sendCanbusData(int DeviceNumber, int Port, int MessageID, int messageData[], int Length, int MessageSendType, int MessageRemoteFlag, int MessageExternFlag){
 
 	//Frames to be sent, structure settings
 	VCI_CAN_OBJ send[1];
@@ -294,9 +296,42 @@ int sendCanbusData(int MessageID, int MessageSendType, int MessageRemoteFlag, in
 	send[0].DataLen=Length;
 	send[0].Data = messageData;
 
-	//VCI_Transmit(VCI_USBCAN2, DeviceNumber, 
+	if (VCI_Transmit(VCI_USBCAN2, DeviceNumber, Port-1, send, 1)) != 1{
+		printf("Message failed to send!\n");
+		return 1;
+	}
+	return 0;
+}
+
+int receiveCanbusData(int DeviceNumber, int Port, VCI_CAN_OBJ rec[3000]){
+	//VCI_CAN_OBJ rec[3000];//Receive buffer, it is better to set it to 3000.
+	//I don't actually know what this is or why it's supposed to be 3000. Maybe this is
+	//the maximum amount of frames (messages) that the computer can store at once from 
+	//one function? 
+
+	int frames = VCI_Receive(VCI_USBCAN2, DeviceNumber, Port, rec, 3000, 100);
+	if (frames > 0){
 
 
+
+		//RCOS next time: Format this nicely into a C++ class? Right now we are returning
+		//the raw frame buffer (passed through rec). It is a C array of VCI_CAN_OBJ. 
+		//Elements 0 to 'frames' are filled in, the rest are null. 
+		//Presumably the program is going to read frames, (up to 3000), process them, 
+		//clear the frame buffer, and then read more frames. VCI_CAN_OBJ does have some 
+		//functions to get specific data, so this actually might be enough 
+		//on this end. So maybe next time I just make documentation on how to do this. 
+		//I also need to fix the close function. 
+
+
+
+		return 0;
+		
+	} else {
+		printf("Failed to receive thread!\n");
+		return 1;
+	}
+	return 0;
 }
 
 //This is the debug "demo" function to send data. It will be removed when Canbus is complete.
