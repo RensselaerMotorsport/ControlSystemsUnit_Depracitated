@@ -16,10 +16,11 @@
 #include <cstdlib>
 #include "unistd.h"
 
+#include <vector>
+#include <string>
 
 
-
-
+/*
 //RCOS: This function hasn't been modified yet, come back to it
 void *receive_func(void* param) //receiving thread.
 {
@@ -60,13 +61,14 @@ void *receive_func(void* param) //receiving thread.
 	pthread_exit(0);
 }
 
+*/
 
 //RCOS: Initialize Canbus modules with custom settings. 
 //portCount: How many Canbus ports are being initialized. For example, setting this to 3 will initialize 3 Canbus ports across 2 modules.
 //rates: Array of data rates. Length must be deviceNumber.
 //Data rates are in Kbps and must be 250, 500, or 1000
 //deviceSerialNumbers: Must be initialized as a deviceCount by 20 array. Serial numbers of each device will be passed into here. 
-void startCanbus(int portCount, int rates[], char deviceSerialNumbers[(portCount + 1) / 2][20]) 
+void startCanbus(int portCount, int rates[], char deviceSerialNumbers[][20]) 
 {
 	printf("Starting Canbus...\r\n");//Indicates that the program has run
 
@@ -97,7 +99,7 @@ void startCanbus(int portCount, int rates[], char deviceSerialNumbers[(portCount
 
 		for(int j=0; j<20; j++){
 			printf("%c", pInfo1[i].str_Serial_Num[j]);
-			deviceSerialNumbers[i] = pInfo1[i].str_Serial_Num[j];
+			deviceSerialNumbers[i][j] = pInfo1[i].str_Serial_Num[j];
 		}
 		printf("\n");
 
@@ -218,7 +220,7 @@ void startCanbus(int portCount, int rates[], char deviceSerialNumbers[(portCount
 
 
 		//CAN2 needs a different data rate
-		int dataRateKbps = rates[(i*2)+1];
+		dataRateKbps = rates[(i*2)+1];
 
 		if(dataRateKbps == 250){
 			config.Timing0=0x01;
@@ -255,7 +257,7 @@ void startCanbus(int portCount, int rates[], char deviceSerialNumbers[(portCount
 	}
 	//RCOS: Seems like all of that was setup. Below is where we actually start sending data
 	//I need to make that into a separate, customizable function. I will start on that next time
-	printf("Setup complete\n")
+	printf("Setup complete\n");
 }
 
 
@@ -266,9 +268,17 @@ void startCanbus(int portCount, int rates[], char deviceSerialNumbers[(portCount
 //CANBUS module 0 port CAN2 set to 500 kbps
 //CANBUS module 1 port CAN1 set to 1000 kbps
 //CANBUS module 1 port CAN2 unused
-void startCanbus(char deviceSerialNumbers[2][20]){
-	int dataRates[] = [250, 500, 1000];
-	return startCanbus(3, dataRates, deviceSerialNumbers);
+//This function also returns the serial numbers in a convenient vector (instead of an array)
+std::vector<std::string> defaultStartCanbus(){
+	int dataRates[3] = {250, 500, 1000};
+	char deviceSerialNumbers[2][20];
+	startCanbus(3, dataRates, deviceSerialNumbers);
+
+	std::vector<std::string> serials;
+	serials.push_back(std::string(deviceSerialNumbers[0]));
+	serials.push_back(std::string(deviceSerialNumbers[1]));
+
+	return serials;
 }
 
 
@@ -285,7 +295,7 @@ void startCanbus(char deviceSerialNumbers[2][20]){
 //MessageExternFlag: = 1 indicates extern flag, = 0 indicates standard flag.
 //
 //For more details see: https://www.waveshare.com/w/upload/f/f3/USB-CAN-B_Manual.pdf 
-int sendCanbusData(int DeviceNumber, int Port, int MessageID, int messageData[], int Length, int MessageSendType, int MessageRemoteFlag, int MessageExternFlag){
+int sendCanbusData(int DeviceNumber, int Port, int MessageID, std::string messageData, int Length, int MessageSendType, int MessageRemoteFlag, int MessageExternFlag){
 
 	//Frames to be sent, structure settings
 	VCI_CAN_OBJ send[1];
@@ -294,44 +304,50 @@ int sendCanbusData(int DeviceNumber, int Port, int MessageID, int messageData[],
 	send[0].RemoteFlag=MessageRemoteFlag;
 	send[0].ExternFlag=MessageExternFlag;
 	send[0].DataLen=Length;
-	send[0].Data = messageData;
+	//send[0].Data = messageData;
 
-	if (VCI_Transmit(VCI_USBCAN2, DeviceNumber, Port-1, send, 1)) != 1{
+	for(int i=0; i<8; i++){
+		send[0].Data[i] = messageData[i];
+	}
+
+	if (VCI_Transmit(VCI_USBCAN2, DeviceNumber, Port-1, send, 1) != 1){
 		printf("Message failed to send!\n");
 		return 1;
 	}
 	return 0;
 }
 
-int receiveCanbusData(int DeviceNumber, int Port, VCI_CAN_OBJ rec[3000]){
-	//VCI_CAN_OBJ rec[3000];//Receive buffer, it is better to set it to 3000.
+
+
+//Receives Canbus data for a short amount of time.
+//DeviceNumber: Which Canbus module to send to (either 0 or 1 for Motorsport)
+//Port: Whether to send to port CAN1 or CAN2
+//Returns a vector containing all of the Canbus frames collected while the function was running. 
+//Frames are in VCI_CAN_OBJ format. See documentation for how to get data from this. 
+//To collect for longer, run the function multiple times. 
+std::vector<VCI_CAN_OBJ> receiveCanbusData(int DeviceNumber, int Port){
+	VCI_CAN_OBJ rec[3000];//Receive buffer, it is better to set it to 3000.
 	//I don't actually know what this is or why it's supposed to be 3000. Maybe this is
 	//the maximum amount of frames (messages) that the computer can store at once from 
 	//one function? 
 
-	int frames = VCI_Receive(VCI_USBCAN2, DeviceNumber, Port, rec, 3000, 100);
+	std::vector<VCI_CAN_OBJ> formatted;
+
+	int frames = VCI_Receive(VCI_USBCAN2, DeviceNumber, Port-1, rec, 3000, 100);
+
 	if (frames > 0){
+	
+		for (int i=0; i<frames; i++){
+			formatted[i] = rec[i];
+		}
 
-
-
-		//RCOS next time: Format this nicely into a C++ class? Right now we are returning
-		//the raw frame buffer (passed through rec). It is a C array of VCI_CAN_OBJ. 
-		//Elements 0 to 'frames' are filled in, the rest are null. 
-		//Presumably the program is going to read frames, (up to 3000), process them, 
-		//clear the frame buffer, and then read more frames. VCI_CAN_OBJ does have some 
-		//functions to get specific data, so this actually might be enough 
-		//on this end. So maybe next time I just make documentation on how to do this. 
-		//I also need to fix the close function. 
-
-
-
-		return 0;
+		return formatted;
 		
 	} else {
 		printf("Failed to receive thread!\n");
-		return 1;
+		return formatted;
 	}
-	return 0;
+	return formatted;
 }
 
 //This is the debug "demo" function to send data. It will be removed when Canbus is complete.
@@ -399,9 +415,9 @@ int receiveCanbusData(int DeviceNumber, int Port, VCI_CAN_OBJ rec[3000]){
 //Still need to adapt this into something useful
 void stopCanbus(){
 
-	usleep(10000000);//Delay unit us, here set 10 000 000=10s After 10s, close the receiving thread and exit the main program.
-	m_run0=0;//Thread shutdown instruction.
-	pthread_join(threadid,NULL);//Wait for the thread to close.
+	usleep(100000);//Delay unit us, here set 10 000 000=10s After 10s, close the receiving thread and exit the main program.
+	//m_run0=0;//Thread shutdown instruction.
+	//pthread_join(threadid,NULL);//Wait for the thread to close.
 	usleep(100000);//delay 100ms.
 	VCI_ResetCAN(VCI_USBCAN2, 0, 0);//Reset CAN1 channel.
 	usleep(100000);//delay 100ms.
@@ -416,5 +432,5 @@ void stopCanbus(){
 
 //RCOS
 int main(){
-	startCanbus(250)
+	defaultStartCanbus();
 }
