@@ -103,7 +103,7 @@ variables
   (double, private) raw_signal
   (double, private) speed
   (double, private) radius
-  (string, private) wheel_location //front left, front right, back left, back right
+  (enum, private) wheel_location //front left, front right, back left, back right
 
 functions:
   (void, private) transfer_function
@@ -116,16 +116,49 @@ sensors/apps (extends frameworks/baseAnalogSensor)
 
 =====
 sensors/shockPot (extends frameworks/baseAnalogSensor)
+variables
+  (double, private) raw_signal
+  (double, private) distance
+  (double, private) acceleration
+  (enum, private) shock_location //front left, front right, back left, back right
+
+
+functions:
+  (void, private) transfer_function
+  (double, public) get_distance
+  (double, public) get_acceleration
+  (string, public) get_wheel_location
 
 =====
 sensors/steeringColumn (extends frameworks/baseAnalogSensor)
+variables:
+  (double, private) raw_signal
+  (double, private) rotation_angle
+  (double, private) zero_offset
+
+functions:
+  (void, private) transfer_function
+  (double, public) get_rotation_angle
 
 =====
 sensors/imd (extends frameworks/baseCanSensor)
+variables:
   (bool, private) imd_status
+  (bool, private) running_flag
+
+functions:
+  (int, public) get_status
+  (int, public) get_running_flag
+  (void, public) reset_running_flag
 
 =====
 output/mux (extends frameworks/io)
+variables:
+  (int, private) io_port
+  (int, private) curr_switch
+
+functions:
+  getter and setter to change curr_switch, you can just have switch.(new value) in the switch setter to act like changing the mux switch.
 
 =====
 output/motorController (extends frameworks/io)
