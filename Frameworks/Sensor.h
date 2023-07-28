@@ -39,18 +39,21 @@ public:
     void clear();
     */
 
-
 private:
     //member variables:
 
     //Contains name of the input sensor
     std::string sensorName;
 
+    //New values should be stored in the dataLog when they are gotten
     DataLogger<T> dataLog;
 
     int port;
 
 };
 
+float timeToFloat(highResTime){
+
+}
 
 #endif //RENNSMOTORSPORT_SENSOR_H
