@@ -16,11 +16,18 @@ private:
     WHEEL_LOCATION shock_location; //front left, front right, back left, back right
 
 
-    functions:
-    (void, private) transfer_function
-            (double, public) get_distance
-            (double, public) get_acceleration
-    (string, public) get_wheel_location
+    //functions:
+    void transfer_function(){
+
+    }
+public:
+    float get_distance(){
+
+    }
+    float get_acceleration(){
+
+    }
+    string get_wheel_location(){ return shock_location; }
 };
 
 
