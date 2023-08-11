@@ -31,7 +31,7 @@ void Handler(int signo)
     exit(0);
 }
 
-//Provided with demo, uses developer functions
+//Start up the ADC
 void InitADC(void)
 {
     // Exception handling:ctrl + c
@@ -56,10 +56,9 @@ void InitADC(void)
 
 
 
-//Not written yet!
 //Sets the correct channel group on the multiplexer
 void SetChannelGroup(int channelGroup){
-    //Format this to however the Jetson Nano
+    //FIXME Not sure if this is the correct format for the Jetson Nano
     UWORD LSB = GPIO_MUX_LSB;
     UWORD MSB = GPIO_MUX_MSB;
 
@@ -87,7 +86,7 @@ void SetChannelGroup(int channelGroup){
     //nanosleep(&request, &remaining);
 }
 
-//(Doesn't work yet) Returns voltage of port
+//Returns voltage of port
 UDOUBLE FetchSensor(int muxChannel, int port){
     SetChannelGroup(muxChannel);
 
