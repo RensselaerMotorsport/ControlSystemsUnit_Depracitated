@@ -24,9 +24,7 @@ public:
     float get_distance(){
 
     }
-    float get_acceleration(){
-
-    }
+    float get_acceleration();
     string get_wheel_location(){ return shock_location; }
 };
 
