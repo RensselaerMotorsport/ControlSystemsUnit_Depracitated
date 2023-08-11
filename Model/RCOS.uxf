@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>13</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>507</x>
+      <y>884</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>IO (Input/Output)
+--
+IO is an interface for the Sensor
+
+to use to communicate with the 
+
+Motor Controller</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>39</x>
+      <y>884</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Motor Controller
+--
+The motor controller handles all
+
+IO and processing of each IO 
+
+Sensor
+
+Consists of many sensors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1417</x>
+      <y>572</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Digital Sensor
+--
+Interfaces digital sensors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1417</x>
+      <y>1196</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>CAN Sensor
+--
+Interfaces CAN Sensors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>962</x>
+      <y>884</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Sensor
+--
+This sensor interface allows the
+
+interface of each sensor type 
+
+to communicate with the IO 
+
+interface</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>962</x>
+      <y>572</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Data Logger
+--
+Every sensor has its own Data
+
+Logger which is responsible 
+
+for logging all data coming from
+
+the sensor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1417</x>
+      <y>884</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Analog Sensor
+--
+Interfaces Analog Sensors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>338</x>
+      <y>988</y>
+      <w>195</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0.N</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>806</x>
+      <y>975</y>
+      <w>182</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1105</x>
+      <y>793</y>
+      <w>39</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1261</x>
+      <y>793</y>
+      <w>338</w>
+      <h>169</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;110.0;240.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1261</x>
+      <y>1066</y>
+      <w>338</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;10.0;240.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1261</x>
+      <y>975</y>
+      <w>182</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1872</x>
+      <y>845</y>
+      <w>1352</w>
+      <h>299</h>
+    </coordinates>
+    <panel_attributes>Analog Sensors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1885</x>
+      <y>572</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>GPS
+--
+Sensors responsible for tracking
+
+the cars track position</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1716</x>
+      <y>988</y>
+      <w>182</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1378</x>
+      <y>507</y>
+      <w>403</w>
+      <h>988</h>
+    </coordinates>
+    <panel_attributes>Sensor Input Types</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1872</x>
+      <y>520</y>
+      <w>676</w>
+      <h>299</h>
+    </coordinates>
+    <panel_attributes>Digital Sensors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>1872</x>
+      <y>1170</y>
+      <w>338</w>
+      <h>299</h>
+    </coordinates>
+    <panel_attributes>CAN Sensors</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1885</x>
+      <y>897</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Accelerometer
+--
+A 3-axis accelerometer 
+
+responsible for keeping track of
+
+acceleration, braking, roll,
+
+and elevation change</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2223</x>
+      <y>897</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Brake Pressure
+--
+Responsible for tracking 
+
+brake pressure at each wheel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1716</x>
+      <y>663</y>
+      <w>182</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2561</x>
+      <y>897</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Oil Temp
+--
+Responsible for keeping track 
+
+of oil tempurature</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1716</x>
+      <y>1313</y>
+      <w>182</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2899</x>
+      <y>897</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Wheel Speed
+--
+Responsible for keeping track
+
+of each wheel's rotational speed</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1885</x>
+      <y>1222</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Strain Guage
+--
+Guage responsible for 
+
+measuring strain on 
+
+individual components </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2223</x>
+      <y>572</y>
+      <w>312</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Shock Position Sensors
+--
+Responsible for keeping track of 
+
+the position of each shock on 
+
+the car</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
