@@ -1,0 +1,6 @@
+Copypasted error (found by Spencer Thys):
+Error:An error occurred while running the simulation and the simulation was terminated
+Caused by:
+    Derivative of state '1' in block 'PassVeh14DOF/Vehicle/Variant Subsystem/6DOF/Vehicle Body 6DOF/6 DOF Generic Vehicle Body/6DOF (Euler Angles)/p,q,r ' at time 0.0 is not finite. The simulation will be stopped. There may be a singularity in the solution.  If not, try reducing the step size (either by reducing the fixed step size or by tightening the error tolerances)
+
+Likely dividing by time at t=0.0, however the location is unknown
