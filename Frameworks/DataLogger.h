@@ -38,7 +38,9 @@ template<typename T>
 class DataLogger {
 public:
     DataLogger(){ lastTime = std::chrono::system_clock::now(); }
-    T getDataAtTime(highResTime time);
+    T getDataAtTime(highResTime time) { // TODO: Maybe put back in .cpp at some point maybe???
+        return dataMap[time];
+    }
     bool addValue(highResTime time, T value);
     typename std::map<highResTime, T>::const_iterator getMap();
 private:

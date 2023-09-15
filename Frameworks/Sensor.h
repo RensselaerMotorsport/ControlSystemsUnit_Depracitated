@@ -31,7 +31,7 @@
 #include "IO.h"
 
 template<typename T>
-class Sensor: private IO {
+class Sensor: public IO {
 public:
     Sensor(): IO() { sensorName = "0"; dataLog = DataLogger<T>(); port = 0; }
     /*
@@ -39,21 +39,22 @@ public:
     void clear();
     */
 
+   DataLogger<T> getDataLog() { return const & dataLog; }
+   std::string getSensorName() { return sensorName; }
+
 private:
     //member variables:
+    //New values should be stored in the dataLog when they are gotten
+    DataLogger<T> dataLog;
 
     //Contains name of the input sensor
     std::string sensorName;
 
-    //New values should be stored in the dataLog when they are gotten
-    DataLogger<T> dataLog;
-
     int port;
-
 };
 
 float timeToFloat(highResTime){
-
+    return 1.0;
 }
 
 #endif //RENNSMOTORSPORT_SENSOR_H

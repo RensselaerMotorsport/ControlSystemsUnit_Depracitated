@@ -26,7 +26,7 @@
 #define CONTROLSYSTEMSUNIT_TEMPERATURE_H
 #include "../../Frameworks/AnalogSensor.h"
 
-class Temperature : private AnalogSensor<float> {
+class Temperature : public AnalogSensor<float> {
 public:
     Temperature(float t) : AnalogSensor<float>() { temp = t; raw_signal = 0.0; number = 0; }
 

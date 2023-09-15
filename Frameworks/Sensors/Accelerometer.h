@@ -7,7 +7,7 @@
 
 #include "../AnalogSensor.h"
 
-class Accelerometer : AnalogSensor<float>{
+class Accelerometer : public AnalogSensor<float>{
 public:
     //Constructors
     Accelerometer() : AnalogSensor<float>() { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }

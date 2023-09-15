@@ -7,7 +7,7 @@
 #include "Sensor.h"
 
 template<typename T>
-class AnalogSensor: private Sensor<T> {
+class AnalogSensor: public Sensor<T> {
 public:
     AnalogSensor() : Sensor<T>() { channel = -1; hZ = -1; }
 private:
