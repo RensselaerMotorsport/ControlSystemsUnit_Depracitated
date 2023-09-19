@@ -9,7 +9,12 @@
 template<typename T>
 class AnalogSensor: public Sensor<T> {
 public:
-    AnalogSensor(std::string name) : Sensor<T>(name) { channel = -1; hZ = -1; }
+    AnalogSensor() : Sensor<T>() { channel = -1; hZ = -1; }
+    AnalogSensor(std::string name, DataLogger<T> log, int p, int c, int h) : Sensor<T>(name, log, p) { channel = c; hZ = h; }
+
+    //Getters:
+    int getChannel() { return channel; }
+    int getHZ() { return hZ; }
 private:
     int channel;
     //sample rate?

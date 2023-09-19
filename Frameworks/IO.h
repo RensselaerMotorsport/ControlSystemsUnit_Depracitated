@@ -8,12 +8,20 @@
 
 class IO {
 public:
-    IO(){ alive = enable = false; }
+    IO(){ alive = enabled = false; }
+
+    //Setters:
+    void revive() { alive = true; }
+    void kill() { alive = false; } //TODO: Can a sensor be enabled but not alive?
+    void enable() { enabled = true; }
+    void disable() { enabled = false; }
+
+    //Getters:
     bool isAlive(){ return alive; }
-    bool isEnabled(){ return enable; }
+    bool isEnabled(){ return enabled; }
 private:
     bool alive;
-    bool enable;
+    bool enabled;
 };
 
 

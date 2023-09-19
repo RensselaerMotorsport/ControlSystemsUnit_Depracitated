@@ -9,9 +9,10 @@
 template<typename T>
 class DigitalSensor: private Sensor<T> {
 public:
-    DigitalSensor() : Sensor<T>() { port = -1; }
+    DigitalSensor() : Sensor<T>() {}
+    DigitalSensor(std::string name, DataLogger<T> log, int p) : Sensor<T>(name, log, p) {}
 private:
-    int port;
+
 };
 
 
