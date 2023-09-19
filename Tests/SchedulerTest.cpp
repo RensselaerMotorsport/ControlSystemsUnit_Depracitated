@@ -11,7 +11,7 @@ class SchedulerTest {
 public:
     void RunTests() {
         std::cout << "Running Scheduler Tests" << std::endl;
-        std::cout << "Test Task Execution: " << (TestTaskExecution() ? "Passed" : "Failed") << std::endl;
+        std::cout << "Test Task Execution: \n" << (TestTaskExecution() ? "Passed" : "Failed") << std::endl;
         // std::cout << "Test Timing Accuracy: " << (TestTimingAccuracy() ? "Passed" : "Failed") << std::endl;
     }
 

@@ -62,7 +62,7 @@ void Scheduler<T>::run() {
         auto task = tasks.top();
 
         if (currentTime >= task.nextExecTime) {
-            T sensorData = task.sensor->getDataLog().getDataAtTime(currentTime);
+            const T sensorData = task.sensor->getDataLog().getDataAtTime(currentTime);
             // TODO: do something with data
             std::cout << task.sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
 

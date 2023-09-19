@@ -33,14 +33,14 @@
 template<typename T>
 class Sensor: public IO {
 public:
-    Sensor(): IO() { sensorName = "0"; dataLog = DataLogger<T>(); port = 0; }
+    Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); port = 0; }
     /*
     //clears stored data
     void clear();
     */
 
-   DataLogger<T> getDataLog() { return const & dataLog; }
-   std::string getSensorName() { return sensorName; }
+   const DataLogger<T>& getDataLog() const { return dataLog; }
+   stood::string getSensorName() { return sensorName; }
 
 private:
     //member variables:
@@ -48,7 +48,7 @@ private:
     DataLogger<T> dataLog;
 
     //Contains name of the input sensor
-    std::string sensorName;
+    stood::string sensorName;
 
     int port;
 };

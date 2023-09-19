@@ -17,7 +17,7 @@
 #include "DataLogger.h"
 
 template<typename T>
-T DataLogger<T>::getDataAtTime(highResTime time){
+T DataLogger<T>::getDataAtTime(highResTime time) const {
     return dataMap[time];
 }
 
