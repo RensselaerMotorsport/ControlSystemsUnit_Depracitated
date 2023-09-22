@@ -19,7 +19,13 @@ enum WHEEL_LOCATION{ front_left, front_right, back_left, back_right };
 class WheelSpeed : AnalogSensor<float>{
 public:
     /*Constructors:*/
-    WheelSpeed(int port, int channel, int hZ, float r, WHEEL_LOCATION w) : AnalogSensor<float>("WheelSpeed", DataLogger<float>()) { raw_signal = -1; speed = -1; radius = r; wheel_location = w; }
+    WheelSpeed(int port, int channel, int hZ, float r, WHEEL_LOCATION w) :
+        AnalogSensor<float>("WheelSpeed", DataLogger<float>(), port, channel, hZ) {
+        raw_signal = -1;
+        speed = -1;
+        radius = r;
+        wheel_location = w;
+    }
 
     float getSpeed(){ return speed; }
     float getRadius() { return radius; }

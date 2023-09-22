@@ -28,7 +28,9 @@
 
 class Temperature : public AnalogSensor<float> {
 public:
-    Temperature(int port, int channel, int hZ, float n): AnalogSensor<float>("Temperature", DataLogger<float>(), port, channel, hZ) { temp = 0.0; raw_signal = 0.0; number = n; }
+    Temperature(int port, int channel, int hZ): 
+        AnalogSensor<float>("Temperature", DataLogger<float>(), port, channel, hZ)
+            { temp = 0.0; number = 0; }
 
     float getCelsius();
     float getFahrenheit();

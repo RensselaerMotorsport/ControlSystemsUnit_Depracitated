@@ -10,8 +10,14 @@
 class Accelerometer : public AnalogSensor<std::vector<double>>{
 public:
     //Constructors
-    Accelerometer() : AnalogSensor<std::vector<double>>("Accelerometer", DataLogger<std::vector<double>>(), -1, -1, -1) { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
-    Accelerometer(int port, int channel, int hZ) : AnalogSensor<std::vector<double>>("Accelerometer", DataLogger<std::vector<double>>(), port, channel, hZ) { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
+    Accelerometer() : AnalogSensor<std::vector<double>>("Accelerometer",
+        DataLogger<std::vector<double>>(), -1, -1, -1)
+        { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
+    Accelerometer(int port, int channel, int hZ) :
+        AnalogSensor<std::vector<double>>("Accelerometer",
+        DataLogger<std::vector<double>>(), port, channel, hZ)
+        { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
+
     //Member Functions
     double get_x(){ return x; }
     double get_y(){ return y; }
@@ -32,5 +38,15 @@ private:
     float transfer_function_z(float rawVal);
 };
 
+// Overloading << operator for std::vector<double>
+std::ostream& operator<<(std::ostream& os, const std::vector<double>& vec) {
+    os << "[";
+    for (size_t i = 0; i < vec.size(); ++i) {
+        os << vec[i];
+        if (i != vec.size() - 1) os << ", ";
+    }
+    os << "]";
+    return os;
+}
 
 #endif //RENNSMOTORSPORT_ACCELEROMETER_H
