@@ -55,14 +55,7 @@ template<typename T>
 class DataLogger {
 public:
     DataLogger(){ lastTime = std::chrono::system_clock::now(); }
-    T getDataAtTime(highResTime time) const { // TODO: Maybe put back in .cpp at some point maybe???
-        auto it = dataMap.find(time);
-        if (it != dataMap.end()) {
-            return it->second;
-        }
-        std::cout << "DataLogger: No data at time " << time_point_to_string(time) << std::endl;
-        return T{}; // returning defualt-construted value of T
-    }
+    T getDataAtTime(highResTime time) const;
     bool addValue(highResTime time, T value);
     typename std::map<highResTime, T>::const_iterator getMap();
 private:

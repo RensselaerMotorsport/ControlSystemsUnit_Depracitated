@@ -18,15 +18,12 @@ public:
     //TODO: Implement update()
 private:
     //variables
-    float raw_signal;
     float distance;
     WHEEL_LOCATION shock_location; //front left, front right, back left, back right
 
 
     //functions:
-    void transfer_function(){
-
-    }
+    float transfer_function(float rawVal)//TODO: needs to be implemented
 };
 
 

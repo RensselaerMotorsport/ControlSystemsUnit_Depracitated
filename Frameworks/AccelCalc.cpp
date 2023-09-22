@@ -3,6 +3,8 @@
 //
 #include <vector>
 
+//TODO: do the math to estimate acceleration from 3 points using 3-point endpoint and midpoint
+
 //The vector should be of the form <time_diff, least_recent_value, less_recent_value, most_recent_value>
 float threePointEndPointDeriv(const std::vector<float>& points){
     if (points.size() < 4) {

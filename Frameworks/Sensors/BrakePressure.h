@@ -20,13 +20,11 @@ public:
 
     BrakePressure() : AnalogSensor<float>() { raw_signal =-1; pressure =-1; }
     BrakePressure(int port, int channel, int hZ) : AnalogSensor<float>("BrakePressure", DataLogger<std::vector<double>>(), port, channel, hZ) { raw_signal =-1; pressure =-1; }
-    void transfer_function();
+    float transfer_function(float rawVal);
     float get_pressure();
 
-    //TODO: Implement update()
 private:
 
-    float raw_signal;
     float pressure;
 
 };

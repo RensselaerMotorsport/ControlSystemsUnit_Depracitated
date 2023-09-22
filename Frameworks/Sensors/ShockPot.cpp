@@ -6,6 +6,7 @@
 #include "./AccelCalc.cpp"
 
 float ShockPot::get_acceleration(){
+    //TODO: fix this mess
     std::Map<highResTime, float>::Iterator it = dataLog.end();
     std::vector<std::pair<float, float>> points;
     it--;
@@ -19,4 +20,14 @@ float ShockPot::get_acceleration(){
         it--;
     }
     return acceleration(points);
+}
+
+float ShockPot::transfer_function(float rawVal) {
+    return rawVal; //TODO: implement this
+}
+
+void ShockPot::update(float var) {
+    highResTime callTime = std::chrono::system_clock::now();
+    this->distance = transfer_function(var);
+    this->dataLog.addValue(callTime, this->distance);
 }

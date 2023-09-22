@@ -15,7 +15,7 @@ public:
     //Getters:
     int getFrequency() { return frequency; }
     int getID() { return id; }
-private:
+protected:
     int frequency;
     int id;
 };

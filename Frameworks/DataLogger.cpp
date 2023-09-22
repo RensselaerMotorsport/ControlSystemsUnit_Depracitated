@@ -18,7 +18,12 @@
 
 template<typename T>
 T DataLogger<T>::getDataAtTime(highResTime time) const {
-    return dataMap[time];
+    auto it = dataMap.find(time);
+    if (it != dataMap.end()) {
+        return it->second;
+    }
+    std::cout << "DataLogger: No data at time " << time_point_to_string(time) << std::endl;
+    return T{}; // returning defualt-construted value of T
 }
 
 template<typename T>

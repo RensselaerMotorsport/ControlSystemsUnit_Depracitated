@@ -15,7 +15,7 @@ public:
     //Getters:
     int getChannel() { return channel; }
     int getHZ() { return hZ; }
-private:
+protected:
     int channel;
     //sample rate?
     int hZ;

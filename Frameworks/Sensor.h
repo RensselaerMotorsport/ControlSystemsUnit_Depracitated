@@ -47,7 +47,10 @@ public:
    //Setter
    void update(T var) //This will be implemented in each individual sensor
 
-private:
+   void writeDataToFile(std::string filename) //This outputs the data stored in datalogger in a csv format
+                                              //Implemented by each sensor
+
+protected: //This is protected instead of private so that subclasses can access these
     //member variables:
     //New values should be stored in the dataLog when they are gotten
     DataLogger<T> dataLog;

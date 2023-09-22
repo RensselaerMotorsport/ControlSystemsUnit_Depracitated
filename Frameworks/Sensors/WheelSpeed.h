@@ -26,13 +26,12 @@ public:
     WHEEL_LOCATION get_wheel_location(){ return wheel_location; }
 private:
     //variables
-    float raw_signal;
     float speed;
     float radius;
     WHEEL_LOCATION wheel_location;
 
     //functions:
-    void transfer_function();
+    float transfer_function(float rawVal);
 
 };
 
