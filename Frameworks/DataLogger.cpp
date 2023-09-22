@@ -16,10 +16,15 @@
 
 #include "DataLogger.h"
 
-template<typename T>
-T DataLogger<T>::getDataAtTime(highResTime time) const {
-    return dataMap[time];
-}
+// template<typename T>
+// T DataLogger<T>::getDataAtTime(highResTime time) const {
+//     auto it = dataMap.find(time);
+//     if (it != dataMap.end()) {
+//         return it->second;
+//     }
+//     std::cout << "Error in DataLogger: No data at time " << time_point_to_string(time) << std::endl;
+//     return T{}; // returning default-constructed value of T
+// }
 
 template<typename T>
 bool DataLogger<T>::addValue(highResTime time, T value){

@@ -35,17 +35,17 @@ class Sensor: public IO {
 public:
     Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); port = 0; }
     Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name, DataLogger<T> log, int p): IO() { sensorName = name; dataLog = log; port = p}
+    Sensor(std::string name, DataLogger<T> log, int p): IO() { sensorName = name; dataLog = log; port = p; }
     /*
     //clears stored data
     void clear();
     */
 
    const DataLogger<T>& getDataLog() const { return dataLog; }
-   stood::string getSensorName() { return sensorName; }
+   std::string getSensorName() { return sensorName; }
 
    //Setter
-   void update(T var) //This will be implemented in each individual sensor
+   void update(T var); //This will be implemented in each individual sensor
 
 private:
     //member variables:
@@ -53,7 +53,7 @@ private:
     DataLogger<T> dataLog;
 
     //Contains name of the input sensor
-    stood::string sensorName;
+    std::string sensorName;
 
     int port;
 };
