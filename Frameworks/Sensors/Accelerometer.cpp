@@ -2,6 +2,8 @@
 // Created by kyle on 7/11/23.
 //
 
+#include <iostream>
+#include <fstream>
 #include "Accelerometer.h"
 
 //Implementation TBD:
@@ -21,4 +23,10 @@ void Accelerometer::update(std::vector<double> var) {
     this->y = transfer_function_y(var[1]);
     this->z = transfer_function_y(var[2]);
     this->dataLog.addValue(callTime, std::vector<float>(){x, y, z})
+}
+
+void Accelerometer::writeDataToFile(std::string filename) {
+    std::ofStream file;
+    file.open(filename);
+    //const iterator it = this.dataLog.getMap()
 }
