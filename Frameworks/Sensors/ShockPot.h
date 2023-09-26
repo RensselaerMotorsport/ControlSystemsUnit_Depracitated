@@ -9,7 +9,9 @@
 
 class ShockPot : AnalogSensor<float>{
 public:
-    ShockPot(int port, int channel, int hZ, WHEEL_LOCATION w) : AnalogSensor<float>("ShockPot", DataLogger<float>(), port, channel, hZ) { raw_signal = -1; distance = -1; shock_location = w; }
+    ShockPot(int port, int channel, int hZ, WHEEL_LOCATION w)
+        : AnalogSensor<float>("ShockPot", DataLogger<float>(), port, channel, hZ)
+        { distance = -1; shock_location = w; }
 
     float get_distance(){ return distance; }
     float get_acceleration();
@@ -23,7 +25,7 @@ private:
 
 
     //functions:
-    float transfer_function(float rawVal)//TODO: needs to be implemented
+    float transfer_function(float rawVal); //TODO: needs to be implemented
 };
 
 

@@ -12,11 +12,11 @@ public:
     //Constructors
     Accelerometer() : AnalogSensor<std::vector<double>>("Accelerometer",
         DataLogger<std::vector<double>>(), -1, -1, -1)
-        { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
+        { x = -1; y = -1; z = -1; }
     Accelerometer(int port, int channel, int hZ) :
         AnalogSensor<std::vector<double>>("Accelerometer",
         DataLogger<std::vector<double>>(), port, channel, hZ)
-        { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
+        { x = -1; y = -1; z = -1; }
 
     //Member Functions
     double get_x(){ return x; }

@@ -16,29 +16,17 @@
 
 #include "DataLogger.h"
 
-template<typename T>
-T DataLogger<T>::getDataAtTime(highResTime time) const {
-    auto it = dataMap.find(time);
-    if (it != dataMap.end()) {
-        return it->second;
-    }
-    std::cout << "DataLogger: No data at time " << time_point_to_string(time) << std::endl;
-    return T{}; // returning defualt-construted value of T
-}
+std::string time_point_to_string(const std::chrono::system_clock::time_point& tp) {
+    auto ttime_t = std::chrono::system_clock::to_time_t(tp);
+    auto tm = *std::localtime(&ttime_t);
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%H:%M:%S");
 
-template<typename T>
-bool DataLogger<T>::addValue(highResTime time, T value){
-    if (time > lastTime) {
-        dataMap[time] = value;
-        lastTime = time;
-        return true;
-    }
-    return false;
-}
+    auto duration = tp.time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() % 1000;
+    oss << '.' << std::setfill('0') << std::setw(3) << millis;
 
-template<typename T>
-typename std::map<highResTime, T>::const_iterator DataLogger<T>::getMap() {
-    typename std::map<highResTime, T>::const_iterator it = dataMap.begin();
+    oss << " " << std::put_time(&tm, "%Y-%m-%d");
 
-    return it;
+    return oss.str();
 }
