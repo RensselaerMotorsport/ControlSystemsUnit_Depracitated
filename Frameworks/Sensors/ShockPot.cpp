@@ -23,7 +23,14 @@ float ShockPot::get_acceleration(){
 }
 
 float ShockPot::transfer_function(float rawVal) {
-    return rawVal; //TODO: implement this
+    if (rawVal < 15) {
+        return -1;
+        std::err << "ShockPot::transfer_function rawValue is too low" << std::endl;
+    } else if (rawVal > 135) {
+        return -1;
+        std::err << "ShockPot::transfer_function rawValue is too high" << std::endl;
+    }
+    return 2.71965*(pow(rawVal,0.837683)) - 16.2622;
 }
 
 void ShockPot::update(float var) {
