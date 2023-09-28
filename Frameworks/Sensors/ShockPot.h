@@ -25,7 +25,7 @@ private:
 
 
     //functions:
-    float transfer_function(float rawVal); //TODO: needs to be implemented
+    float transfer_function(float rawVal); 
 };
 
 
