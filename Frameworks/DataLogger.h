@@ -44,9 +44,9 @@ public:
     DataLogger(){ lastTime = std::chrono::system_clock::now(); }
     T getDataAtTime(highResTime time) const;
     bool addValue(highResTime time, T value);
-    typename std::map<highResTime, T>::const_iterator getMap();
+    typename std::map<highResTime, T>::const_iterator getMap(); //TODO: implement this function
 private:
-    //member autoiables
+    //member variables
     std::map<highResTime, T> dataMap;
 
     //Used to ensure that it does not accidentally edit old times

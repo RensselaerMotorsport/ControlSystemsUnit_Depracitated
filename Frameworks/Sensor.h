@@ -45,9 +45,9 @@ public:
    std::string getSensorName() { return sensorName; }
 
    //Setter
-   void update(T var); //This will be implemented in each individual sensor
+   virtual void update(T var); //This will be implemented in each individual sensor
 
-   void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
+   virtual void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
                                               //Implemented by each sensor
 
 protected: //This is protected instead of private so that subclasses can access these
