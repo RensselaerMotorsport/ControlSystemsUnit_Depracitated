@@ -63,4 +63,21 @@ T DataLogger<T>::getDataAtTime(highResTime time) const {
     return T{}; // returning default-constructed value of T
 }
 
+template<typename T>
+bool DataLogger<T>::addValue(highResTime time, T value){
+    if (time > lastTime) {
+        dataMap[time] = value;
+        lastTime = time;
+        return true;
+    }
+    return false;
+}
+
+template<typename T>
+typename std::map<highResTime, T>::const_iterator DataLogger<T>::getMap() {
+    typename std::map<highResTime, T>::const_iterator it = dataMap.begin();
+
+    return it;
+}
+
 #endif //RENNSMOTORSPORT_DATALOGGER_H

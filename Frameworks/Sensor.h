@@ -61,7 +61,7 @@ protected: //This is protected instead of private so that subclasses can access 
     int port;
 };
 
-float timeToFloat(highResTime){
+inline float timeToFloat(highResTime){
     return 1.0;
 }
 

@@ -5,7 +5,6 @@
 #include <iostream>
 #include <queue>
 #include <memory>
-#include "Task.h"
 #include "Sensor.h"
 #include "AnalogSensor.h"
 #include "DataLogger.h" // For highResTime
