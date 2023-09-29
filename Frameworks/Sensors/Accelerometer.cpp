@@ -17,16 +17,10 @@
         return rawVal;
     }
 
-void Accelerometer::update(std::vector<double> var) {
+void Accelerometer::update(std::vector<float> var) {
     highResTime callTime = std::chrono::system_clock::now();
     this->x = transfer_function_x(var[0]);
     this->y = transfer_function_y(var[1]);
     this->z = transfer_function_y(var[2]);
     this->dataLog.addValue(callTime, std::vector<float>(){x, y, z})
-}
-
-void Accelerometer::writeDataToFile(std::string filename) {
-    std::ofStream file;
-    file.open(filename);
-    //const iterator it = this.dataLog.getMap()
 }

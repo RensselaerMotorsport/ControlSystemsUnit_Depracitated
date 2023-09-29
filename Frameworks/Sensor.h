@@ -47,7 +47,7 @@ public:
    //Setter
    virtual void update(T var); //This will be implemented in each individual sensor
 
-   virtual void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
+   void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
                                               //Implemented by each sensor
 
 protected: //This is protected instead of private so that subclasses can access these

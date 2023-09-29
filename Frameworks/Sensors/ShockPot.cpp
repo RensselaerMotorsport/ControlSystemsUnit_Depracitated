@@ -6,19 +6,17 @@
 #include "./AccelCalc.cpp"
 
 float ShockPot::get_acceleration(){
-    //TODO: fix this mess
-    std::Map<highResTime, float>::Iterator it = dataLog.end();
-    std::vector<std::pair<float, float>> points;
+    std::map<highResTime, float>::const_iterator it = dataLog.getEnd();
+    std::vector<float> points;
     it--;
     highResTime pre = it.first;
-    float firstVal = it.second;
+    points.push_back(it.second);
     it--;
-    points.push_back((pre - it.first).count());
-    points.pudh_back(firstVal);
-    for (int i = 0; i < 4; i ++){
-        points.push_back(it.second));
-        it--;
-    }
+    highResTime post = it.first;
+    points.push_back(it.second);
+    it--;
+    points.push_back(it.second);
+    points.push_back((pre - post).count()); //The time diff
     return acceleration(points);
 }
 

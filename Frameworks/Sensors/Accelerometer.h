@@ -7,21 +7,21 @@
 
 #include "../AnalogSensor.h"
 
-class Accelerometer : public AnalogSensor<std::vector<double>>{
+class Accelerometer : public AnalogSensor<std::vector<float>>{
 public:
     //Constructors
-    Accelerometer() : AnalogSensor<std::vector<double>>("Accelerometer",
-        DataLogger<std::vector<double>>(), -1, -1, -1)
+    Accelerometer() : AnalogSensor<std::vector<float>>("Accelerometer",
+        DataLogger<std::vector<float>>(), -1, -1, -1)
         { x = -1; y = -1; z = -1; }
     Accelerometer(int port, int channel, int hZ) :
-        AnalogSensor<std::vector<double>>("Accelerometer",
-        DataLogger<std::vector<double>>(), port, channel, hZ)
+        AnalogSensor<std::vector<float>>("Accelerometer",
+        DataLogger<std::vector<float>>(), port, channel, hZ)
         { x = -1; y = -1; z = -1; }
 
     //Member Functions
-    double get_x(){ return x; }
-    double get_y(){ return y; }
-    double get_z(){ return z; } //TODO: these all need to be properly implemented
+    float get_x(){ return x; }
+    float get_y(){ return y; }
+    float get_z(){ return z; }
 
 private:
     //Member Variables
@@ -35,17 +35,15 @@ private:
     //To be implemented later
     float transfer_function_x(float rawVal);
     float transfer_function_y(float rawVal);
-    float transfer_function_z(float rawVal);
+    float transfer_function_z(float rawVal); //TODO: these all need to be properly implemented
 };
 
 // Overloading << operator for std::vector<double>
-std::ostream& operator<<(std::ostream& os, const std::vector<double>& vec) {
-    os << "[";
+std::ostream& operator<<(std::ostream& os, const std::vector<float>& vec) {
     for (size_t i = 0; i < vec.size(); ++i) {
         os << vec[i];
         if (i != vec.size() - 1) os << ", ";
     }
-    os << "]";
     return os;
 }
 
