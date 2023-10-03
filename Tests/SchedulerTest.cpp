@@ -27,8 +27,8 @@ private:
 
         // Add some tasks to the scheduler here
         int id = 0;
-        Accelerometer accelerometer(0 , 0, 100);
-        scheduler.registerAnalogSensor(id++, accelerometer);
+        //Accelerometer accelerometer(0 , 0, 100);
+        //scheduler.registerAnalogSensor(id++, accelerometer);
         //BrakePressure BrakePressure;
         //scheduler.registerSensorTask(id++, 100, BrakePressure);
         //GPS gps;

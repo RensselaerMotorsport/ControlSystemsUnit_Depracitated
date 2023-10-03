@@ -18,7 +18,6 @@ public:
     void stop() { running = false; }
 
 private:
-    // TODO: Need to switch to a better thing for simutanuous running of sensors
     std::priority_queue<std::shared_ptr<TaskBase>,
         std::vector<std::shared_ptr<TaskBase>>, TaskComparator> tasks;
     bool running = false;

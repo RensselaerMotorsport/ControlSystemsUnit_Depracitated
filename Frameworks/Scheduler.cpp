@@ -4,13 +4,22 @@
 
 void Scheduler::run() {
     if (tasks.empty()) return;
+    unsigned int numThreads = std::thread::hardware_concurrency();
+    std::cout << "Number of threads: " << numThreads << std::endl; // TODO: Remove this later
+    ThreadPool pool(numThreads);
+    std::mutex tasksMutex;
 
     running = true;
     while (running) {
         auto currentTime = getCurrentTime();
-        std::shared_ptr<TaskBase> task = tasks.top();
+        // Buffer to hold tasks that are ready to be executed
+        std::vector<std::shared_ptr<TaskBase>> taskBuffer;
 
-        if (currentTime >= task->getNextExecTime()) {
+        // Lock the tasks priority queue while we're modifying it
+        std::unique_lock<std::mutex> lock(tasksMutex);
+
+        while (!tasks.empty() && currentTime >= tasks.top()->getNextExecTime()) {
+            std::shared_ptr<TaskBase> task = tasks.top();
             task->execute(currentTime);
 
             // Update the next execution time for this task
@@ -26,10 +35,21 @@ void Scheduler::run() {
             continue;
         }
 
-        // Calculate the time until the next task and sleep for that duration
-        auto sleepTime = std::chrono::duration_cast<std::chrono::milliseconds>(
-            task->getNextExecTime() - currentTime);
-        std::this_thread::sleep_for(sleepTime);
+        // Unlock the tasks priority queue
+        lock.unlock();
 
+        // Submit all tasks in the task buffer to the thread pool for execution
+        for (auto& task : taskBuffer) {
+            pool.enqueue([task, currentTime] {
+                task->execute(currentTime);
+            });
+        }
+
+        // If there are no tasks ready to be executed, sleep until the next task is ready
+        if (taskBuffer.empty() && !tasks.empty()) {
+            std::chrono::milliseconds sleepTime = std::chrono::duration_cast<std::chrono::milliseconds>(
+                tasks.top()->getNextExecTime() - currentTime);
+            std::this_thread::sleep_for(sleepTime);
+        }
     }
 }
