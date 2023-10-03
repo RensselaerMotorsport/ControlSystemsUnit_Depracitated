@@ -6,6 +6,7 @@
 #define RENNSMOTORSPORT_ACCELEROMETER_H
 
 #include "../AnalogSensor.h"
+#include <vector>
 
 class Accelerometer : public AnalogSensor<std::vector<float>>{
 public:
@@ -23,6 +24,8 @@ public:
     float get_y(){ return y; }
     float get_z(){ return z; }
 
+    void update(std::vector<float> var) override;
+
 private:
     //Member Variables
     float x;
@@ -39,7 +42,7 @@ private:
 };
 
 // Overloading << operator for std::vector<double>
-std::ostream& operator<<(std::ostream& os, const std::vector<float>& vec) {
+inline std::ostream& operator<<(std::ostream& os, const std::vector<float>& vec) {
     for (size_t i = 0; i < vec.size(); ++i) {
         os << vec[i];
         if (i != vec.size() - 1) os << ", ";

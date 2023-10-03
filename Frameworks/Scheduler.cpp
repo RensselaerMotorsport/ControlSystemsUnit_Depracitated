@@ -20,19 +20,16 @@ void Scheduler::run() {
 
         while (!tasks.empty() && currentTime >= tasks.top()->getNextExecTime()) {
             std::shared_ptr<TaskBase> task = tasks.top();
-            task->execute(currentTime);
 
             // Update the next execution time for this task
             highResTime nextTime = task->getNextExecTime()
                 + std::chrono::milliseconds(1000 / task->getHZ());
             task->setNextExecTime(nextTime);
 
+            taskBuffer.push_back(task);
             // Since std::priority_queue doesn't allow for reordering.
             tasks.pop();
             tasks.push(task);
-
-            // Immediatly check the next task. Maybe two task are at the same time.
-            continue;
         }
 
         // Unlock the tasks priority queue

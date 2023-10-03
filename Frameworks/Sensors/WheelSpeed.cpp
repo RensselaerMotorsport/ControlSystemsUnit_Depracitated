@@ -17,6 +17,6 @@ float WheelSpeed::transfer_function(float rawVal) {
 
 void WheelSpeed::update(float var) {
     highResTime callTime = std::chrono::system_clock::now();
-    this->speed = transfer_function(var);
-    this->dataLog.addValue(callTime, this->speed);
+    // this->speed = transfer_function(var);
+    // this->dataLog.addValue(callTime, this->speed);
 }

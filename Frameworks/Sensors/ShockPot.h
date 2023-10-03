@@ -17,7 +17,8 @@ public:
     float get_acceleration();
     WHEEL_LOCATION get_wheel_location(){ return shock_location; }
 
-    //TODO: Implement update()
+    void update(float var) override;
+
 private:
     //variables
     float distance;

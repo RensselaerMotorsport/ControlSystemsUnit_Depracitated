@@ -22,5 +22,9 @@ void Accelerometer::update(std::vector<float> var) {
     this->x = transfer_function_x(var[0]);
     this->y = transfer_function_y(var[1]);
     this->z = transfer_function_y(var[2]);
-    this->dataLog.addValue(callTime, std::vector<float>(){x, y, z})
+    std::vector<float> vec = std::vector<float>(3);
+    vec[0] = this->x;
+    vec[1] = this->y;
+    vec[2] = this->z;
+    this->dataLog.addValue(callTime, vec);
 }

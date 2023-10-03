@@ -45,7 +45,8 @@ public:
    std::string getSensorName() { return sensorName; }
 
    //Setter
-   virtual void update(T var); //This will be implemented in each individual sensor
+   // TODO: Make pure virtual
+   virtual void update(T var) {} //This will be implemented in each individual sensor
 
    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
                                               //Implemented by each sensor

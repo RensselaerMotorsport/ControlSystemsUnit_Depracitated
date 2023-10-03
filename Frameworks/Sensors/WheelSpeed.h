@@ -16,7 +16,7 @@
 
 enum WHEEL_LOCATION{ front_left, front_right, back_left, back_right };
 
-class WheelSpeed : AnalogSensor<float>{
+class WheelSpeed : public AnalogSensor<float>{
 public:
     /*Constructors:*/
     WheelSpeed(int port, int channel, int hZ, float r, WHEEL_LOCATION w) :
@@ -29,6 +29,9 @@ public:
     float getSpeed(){ return speed; }
     float getRadius() { return radius; }
     WHEEL_LOCATION get_wheel_location(){ return wheel_location; }
+
+    void update(float var) override;
+
 private:
     //variables
     float speed;

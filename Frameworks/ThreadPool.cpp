@@ -1,5 +1,6 @@
 #include "ThreadPool.h"
 #include <stdexcept>
+#include <iostream>
 
 ThreadPool::ThreadPool(size_t threads) : stop(false) {
     for(size_t i = 0; i < threads; ++i)
@@ -23,7 +24,12 @@ void ThreadPool::enqueue(std::function<void()> task) {
     {
         std::unique_lock<std::mutex> lock(queueMutex);
         if(stop) throw std::runtime_error("enqueue on stopped ThreadPool");
+
         tasks.emplace(task);
+
+        if(tasks.size() > workers.size()) {
+            std::cerr << "\033[33mWarning: More tasks enqueued than available worker threads.\033[0m" << std::endl;
+        }
     }
     condition.notify_one();
 }

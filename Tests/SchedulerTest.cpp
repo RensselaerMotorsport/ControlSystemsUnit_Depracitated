@@ -27,19 +27,18 @@ private:
 
         // Add some tasks to the scheduler here
         int id = 0;
-        //Accelerometer accelerometer(0 , 0, 100);
-        //scheduler.registerAnalogSensor(id++, accelerometer);
-        //BrakePressure BrakePressure;
-        //scheduler.registerSensorTask(id++, 100, BrakePressure);
+        Accelerometer accelerometer(0 , 0, 100);
+        scheduler.registerAnalogSensor(id++, accelerometer);
+        // BrakePressure brakePressure(0, 0, 100);
+        // scheduler.registerAnalogSensor(id++, brakePressure);
         //GPS gps;
         //scheduler.registerSensorTask(id++, 10, gps);
-        //ShockPot shockPot;
-        //scheduler.registerSensorTask(id++, 1000, shockPot); // Theres gonna be 4 of these
+        // ShockPot shockPot(0, 0, 1000, front_left);
+        // scheduler.registerAnalogSensor(id++, shockPot); // Theres gonna be 4 of these
         Temperature temperature(0, 0, 10);
         scheduler.registerAnalogSensor(id++, temperature); // Might not be 10 HZ
-        //WheelSpeed wheelSpeed;
-        //scheduler.registerSensorTask(id++, 200, wheelSpeed); // 4 here too
-
+        WheelSpeed wheelSpeed(0, 0, 200, 3.4f, front_left);
+        scheduler.registerAnalogSensor(id++, wheelSpeed); // 4 here too
 
         // Run the scheduler or tasks here
         scheduler.run();
