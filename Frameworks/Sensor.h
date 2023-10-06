@@ -35,7 +35,7 @@ class Sensor: public IO {
 public:
     Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); port = 0; }
     Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name, DataLogger<T> log, int p): IO() { sensorName = name; dataLog = log; port = p; }
+    Sensor(std::string name, DataLogger<T> log, int p, int h): IO() { sensorName = name; dataLog = log; port = p;  hz = h; }
     /*
     //clears stored data
     void clear();
@@ -43,6 +43,7 @@ public:
 
    const DataLogger<T>& getDataLog() const { return dataLog; }
    std::string getSensorName() { return sensorName; }
+   const int getHZ() const { return hz; }
 
    //Setter
    // TODO: Make pure virtual
@@ -59,6 +60,7 @@ protected: //This is protected instead of private so that subclasses can access 
     //Contains name of the input sensor
     std::string sensorName;
 
+    int hz;
     int port;
 };
 

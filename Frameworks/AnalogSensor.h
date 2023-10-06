@@ -11,7 +11,7 @@ class AnalogSensor: public Sensor<T> {
 public:
     AnalogSensor() : Sensor<T>() { channel = -1; hZ = -1; }
     AnalogSensor(std::string name, DataLogger<T> log, int p, int c, int h)
-        : Sensor<T>(name, log, p) { channel = c; hZ = h; }
+        : Sensor<T>(name, log, p, h) { channel = c; hZ = h; }
 
     //Getters:
     int getChannel() { return channel; }

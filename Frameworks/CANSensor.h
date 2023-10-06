@@ -7,10 +7,10 @@
 #include "Sensor.h"
 
 template<typename T>
-class CANSensor : private Sensor<T> {
+class CANSensor : public Sensor<T> {
 public:
     CANSensor()  : Sensor<T>() { frequency = -1; id = -1; }
-    CANSensor(std::string name, DataLogger<T> log, int p, int f, int i): Sensor<T>(name, log, p) { frequency = f; id = i; }
+    CANSensor(std::string name, DataLogger<T> log, int p, int f, int i): Sensor<T>(name, log, p, f) { frequency = f; id = i; }
 
     //Getters:
     int getFrequency() { return frequency; }

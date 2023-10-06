@@ -5,13 +5,13 @@
 #ifndef CONTROLSYSTEMSUNIT_IMD_H
 #define CONTROLSYSTEMSUNIT_IMD_H
 
-#include "./CANSensor.h"
+#include "../CANSensor.h"
 #include <vector>
 
-class Imd : CANSensor<std::vecotr<bool>>{
+class Imd : public CANSensor<std::vector<bool>>{
 public:
-    Imd(int frequency, int id)
-            : CANSensor<std::vecotr<bool>>("Imd", DataLogger<std::vecotr<bool>>(), frequency, id)
+    Imd(int frequency, int id, int port)
+            : CANSensor<std::vector<bool>>("Imd", DataLogger<std::vector<bool>>(), port, frequency, id)
     { imd_status = false; running_flag = false; }
 
     int get_status() { return imd_status; }

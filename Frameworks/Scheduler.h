@@ -13,7 +13,7 @@ class Scheduler {
 public:
     Scheduler() = default;
     template <typename T>
-    void registerAnalogSensor(int id, AnalogSensor<T>& sensor);
+    void registerSensor(int id, Sensor<T>& sensor);
     void run();
     void stop() { running = false; }
 
@@ -30,8 +30,8 @@ private:
 // Template definitions
 
 template <typename T>
-void Scheduler::registerAnalogSensor(int id, AnalogSensor<T>& sensor) {
-    auto sensorPtr = std::make_shared<AnalogSensor<T>>(sensor);
+void Scheduler::registerSensor(int id, Sensor<T>& sensor) {
+    auto sensorPtr = std::make_shared<Sensor<T>>(sensor);
     auto task = std::make_shared<Task<T>>(id, sensor.getHZ(), sensorPtr);
     tasks.push(task);
 }

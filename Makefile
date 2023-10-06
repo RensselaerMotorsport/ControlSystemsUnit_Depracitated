@@ -12,6 +12,7 @@ SOURCES = Frameworks/Sensor.cpp \
           Frameworks/Sensors/ShockPot.cpp \
           Frameworks/Sensors/Temperature.cpp \
           Frameworks/Sensors/WheelSpeed.cpp \
+          Frameworks/Sensors/Imd.cpp \
           Frameworks/Scheduler.cpp \
           Tests/SchedulerTest.cpp \
           Frameworks/ThreadPool.cpp
