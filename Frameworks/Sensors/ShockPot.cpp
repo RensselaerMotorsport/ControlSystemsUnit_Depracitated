@@ -3,19 +3,19 @@
 //
 
 #include "ShockPot.h"
-#include "./AccelCalc.cpp"
+#include "../AccelCalc.cpp"
 
 float ShockPot::get_acceleration(){
     std::map<highResTime, float>::const_iterator it = dataLog.getEnd();
     std::vector<float> points;
     it--;
-    highResTime pre = it.first;
-    points.push_back(it.second);
+    highResTime pre = it->first;
+    points.push_back(it->second);
     it--;
-    highResTime post = it.first;
-    points.push_back(it.second);
+    highResTime post = it->first;
+    points.push_back(it->second);
     it--;
-    points.push_back(it.second);
+    points.push_back(it->second);
     points.push_back((pre - post).count()); //The time diff
     return acceleration(points);
 }
@@ -23,10 +23,10 @@ float ShockPot::get_acceleration(){
 float ShockPot::transfer_function(float rawVal) {
     if (rawVal < 15) {
         return -1;
-        std::err << "ShockPot::transfer_function rawValue is too low" << std::endl;
+        std::cerr << "ShockPot::transfer_function rawValue is too low" << std::endl;
     } else if (rawVal > 135) {
         return -1;
-        std::err << "ShockPot::transfer_function rawValue is too high" << std::endl;
+        std::cerr << "ShockPot::transfer_function rawValue is too high" << std::endl;
     }
     return 2.71965*(pow(rawVal,0.837683)) - 16.2622;
 }

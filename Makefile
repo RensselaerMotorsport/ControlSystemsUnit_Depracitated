@@ -2,12 +2,14 @@
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -g -O0 -lpthread -IIncludes
+CXXFLAGS = -g -O0 -lpthread -lm -IIncludes
 
 # Source files
 SOURCES = Frameworks/Sensor.cpp \
           Frameworks/DataLogger.cpp \
           Frameworks/Sensors/Accelerometer.cpp \
+          Frameworks/Sensors/BrakePressure.cpp \
+          Frameworks/Sensors/ShockPot.cpp \
           Frameworks/Sensors/Temperature.cpp \
           Frameworks/Sensors/WheelSpeed.cpp \
           Frameworks/Scheduler.cpp \

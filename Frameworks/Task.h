@@ -13,7 +13,7 @@ class TaskBase {
 public:
     virtual ~TaskBase() = default;
     virtual bool operator<(const TaskBase& rhs) const = 0;
-    virtual void execute(highResTime currentTime) = 0;
+    virtual void execute(highResTime startTime, highResTime enqueueTime) = 0;
     virtual auto getNextExecTime() const -> highResTime = 0;
     virtual auto setNextExecTime(highResTime time) -> void = 0;
     virtual auto getHZ() const -> int = 0;
@@ -28,11 +28,21 @@ public:
             nextExecTime = std::chrono::high_resolution_clock::now();
         }
 
-    void execute(highResTime currentTime) override {
-        const T sensorData = sensor->getDataLog().getDataAtTime(currentTime);
+    void execute(highResTime startTime, highResTime enqueueTime) override {
+        const T sensorData = sensor->getDataLog().getDataAtTime(startTime);
         // TODO: do something with data
         std::cout << sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
+
+        auto delay = startTime - enqueueTime;
+        if (delay > std::chrono::microseconds(1000)) {
+            std::cout << "\033[31m"  // Set text color to red
+                    << "Execution delay: "
+                    << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
+                    << " microseconds"
+                    << "\033[0m" << std::endl;  // Reset text color
+        }
     }
+
     auto getNextExecTime() const -> highResTime {
         return nextExecTime;
     }
