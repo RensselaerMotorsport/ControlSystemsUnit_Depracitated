@@ -10,15 +10,15 @@
 
 class Imd : public CANSensor<std::vector<bool>>{
 public:
-    Imd(int frequency, int id, int port)
-            : CANSensor<std::vector<bool>>("Imd", DataLogger<std::vector<bool>>(), port, frequency, id)
+    Imd(int hz, int id)
+            : CANSensor<std::vector<bool>>("Imd", DataLogger<std::vector<bool>>(), hz, id)
     { imd_status = false; running_flag = false; }
 
     int get_status() { return imd_status; }
     int get_running_flag() { return running_flag; }
     int reset_running_flag() { running_flag = true; } //TODO: ask ammar if reset means true or false
 
-    //TODO: figure out what input type is
+    //TODO: ask Ammar about bools
     void update(std::vector<bool> var) override;
 
 private:

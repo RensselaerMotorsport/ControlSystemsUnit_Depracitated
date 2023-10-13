@@ -33,9 +33,9 @@
 template<typename T>
 class Sensor: public IO {
 public:
-    Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name, DataLogger<T> log, int p, int h): IO() { sensorName = name; dataLog = log; port = p;  hz = h; }
+    Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); }
+    Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); }
+    Sensor(std::string name, DataLogger<T> log, int h): IO() { sensorName = name; dataLog = log;  hz = h; }
     /*
     //clears stored data
     void clear();
@@ -61,7 +61,6 @@ protected: //This is protected instead of private so that subclasses can access 
     std::string sensorName;
 
     int hz;
-    int port;
 };
 
 inline float timeToFloat(highResTime){
