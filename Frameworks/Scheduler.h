@@ -43,6 +43,7 @@
 class Scheduler {
 public:
     Scheduler() = default;
+    ~Scheduler();
     template <typename T>
     void registerSensor(int id, Sensor<T>& sensor);
     void run();

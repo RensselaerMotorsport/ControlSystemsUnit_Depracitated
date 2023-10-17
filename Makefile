@@ -21,8 +21,11 @@ SOURCES = Frameworks/Sensor.cpp \
 OUTPUT = SchedulerTest.out
 
 # Build rule
-all: $(SOURCES)
+all: $(SOURCES) waveshare
 	$(CXX) $(SOURCES) -o $(OUTPUT) $(CXXFLAGS)
+
+waveshare:
+	make -C High-Pricision_AD_HAT/c
 
 # Clean rule
 clean:

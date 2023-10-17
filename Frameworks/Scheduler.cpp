@@ -6,7 +6,7 @@ void Scheduler::run() {
     if (tasks.empty()) return;
     unsigned int numThreads = std::thread::hardware_concurrency();
     std::cout << "Number of threads: " << numThreads << std::endl; // TODO: Remove this later
-    ThreadPool pool(1);
+    ThreadPool pool(numThreads);
     std::mutex tasksMutex;
 
     running = true;
@@ -56,5 +56,15 @@ void Scheduler::run() {
             std::chrono::milliseconds sleepTime(1);  // sleep for 1 millisecond
             std::this_thread::sleep_for(sleepTime);
         }
+    }
+}
+
+Scheduler::~Scheduler() {
+    while(!tasks.empty()) {
+        auto task = tasks.top();
+        // TODO: Maybe add sensor name when function is made for that.
+        std::string filename = std::to_string(task->getId()) + "_output.csv";
+        task->writeDataToFile(filename);
+        tasks.pop();
     }
 }

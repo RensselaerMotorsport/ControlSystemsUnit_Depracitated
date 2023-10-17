@@ -28,6 +28,7 @@
  * - execute: Executes the task, retrieving and logging sensor data.
  * - getNextExecTime: Retrieves the next scheduled execution time.
  * - setNextExecTime: Sets the next scheduled execution time.
+ * - WriteDataToFile: Calls the sensor function under the same name.
  * - getHZ: Retrieves the execution frequency of the task.
  * - getId: Retrieves the identifier of the task.
  * - operator<: Compares this task with another based on next execution time.
@@ -51,6 +52,7 @@ public:
     virtual void execute(highResTime startTime, highResTime enqueueTime) = 0;
     virtual auto getNextExecTime() const -> highResTime = 0;
     virtual auto setNextExecTime(highResTime time) -> void = 0;
+    virtual void writeDataToFile(std::string filename) = 0;
     virtual auto getHZ() const -> int = 0;
     virtual auto getId() const -> int = 0;
 };
@@ -64,9 +66,10 @@ public:
         }
 
     void execute(highResTime startTime, highResTime enqueueTime) override {
-        const T sensorData = sensor->getDataLog().getDataAtTime(startTime);
-        // TODO: do something with data
+        // TODO: call function to get data from sensor somehow......................
+        /* It is not this BTW */ const T sensorData = sensor->getDataLog().getDataAtTime(startTime);
         std::cout << sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
+        sensor->update(sensorData);
 
         auto delay = startTime - enqueueTime;
         if (delay > std::chrono::microseconds(1000)) {
@@ -78,23 +81,17 @@ public:
         }
     }
 
-    auto getNextExecTime() const -> highResTime {
-        return nextExecTime;
-    }
-    auto setNextExecTime(highResTime time) -> void {
-        nextExecTime = time;
-    }
-    auto getHZ() const -> int {
-        return hZ;
-    }
-    auto getId() const -> int {
-        return id;
-    }
+    auto getNextExecTime() const -> highResTime { return nextExecTime; }
+    auto setNextExecTime(highResTime time) -> void { nextExecTime = time; }
+    void writeDataToFile(std::string filename) { sensor->writeDataToFile(filename); }
+    auto getHZ() const -> int { return hZ; }
+    auto getId() const -> int { return id; }
 
     bool operator<(const TaskBase& rhs) const override {
         const Task& derivedRhs = static_cast<const Task&>(rhs);
         return nextExecTime > derivedRhs.nextExecTime;
     }
+
 private:
     int id;
     int hZ;
