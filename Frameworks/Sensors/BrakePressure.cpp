@@ -11,5 +11,13 @@
  */
 
 #include "BrakePressure.h"
-void transfer_function(){};
-float get_pressure(){};
+float BrakePressure::transfer_function(float rawVal){
+    return rawVal; //TODO: implement
+}
+float BrakePressure::get_pressure(){ return pressure; }
+
+void BrakePressure::update(float var) {
+    highResTime callTime = std::chrono::system_clock::now();
+    this->pressure = transfer_function(var);
+    this->dataLog.addValue(callTime, this->pressure);
+}

@@ -10,3 +10,13 @@
  */
 
 #include "WheelSpeed.h"
+
+float WheelSpeed::transfer_function(float rawVal) {
+    return rawVal; //TODO: implement
+}
+
+void WheelSpeed::update(float var) {
+    highResTime callTime = std::chrono::system_clock::now();
+    // this->speed = transfer_function(var);
+    // this->dataLog.addValue(callTime, this->speed);
+}

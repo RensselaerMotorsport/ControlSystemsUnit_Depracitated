@@ -6,46 +6,47 @@
 #define RENNSMOTORSPORT_ACCELEROMETER_H
 
 #include "../AnalogSensor.h"
+#include <vector>
 
-class Accelerometer : public AnalogSensor<std::vector<double>>{
+class Accelerometer : public AnalogSensor<std::vector<float>>{
 public:
     //Constructors
-    Accelerometer() : AnalogSensor<std::vector<double>>("Accelerometer",
-        DataLogger<std::vector<double>>(), -1, -1, -1)
-        { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
+    Accelerometer() : AnalogSensor<std::vector<float>>("Accelerometer",
+        DataLogger<std::vector<float>>(), -1, -1, -1)
+        { x = -1; y = -1; z = -1; }
     Accelerometer(int port, int channel, int hZ) :
-        AnalogSensor<std::vector<double>>("Accelerometer",
-        DataLogger<std::vector<double>>(), port, channel, hZ)
-        { raw_signal_x = -1; raw_signal_y = -1; raw_signal_z = -1; }
-    //Member Functions
-    double get_x(){ return transfer_function_x(); }
-    double get_y(){ return transfer_function_y(); }
-    double get_z(){ return transfer_function_z(); }
+        AnalogSensor<std::vector<float>>("Accelerometer",
+        DataLogger<std::vector<float>>(), port, channel, hZ)
+        { x = -1; y = -1; z = -1; }
 
-    //TODO: Implement update()
+    //Member Functions
+    float get_x(){ return x; }
+    float get_y(){ return y; }
+    float get_z(){ return z; }
+
+    void update(std::vector<float> var) override;
+
 private:
     //Member Variables
-    float raw_signal_x;
-    float raw_signal_y;
-    float raw_signal_z;
+    float x;
+    float y;
+    float z;
 
     //Helper functions:
 
     //These take the raw signal and return the actual value:
     //To be implemented later
-    float transfer_function_x();
-    float transfer_function_y();
-    float transfer_function_z();
+    float transfer_function_x(float rawVal);
+    float transfer_function_y(float rawVal);
+    float transfer_function_z(float rawVal); //TODO: these all need to be properly implemented
 };
 
 // Overloading << operator for std::vector<double>
-std::ostream& operator<<(std::ostream& os, const std::vector<double>& vec) {
-    os << "[";
+inline std::ostream& operator<<(std::ostream& os, const std::vector<float>& vec) {
     for (size_t i = 0; i < vec.size(); ++i) {
         os << vec[i];
         if (i != vec.size() - 1) os << ", ";
     }
-    os << "]";
     return os;
 }
 

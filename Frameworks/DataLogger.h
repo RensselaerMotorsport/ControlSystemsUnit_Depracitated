@@ -36,20 +36,7 @@
 
 typedef std::chrono::time_point<std::chrono::high_resolution_clock> highResTime;
 
-std::string time_point_to_string(const std::chrono::system_clock::time_point& tp) {
-    auto ttime_t = std::chrono::system_clock::to_time_t(tp);
-    auto tm = *std::localtime(&ttime_t);
-    std::ostringstream oss;
-    oss << std::put_time(&tm, "%H:%M:%S");
-
-    auto duration = tp.time_since_epoch();
-    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() % 1000;
-    oss << '.' << std::setfill('0') << std::setw(3) << millis;
-
-    oss << " " << std::put_time(&tm, "%Y-%m-%d");
-
-    return oss.str();
-}
+std::string time_point_to_string(const std::chrono::system_clock::time_point& tp);
 
 template<typename T>
 class DataLogger {
@@ -57,9 +44,10 @@ public:
     DataLogger(){ lastTime = std::chrono::system_clock::now(); }
     T getDataAtTime(highResTime time) const;
     bool addValue(highResTime time, T value);
-    typename std::map<highResTime, T>::const_iterator getMap();
+    typename std::map<highResTime, T>::const_iterator getStart();
+    typename std::map<highResTime, T>::const_iterator getEnd();
 private:
-    //member autoiables
+    //member variables
     std::map<highResTime, T> dataMap;
 
     //Used to ensure that it does not accidentally edit old times
@@ -74,6 +62,30 @@ T DataLogger<T>::getDataAtTime(highResTime time) const {
     }
     std::cout << "Error in DataLogger: No data at time " << time_point_to_string(time) << std::endl;
     return T{}; // returning default-constructed value of T
+}
+
+template<typename T>
+bool DataLogger<T>::addValue(highResTime time, T value){
+    if (time > lastTime) {
+        dataMap[time] = value;
+        lastTime = time;
+        return true;
+    }
+    return false;
+}
+
+template<typename T>
+typename std::map<highResTime, T>::const_iterator DataLogger<T>::getStart() {
+    typename std::map<highResTime, T>::const_iterator it = dataMap.begin();
+
+    return it;
+}
+
+template<typename T>
+typename std::map<highResTime, T>::const_iterator DataLogger<T>::getEnd() {
+    typename std::map<highResTime, T>::const_iterator it = dataMap.end();
+
+    return it;
 }
 
 #endif //RENNSMOTORSPORT_DATALOGGER_H

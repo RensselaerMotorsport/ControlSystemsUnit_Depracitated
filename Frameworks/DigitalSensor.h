@@ -1,4 +1,4 @@
-//
+/*  *///
 // Created by kyle on 6/30/23.
 //
 
@@ -7,12 +7,12 @@
 #include "Sensor.h"
 
 template<typename T>
-class DigitalSensor: private Sensor<T> {
+class DigitalSensor: public Sensor<T> {
 public:
     DigitalSensor() : Sensor<T>() {}
-    DigitalSensor(std::string name, DataLogger<T> log, int p) : Sensor<T>(name, log, p) {}
+    DigitalSensor(std::string name, DataLogger<T> log, int hz, int p) : Sensor<T>(name, log, hz) { port = p; }
 private:
-
+    int port;
 };
 
 

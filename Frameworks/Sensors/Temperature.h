@@ -30,15 +30,17 @@ class Temperature : public AnalogSensor<float> {
 public:
     Temperature(int port, int channel, int hZ): 
         AnalogSensor<float>("Temperature", DataLogger<float>(), port, channel, hZ)
-            { temp = 0.0; raw_signal = 0.0; number = 0; }
+            { temp = 0.0; number = 0; }
 
     float getCelsius();
     float getFahrenheit();
 
-private:
-    //Member Variables:
+    void update(float var) override;
 
-    float raw_signal;
+private:
+    float transfer_function(float rawVal); //TODO: needs to be implemented
+
+    //Member Variables:
     //Stored in Celsius:
     float temp;
     int number;

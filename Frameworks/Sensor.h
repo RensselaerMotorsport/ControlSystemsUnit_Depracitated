@@ -33,9 +33,9 @@
 template<typename T>
 class Sensor: public IO {
 public:
-    Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name, DataLogger<T> log, int p): IO() { sensorName = name; dataLog = log; port = p; }
+    Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); }
+    Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); }
+    Sensor(std::string name, DataLogger<T> log, int h): IO() { sensorName = name; dataLog = log;  hz = h; }
     /*
     //clears stored data
     void clear();
@@ -43,11 +43,16 @@ public:
 
    const DataLogger<T>& getDataLog() const { return dataLog; }
    std::string getSensorName() { return sensorName; }
+   const int getHZ() const { return hz; }
 
    //Setter
-   void update(T var); //This will be implemented in each individual sensor
+   // TODO: Make pure virtual
+   virtual void update(T var) {} //This will be implemented in each individual sensor
 
-private:
+   void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
+                                              //Implemented by each sensor
+
+protected: //This is protected instead of private so that subclasses can access these
     //member variables:
     //New values should be stored in the dataLog when they are gotten
     DataLogger<T> dataLog;
@@ -55,10 +60,10 @@ private:
     //Contains name of the input sensor
     std::string sensorName;
 
-    int port;
+    int hz;
 };
 
-float timeToFloat(highResTime){
+inline float timeToFloat(highResTime){
     return 1.0;
 }
 

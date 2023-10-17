@@ -12,7 +12,7 @@ public:
 
     //Setters:
     void revive() { alive = true; }
-    void kill() { alive = false; } //TODO: Can a sensor be enabled but not alive?
+    void kill() { alive = false; enabled = false; }
     void enable() { enabled = true; }
     void disable() { enabled = false; }
 
