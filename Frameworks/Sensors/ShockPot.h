@@ -7,7 +7,7 @@
 
 #include "WheelSpeed.h"
 
-class ShockPot : public AnalogSensor<float>{
+class ShockPot : public AnalogSensor<float, float>{
 public:
     ShockPot(int port, int channel, int hZ, WHEEL_LOCATION w)
         : AnalogSensor<float>("ShockPot", DataLogger<float>(), port, channel, hZ)

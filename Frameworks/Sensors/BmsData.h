@@ -20,6 +20,8 @@ public:
     float getCellVoltage() { return cellVoltage; }
     float getPackVoltage() { return packVoltage; }
     bool getCriticalFaults() { return criticalFaults; }
+
+    friend ostream& operator<<(ostream& os, const BmsData& bd);
 private:
     float chargeCurrentLimit;
     float dischargeCurrentLimit;

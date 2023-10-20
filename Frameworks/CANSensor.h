@@ -7,7 +7,8 @@
 #include "Sensor.h"
 
 template<typename T>
-class CANSensor : public Sensor<T> {
+template<typename U>
+class CANSensor : public Sensor<T, U> {
 public:
     CANSensor()  : Sensor<T>() { id = -1; }
     CANSensor(std::string name, DataLogger<T> log, int hZ, int i): Sensor<T>(name, log, hZ) { id = i; }

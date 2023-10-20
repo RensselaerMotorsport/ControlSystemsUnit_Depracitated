@@ -7,7 +7,8 @@
 #include "Sensor.h"
 
 template<typename T>
-class AnalogSensor: public Sensor<T> {
+template<typename U> //Generally going to be one or more floats
+class AnalogSensor: public Sensor<T, U> {
 public:
     AnalogSensor() : Sensor<T>() { channel = -1; }
     AnalogSensor(std::string name, DataLogger<T> log, int c, int h)

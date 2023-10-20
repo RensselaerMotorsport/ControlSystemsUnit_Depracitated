@@ -6,7 +6,7 @@
 #define CONTROLSYSTEMSUNIT_STEERINGCOLUMN_H
 
 
-class SteeringColumn : AnalogSensor<float>{
+class SteeringColumn : AnalogSensor<float, float>{
 public:
     SteeringColumn(int port, int channel, int hZ, float off)
             : AnalogSensor<float>("SteeringColumn", DataLogger<float>(), port, channel, hZ)

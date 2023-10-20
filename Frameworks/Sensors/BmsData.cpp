@@ -15,3 +15,16 @@ BmsData::BmsData(float ccl, float dcl, float t, float sc, float cr, float pr, fl
     packVoltage = pv;
     criticalFaults = cf;
 }
+
+friend ostream& BmsData::operator<<(ostream& os, const BmsData& bd){
+    os << bd.chargeCurrentLimit << ","
+            << bd.dischargeCurrentLimit << ","
+            << bd.temperature << ","
+            << bd.stateOfCharge << ","
+            << bd.cellResistance << ","
+            << bd.packResistance << ","
+            << bd.cellVoltage << ","
+            << bd.packVoltage << ","
+            << bd.criticalFaults;
+    return os;
+}

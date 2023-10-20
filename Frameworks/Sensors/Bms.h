@@ -8,7 +8,7 @@
 #include "../CANSensor.h"
 #include "BmsData.h"
 
-class Bms: public CANSensor<BmsData> {
+class Bms: public CANSensor<BmsData, std::vector<float>> {
 
 public:
     Bms(int hz, int id)
@@ -16,7 +16,6 @@ public:
     { data = BmsData(); }
 };
 
-    //TODO: fix the typenaming problem
     void update(std::vector<float> var) override;
 
 private:

@@ -4,10 +4,10 @@
 
 #include "Imd.h"
 
-void Imd::update(std::vector<bool> var) {
+void Imd::update(std::vector<float> var) {
     highResTime callTime = std::chrono::system_clock::now();
-    this->imd_status = var[0];
-    this->running_flag = var[1];
+    this->imd_status = imd_status_transfer_function(var[0]);
+    this->running_flag = running_flag_transfer_function(var[1]);
     std::vector<bool> vec = std::vector<bool>(2);
     vec[0] = this->imd_status;
     vec[1] = this->running_flag;

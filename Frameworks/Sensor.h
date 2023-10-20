@@ -30,7 +30,8 @@
 #include "DataLogger.h"
 #include "IO.h"
 
-template<typename T>
+template<typename T> //The output typename
+template<typename I> //The input typename
 class Sensor: public IO {
 public:
     Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); }
@@ -47,7 +48,7 @@ public:
 
    //Setter
    // TODO: Make pure virtual
-   virtual void update(T var) {} //This will be implemented in each individual sensor
+   virtual void update(I var) {} //This will be implemented in each individual sensor
 
    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
                                               //Implemented by each sensor

@@ -8,20 +8,22 @@
 #include "../CANSensor.h"
 #include <vector>
 
-class Imd : public CANSensor<std::vector<bool>>{
+class Imd : public CANSensor<std::vector<bool>, std::vector<float>>{
 public:
     Imd(int hz, int id)
-            : CANSensor<std::vector<bool>>("Imd", DataLogger<std::vector<bool>>(), hz, id)
+            : CANSensor<std::vector<bool>, std::vector<float>>("Imd", DataLogger<std::vector<bool>>(), hz, id)
     { imd_status = false; running_flag = false; }
 
     int get_status() { return imd_status; }
     int get_running_flag() { return running_flag; }
     int reset_running_flag() { running_flag = true; } //TODO: ask ammar if reset means true or false
 
-    //TODO: ask Ammar about bools
-    void update(std::vector<bool> var) override;
+    void update(std::vector<float> var) override;
 
 private:
+    bool imd_status_transfer_function(float x);
+    bool running_flag_transfer_function(float x);
+
     bool imd_status;
     bool running_flag;
     // Stored in datalogger as [imd_status, running_flag]
