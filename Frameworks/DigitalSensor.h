@@ -11,6 +11,8 @@ class DigitalSensor: public Sensor<T> {
 public:
     DigitalSensor() : Sensor<T>() {}
     DigitalSensor(std::string name, DataLogger<T> log, int hz, int p) : Sensor<T>(name, log, hz) { port = p; }
+
+    auto getData() -> T override;
 private:
     int port;
 };

@@ -56,19 +56,19 @@ private:
 
         // Register Sensors
         int id = 0;
-        Accelerometer accelerometer(0 , 0, 100);
+        Accelerometer accelerometer(0, 100);
         scheduler.registerSensor(id++, accelerometer);
-        BrakePressure brakePressure(0, 0, 100);
+        BrakePressure brakePressure(0, 100);
         scheduler.registerSensor(id++, brakePressure);
         // GPS gps(0, 0, 10);
         // scheduler.registerAnalogSensor(id++, gps);
-        ShockPot shockPot(0, 0, 1000, front_left);
+        ShockPot shockPot(0, 1000, front_left);
         scheduler.registerSensor(id++, shockPot); // Theres gonna be 4 of these
-        Temperature temperature(0, 0, 10);
+        Temperature temperature(0, 10);
         scheduler.registerSensor(id++, temperature); // Might not be 10 HZ
-        WheelSpeed wheelSpeed(0, 0, 200, 3.4f, front_left);
+        WheelSpeed wheelSpeed(0, 200, 3.4f, front_left);
         scheduler.registerSensor(id++, wheelSpeed); // 4 here too
-        Imd imd(500, 0, 0); // Id 0, port 0
+        Imd imd(500, 0); // Id 0
         scheduler.registerSensor(id++, imd);
 
         scheduler.run();

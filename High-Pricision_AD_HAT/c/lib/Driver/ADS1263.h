@@ -7,7 +7,7 @@
 * | This version:   V1.0
 * | Date        :   2020-10-28
 * | Info        :
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documnetation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -30,12 +30,12 @@
 #ifndef _ADS1263_H_
 #define _ADS1263_H_
 
-#include "DEV_Config.h"
+#include "../Config/DEV_Config.h"
 
 #define Positive_A6 1
 #define Negative_A7 0
-    
-#define Open    1 
+
+#define Open    1
 #define Close   0
 
 /* gain channel*/
