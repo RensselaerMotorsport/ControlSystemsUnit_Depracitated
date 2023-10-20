@@ -12,10 +12,11 @@ class AnalogSensor: public Sensor<T, U> {
 public:
     AnalogSensor() : Sensor<T>() { channel = -1; }
     AnalogSensor(std::string name, DataLogger<T> log, int c, int h)
-        : Sensor<T>(name, log, p, h) { channel = c; }
+        : Sensor<T>(name, log, h) { channel = c; }
 
     //Getters:
     int getChannel() { return channel; }
+    auto getData() -> T override;
 protected:
     int channel;
 };

@@ -66,8 +66,8 @@ public:
         }
 
     void execute(highResTime startTime, highResTime enqueueTime) override {
-        // TODO: call function to get data from sensor somehow......................
-        /* It is not this BTW */ const T sensorData = sensor->getDataLog().getDataAtTime(startTime);
+        // Read data from sensor and update the sensor's data log
+        T sensorData = sensor->getData();
         std::cout << sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
         sensor->update(sensorData);
 

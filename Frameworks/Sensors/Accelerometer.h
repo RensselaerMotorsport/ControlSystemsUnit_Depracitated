@@ -11,12 +11,12 @@
 class Accelerometer : public AnalogSensor<std::vector<float>, std::vector<float>>{
 public:
     //Constructors
-    Accelerometer() : AnalogSensor<std::vector<float>, std::vector<float>>("Accelerometer",
-        DataLogger<std::vector<float>>(), -1, -1, -1)
+    Accelerometer() : AnalogSensor<std::vector<float>>("Accelerometer",
+        DataLogger<std::vector<float>>(), -1, -1)
         { x = -1; y = -1; z = -1; }
-    Accelerometer(int port, int channel, int hZ) :
-        AnalogSensor<std::vector<float>, std::vector<float>>("Accelerometer",
-        DataLogger<std::vector<float>>(), port, channel, hZ)
+    Accelerometer(int channel, int hZ) :
+        AnalogSensor<std::vector<float>>("Accelerometer",
+        DataLogger<std::vector<float>>(), channel, hZ)
         { x = -1; y = -1; z = -1; }
 
     //Member Functions

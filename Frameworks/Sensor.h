@@ -43,11 +43,11 @@ public:
     */
 
    const DataLogger<T>& getDataLog() const { return dataLog; }
-   std::string getSensorName() { return sensorName; }
+   const std::string getSensorName() { return sensorName; }
    const int getHZ() const { return hz; }
+   virtual auto getData() -> T;
 
    //Setter
-   // TODO: Make pure virtual
    virtual void update(I var) {} //This will be implemented in each individual sensor
 
    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format

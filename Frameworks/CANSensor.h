@@ -15,6 +15,7 @@ public:
 
     //Getters:
     int getID() { return id; }
+    auto getData() -> T override;
 protected:
     int id;
 };

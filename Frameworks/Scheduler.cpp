@@ -1,13 +1,28 @@
 #include "Scheduler.h"
 #include <thread> // For Sleep
 #include "ThreadPool.h" // Complile with -lpthread
+#include "../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
 
 void Scheduler::run() {
     if (tasks.empty()) return;
+    // Init
     unsigned int numThreads = std::thread::hardware_concurrency();
     std::cout << "Number of threads: " << numThreads << std::endl; // TODO: Remove this later
     ThreadPool pool(numThreads);
     std::mutex tasksMutex;
+
+    // ADC 1 & 2 Initilization
+    try {
+        // Initializing ADC's at 1200 Samples Per Secons (SPS)
+        if (ADS1263_init_ADC1(ADS1263_1200SPS) != 0)
+            throw "ADC1 Initialization failed.";
+        // TODO: Maybe dont need or need to change refreshrate?
+        if (ADS1263_init_ADC2(ADS1263_ADC2_800SPS) != 0)
+            throw "ADC2 Initialization failed.";
+    } catch (const char* errorMsg) {
+        std::cerr << errorMsg << std::endl;
+        return;
+    }
 
     running = true;
     while (running) {
