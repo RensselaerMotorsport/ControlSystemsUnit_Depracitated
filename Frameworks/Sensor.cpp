@@ -14,8 +14,9 @@
 #include "Sensor.h"
 #include <fstream>
 
-template <typename T>
-void Sensor<T>::writeDataToFile(std::string filename){
+template <typename T,
+          typename I>
+void Sensor<T, I>::writeDataToFile(std::string filename){
     std::ofstream file;
     file.open(filename);
     typename std::map<highResTime, T>::const_iterator it;

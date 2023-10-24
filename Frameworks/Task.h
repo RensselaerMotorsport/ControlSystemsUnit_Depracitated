@@ -57,17 +57,18 @@ public:
     virtual auto getId() const -> int = 0;
 };
 
-template <typename T>
+template <typename T,
+          typename I>
 class Task : public TaskBase {
 public:
-    Task(int id, int hZ, std::shared_ptr<Sensor<T>> sensorPtr)
+    Task(int id, int hZ, std::shared_ptr<Sensor<T, I>> sensorPtr)
         : id(id), hZ(hZ), sensor(sensorPtr) {
             nextExecTime = std::chrono::high_resolution_clock::now();
         }
 
     void execute(highResTime startTime, highResTime enqueueTime) override {
         // Read data from sensor and update the sensor's data log
-        T sensorData = sensor->getData();
+        I sensorData = sensor->getData();
         std::cout << sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
         sensor->update(sensorData);
 
@@ -95,7 +96,7 @@ public:
 private:
     int id;
     int hZ;
-    std::shared_ptr<Sensor<T>> sensor;
+    std::shared_ptr<Sensor<T, I>> sensor;
     highResTime nextExecTime;
 };
 

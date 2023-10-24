@@ -13,7 +13,7 @@ public:
     DigitalSensor() : Sensor<T, U>() {}
     DigitalSensor(std::string name, DataLogger<T> log, int hz, int p) : Sensor<T, U>(name, log, hz) { port = p; }
 
-    auto getData() -> T override;
+    auto getData() -> U override;
 private:
     int port;
 };

@@ -26,9 +26,9 @@
 #define CONTROLSYSTEMSUNIT_TEMPERATURE_H
 #include "../../Frameworks/AnalogSensor.h"
 
-class Temperature : public AnalogSensor<float, float> {
+class Temperature : public AnalogSensor<float> {
 public:
-    Temperature(int channel, int hZ): 
+    Temperature(int channel, int hZ):
         AnalogSensor<float>("Temperature", DataLogger<float>(), channel, hZ)
             { temp = 0.0; number = 0; }
 

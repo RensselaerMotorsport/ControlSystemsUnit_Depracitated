@@ -14,9 +14,8 @@ void Scheduler::run() {
     // ADC 1 & 2 Initilization
     try {
         // Initializing ADC's at 1200 Samples Per Secons (SPS)
-        if (ADS1263_init_ADC1(ADS1263_1200SPS) != 0)
+        if (ADS1263_init_ADC1(ADS1263_4800SPS) != 0)
             throw "ADC1 Initialization failed.";
-        // TODO: Maybe dont need or need to change refreshrate?
         if (ADS1263_init_ADC2(ADS1263_ADC2_800SPS) != 0)
             throw "ADC2 Initialization failed.";
     } catch (const char* errorMsg) {

@@ -45,7 +45,7 @@ public:
    const DataLogger<T>& getDataLog() const { return dataLog; }
    const std::string getSensorName() { return sensorName; }
    const int getHZ() const { return hz; }
-   virtual auto getData() -> T;
+   virtual auto getData() -> I;
 
    //Setter
    virtual void update(I var) {} //This will be implemented in each individual sensor

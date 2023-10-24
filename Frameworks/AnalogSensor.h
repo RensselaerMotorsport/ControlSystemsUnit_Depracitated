@@ -5,18 +5,22 @@
 #ifndef RENNSMOTORSPORT_ANALOGSENSOR_H
 #define RENNSMOTORSPORT_ANALOGSENSOR_H
 #include "Sensor.h"
+#include "../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
 
-template<typename T,
-        typename U> //Generally going to be one or more floats
-class AnalogSensor: public Sensor<T, U> {
+// Maybe UDOUBLE maybe template, TODO: ask amar
+template<typename T>
+class AnalogSensor: public Sensor<T, UDOUBLE> {
 public:
-    AnalogSensor() : Sensor<T, U>() { channel = -1; }
-    AnalogSensor(std::string name, DataLogger<T, U> log, int c, int h)
-        : Sensor<T>(name, log, h) { channel = c; }
+    AnalogSensor() : Sensor<T, UDOUBLE>() { channel = -1; }
+    AnalogSensor(std::string name, DataLogger<T> log, int c, int h)
+        : Sensor<T, UDOUBLE>(name, log, h) { channel = c; }
 
     //Getters:
     int getChannel() { return channel; }
-    auto getData() -> T override;
+    auto getData() -> UDOUBLE override {
+        UDOUBLE data = ADS1263_GetChannalValue(channel);
+        return data;
+    }
 protected:
     int channel;
 };

@@ -15,7 +15,7 @@
 
 #include "../AnalogSensor.h"
 
-class BrakePressure : public AnalogSensor<float, float>{
+class BrakePressure : public AnalogSensor<float>{
 public:
 
     BrakePressure() : AnalogSensor<float>() { pressure = -1; }

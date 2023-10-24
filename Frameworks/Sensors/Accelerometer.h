@@ -8,7 +8,7 @@
 #include "../AnalogSensor.h"
 #include <vector>
 
-class Accelerometer : public AnalogSensor<std::vector<float>, std::vector<float>>{
+class Accelerometer : public AnalogSensor<std::vector<float>>{
 public:
     //Constructors
     Accelerometer() : AnalogSensor<std::vector<float>>("Accelerometer",
