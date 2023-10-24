@@ -6,12 +6,12 @@
 #define RENNSMOTORSPORT_ANALOGSENSOR_H
 #include "Sensor.h"
 
-template<typename T>
-template<typename U> //Generally going to be one or more floats
+template<typename T,
+        typename U> //Generally going to be one or more floats
 class AnalogSensor: public Sensor<T, U> {
 public:
-    AnalogSensor() : Sensor<T>() { channel = -1; }
-    AnalogSensor(std::string name, DataLogger<T> log, int c, int h)
+    AnalogSensor() : Sensor<T, U>() { channel = -1; }
+    AnalogSensor(std::string name, DataLogger<T, U> log, int c, int h)
         : Sensor<T>(name, log, h) { channel = c; }
 
     //Getters:

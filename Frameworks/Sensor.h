@@ -30,8 +30,8 @@
 #include "DataLogger.h"
 #include "IO.h"
 
-template<typename T> //The output typename
-template<typename I> //The input typename
+template<typename T,  //The output typename
+         typename I> //The input typename
 class Sensor: public IO {
 public:
     Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); }
