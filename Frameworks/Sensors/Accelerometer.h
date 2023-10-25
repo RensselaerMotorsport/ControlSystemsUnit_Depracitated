@@ -8,6 +8,8 @@
 #include "../AnalogSensor.h"
 #include <vector>
 
+//TODO: make this 3 classes because each outputs a different value
+
 class Accelerometer : public AnalogSensor<std::vector<float>>{
 public:
     //Constructors
