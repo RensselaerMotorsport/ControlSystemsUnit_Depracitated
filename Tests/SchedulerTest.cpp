@@ -9,7 +9,7 @@
 #include "../Frameworks/Sensors/GPS.h"
 #include "../Frameworks/Sensors/ShockPot.h"
 #include "../Frameworks/Sensors/Temperature.h"
-#include "../Frameworks/Sensors/WheelSpeed.h"
+#include "../Frameworks/Sensors/WheelFlux.h"
 #include "../Frameworks/Sensors/Imd.h"
 
 class SchedulerTest {

@@ -1,6 +1,23 @@
-//
-// Created by kyle on 7/11/23.
-//
+/*
+ * -----------------------------------------------------------------------
+ *                         _                               _
+ *       /\               | |                             | |
+ *      /  \   ___ ___ ___| | ___ _ __ ___  _ __ ___   ___| |_ ___ _ __
+ *     / /\ \ / __/ __/ _ \ |/ _ \ '__/ _ \| '_ ` _ \ / _ \ __/ _ \ '__|
+ *    / ____ \ (_| (_|  __/ |  __/ | | (_) | | | | | |  __/ ||  __/ |
+ *   /_/    \_\___\___\___|_|\___|_|  \___/|_| |_| |_|\___|\__\___|_|
+ *
+ * -----------------------------------------------------------------------
+ *
+ * The accelereometer consists of three separate sensors, thus each will need to be individually
+ * constructed. The difference lies in the channel number, and from that, we should be able to
+ * tell what axis each corresponds to.
+ *
+ * Currently, all transfer functions operate identically, but if this changes, we will need to
+ * implement each axis as a separate class.
+ *
+ */
+
 
 #ifndef RENNSMOTORSPORT_ACCELEROMETER_H
 #define RENNSMOTORSPORT_ACCELEROMETER_H
@@ -8,48 +25,29 @@
 #include "../AnalogSensor.h"
 #include <vector>
 
-//TODO: make this 3 classes because each outputs a different value
-
-class Accelerometer : public AnalogSensor<std::vector<float>>{
+class Accelerometer : public AnalogSensor<float>{
 public:
     //Constructors
-    Accelerometer() : AnalogSensor<std::vector<float>>("Accelerometer",
-        DataLogger<std::vector<float>>(), -1, -1)
+    Accelerometer() : AnalogSensor<float>("Accelerometer",
+        DataLogger<float>(), -1, -1)
         { x = -1; y = -1; z = -1; }
     Accelerometer(int channel, int hZ) :
-        AnalogSensor<std::vector<float>>("Accelerometer",
-        DataLogger<std::vector<float>>(), channel, hZ)
-        { x = -1; y = -1; z = -1; }
+        AnalogSensor<float>("Accelerometer",
+        DataLogger<float>(), channel, hZ)
+        { value = -1; }
 
     //Member Functions
-    float get_x(){ return x; }
-    float get_y(){ return y; }
-    float get_z(){ return z; }
+    float get_value(){ return value; }
 
-    void update(std::vector<float> var) override;
+    void update(UDOUBLE var) override;
 
 private:
     //Member Variables
-    float x;
-    float y;
-    float z;
+    float value;
 
     //Helper functions:
 
-    //These take the raw signal and return the actual value:
-    //To be implemented later
-    float transfer_function_x(float rawVal);
-    float transfer_function_y(float rawVal);
-    float transfer_function_z(float rawVal); //TODO: these all need to be properly implemented
+    float transfer_function(UDOUBLE rawVal);
 };
-
-// Overloading << operator for std::vector<double>
-inline std::ostream& operator<<(std::ostream& os, const std::vector<float>& vec) {
-    for (size_t i = 0; i < vec.size(); ++i) {
-        os << vec[i];
-        if (i != vec.size() - 1) os << ", ";
-    }
-    return os;
-}
 
 #endif //RENNSMOTORSPORT_ACCELEROMETER_H

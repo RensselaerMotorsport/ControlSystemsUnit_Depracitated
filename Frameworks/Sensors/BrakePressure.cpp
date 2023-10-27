@@ -18,8 +18,8 @@ const float kLowOutputSaturation = 0.35;  // Output saturation for undersupplied
 const float kHighOutputSaturation = 4.65; // Output saturation for oversupplied sensor*
 // *These are very conservative saturation values; if we expect to regularly approach these, more thought needs to be put into these
 
-float BrakePressure::transfer_function(float rawVal)
-{
+float BrakePressure::transfer_function(UDOUBLE rawVal)
+{ //TODO: this will need to be fixed to work with UDOUBLEs
     if (rawVal < kLowOutputSaturation)
     {
         std::cerr << "BrakePressure::transfer_function rawVal is too low" << std::endl;
@@ -37,7 +37,7 @@ float BrakePressure::transfer_function(float rawVal)
 }
 float BrakePressure::get_pressure() { return pressure; }
 
-void BrakePressure::update(float var)
+void BrakePressure::update(UDOUBLE var)
 {
     highResTime callTime = std::chrono::system_clock::now();
     this->pressure = transfer_function(var);

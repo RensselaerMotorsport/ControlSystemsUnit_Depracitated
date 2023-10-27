@@ -20,7 +20,8 @@ float ShockPot::get_acceleration(){
     return acceleration(points);
 }
 
-float ShockPot::transfer_function(float rawVal) {
+float ShockPot::transfer_function(UDOUBLE rawVal) {
+    //TODO: this will need to be updated to work with UDOUBLEs
     if (rawVal < 15) {
         return -1;
         std::cerr << "ShockPot::transfer_function rawValue is too low" << std::endl;
@@ -31,7 +32,7 @@ float ShockPot::transfer_function(float rawVal) {
     return 2.71965*(pow(rawVal,0.837683)) - 16.2622;
 }
 
-void ShockPot::update(float var) {
+void ShockPot::update(UDOUBLE var) {
     highResTime callTime = std::chrono::system_clock::now();
     this->distance = transfer_function(var);
     this->dataLog.addValue(callTime, this->distance);

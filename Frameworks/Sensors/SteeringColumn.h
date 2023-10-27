@@ -13,11 +13,13 @@ public:
 
     float get_rotation_angle() { return rotation_angle; }
 
+    void update(UDOUBLE var) override;
+
 private:
     float rotation_angle;
     float zero_offset;
 
-    float transfer_function(float rawVal);
+    float transfer_function(UDOUBLE rawVal);
 };
 
 

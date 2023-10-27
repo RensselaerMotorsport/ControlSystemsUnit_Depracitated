@@ -5,7 +5,7 @@
 #ifndef CONTROLSYSTEMSUNIT_SHOCKPOT_H
 #define CONTROLSYSTEMSUNIT_SHOCKPOT_H
 
-#include "WheelSpeed.h"
+#include "WheelFlux.h"
 
 class ShockPot : public AnalogSensor<float>{
 public:
@@ -17,7 +17,7 @@ public:
     float get_acceleration();
     WHEEL_LOCATION get_wheel_location(){ return shock_location; }
 
-    void update(float var) override;
+    void update(UDOUBLE var) override;
 
 private:
     //variables
@@ -26,7 +26,7 @@ private:
 
 
     //functions:
-    float transfer_function(float rawVal);
+    float transfer_function(UDOUBLE rawVal);
 };
 
 
