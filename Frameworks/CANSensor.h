@@ -6,17 +6,16 @@
 #define RENNSMOTORSPORT_CANSENSOR_H
 #include "Sensor.h"
 
-template<typename T>
-class CANSensor : private Sensor<T> {
+template<typename T, typename U>
+class CANSensor : public Sensor<T, U> {
 public:
-    CANSensor()  : Sensor<T>() { frequency = -1; id = -1; }
-    CANSensor(std::string name, DataLogger<T> log, int p, int f, int i): Sensor<T>(name, log, p) { frequency = f; id = i; }
+    CANSensor()  : Sensor<T, U>() { id = -1; }
+    CANSensor(std::string name, DataLogger<T> log, int hZ, int i): Sensor<T, U>(name, log, hZ) { id = i; }
 
     //Getters:
-    int getFrequency() { return frequency; }
     int getID() { return id; }
+    auto getData() -> U override;
 protected:
-    int frequency;
     int id;
 };
 

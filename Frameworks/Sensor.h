@@ -30,23 +30,25 @@
 #include "DataLogger.h"
 #include "IO.h"
 
-template<typename T>
+template<typename T,  //The output typename
+         typename I> //The input typename
 class Sensor: public IO {
 public:
-    Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); port = 0; }
-    Sensor(std::string name, DataLogger<T> log, int p): IO() { sensorName = name; dataLog = log; port = p; }
+    Sensor(): IO() { sensorName = "UNNAMED"; dataLog = DataLogger<T>(); }
+    Sensor(std::string name): IO() { sensorName = name; dataLog = DataLogger<T>(); }
+    Sensor(std::string name, DataLogger<T> log, int h): IO() { sensorName = name; dataLog = log;  hz = h; }
     /*
     //clears stored data
     void clear();
     */
 
    const DataLogger<T>& getDataLog() const { return dataLog; }
-   std::string getSensorName() { return sensorName; }
+   const std::string getSensorName() { return sensorName; }
+   const int getHZ() const { return hz; }
+   virtual auto getData() -> I;
 
    //Setter
-   // TODO: Make pure virtual
-   virtual void update(T var) {} //This will be implemented in each individual sensor
+   virtual void update(I var) {} //This will be implemented in each individual sensor
 
    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
                                               //Implemented by each sensor
@@ -59,7 +61,7 @@ protected: //This is protected instead of private so that subclasses can access 
     //Contains name of the input sensor
     std::string sensorName;
 
-    int port;
+    int hz;
 };
 
 inline float timeToFloat(highResTime){

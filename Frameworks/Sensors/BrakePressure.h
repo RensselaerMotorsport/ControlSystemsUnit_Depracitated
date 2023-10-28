@@ -18,16 +18,15 @@
 class BrakePressure : public AnalogSensor<float>{
 public:
 
-    BrakePressure() : AnalogSensor<float>() { pressure = -1; }
-    BrakePressure(int port, int channel, int hZ) :
-        AnalogSensor<float>("BrakePressure", DataLogger<float>(), port, channel, hZ) {
+    BrakePressure(int channel, int hZ) :
+        AnalogSensor<float>("BrakePressure", DataLogger<float>(), channel, hZ) {
         pressure = -1;
     }
 
-    float transfer_function(float rawVal);
+    float transfer_function(UDOUBLE rawVal);
     float get_pressure();
 
-    void update(float var) override;
+    void update(UDOUBLE var) override;
 
 private:
 

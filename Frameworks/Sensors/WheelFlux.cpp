@@ -9,14 +9,14 @@
  *                                          |_|
  */
 
-#include "WheelSpeed.h"
+#include "WheelFlux.h"
 
-float WheelSpeed::transfer_function(float rawVal) {
+float WheelFlux::transfer_function(UDOUBLE rawVal) {
     return rawVal; //TODO: implement
 }
 
-void WheelSpeed::update(float var) {
+void WheelFlux::update(UDOUBLE var) {
     highResTime callTime = std::chrono::system_clock::now();
-    // this->speed = transfer_function(var);
-    // this->dataLog.addValue(callTime, this->speed);
+    this->flux = transfer_function(var);
+    this->dataLog.addValue(callTime, this->flux);
 }
