@@ -11,9 +11,9 @@
 class Accelerometer : public AnalogSensor<std::vector<float>>{
 public:
     //Constructors
-    Accelerometer() : AnalogSensor<std::vector<float>>("Accelerometer",
-        DataLogger<std::vector<float>>(), -1, -1)
-        { x = -1; y = -1; z = -1; }
+    Accelerometer() : AnalogSensor<float>("Accelerometer",
+        DataLogger<float>(), -1, -1)
+        { value = -1; }
     Accelerometer(int channel, int hZ) :
         AnalogSensor<std::vector<float>>("Accelerometer",
         DataLogger<std::vector<float>>(), channel, hZ)

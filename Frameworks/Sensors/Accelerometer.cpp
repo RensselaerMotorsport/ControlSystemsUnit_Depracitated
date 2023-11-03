@@ -17,7 +17,12 @@
         return rawVal;
     }
 
-void Accelerometer::update(std::vector<float> var) {
+
+float Accelerometer::transfer_function(UDOUBLE rawVal){
+    return (rawVal - kOffsetVolts) / kVoltsPerG;
+}
+
+void Accelerometer::update(UDOUBLE var) {
     highResTime callTime = std::chrono::system_clock::now();
     this->x = transfer_function_x(var[0]);
     this->y = transfer_function_y(var[1]);

@@ -66,8 +66,8 @@ private:
         scheduler.registerSensor(id++, shockPot); // Theres gonna be 4 of these
         Temperature temperature(0, 10);
         scheduler.registerSensor(id++, temperature); // Might not be 10 HZ
-        WheelSpeed wheelSpeed(0, 200, 3.4f, front_left);
-        scheduler.registerSensor(id++, wheelSpeed); // 4 here too
+        WheelFlux wheelFlux(0, 200, 3.4f, front_left);
+        scheduler.registerSensor(id++, wheelFlux); // 4 here too
         Imd imd(500, 0); // Id 0
         scheduler.registerSensor(id++, imd);
 

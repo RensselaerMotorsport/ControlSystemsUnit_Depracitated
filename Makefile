@@ -11,11 +11,11 @@ SOURCES = Frameworks/Sensor.cpp \
           Frameworks/Sensors/BrakePressure.cpp \
           Frameworks/Sensors/ShockPot.cpp \
           Frameworks/Sensors/Temperature.cpp \
-          Frameworks/Sensors/WheelSpeed.cpp \
+          Frameworks/Sensors/WheelFlux.cpp \
           Frameworks/Sensors/Imd.cpp \
           Frameworks/Scheduler.cpp \
           Tests/SchedulerTest.cpp \
-          Frameworks/ThreadPool.cpp
+          Frameworks/ThreadPool.cpp \
 
 # Output binary
 OUTPUT = SchedulerTest.out
@@ -25,7 +25,7 @@ all: $(SOURCES) waveshare
 	$(CXX) $(SOURCES) -o $(OUTPUT) $(CXXFLAGS)
 
 waveshare:
-	make -C High-Pricision_AD_HAT/c
+	make -C High-Pricision_AD_HAT/c JETSON
 
 # Clean rule
 clean:

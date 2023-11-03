@@ -5,6 +5,9 @@
 #ifndef RENNSMOTORSPORT_ANALOGSENSOR_H
 #define RENNSMOTORSPORT_ANALOGSENSOR_H
 #include "Sensor.h"
+extern "C" {
+#include "../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
+}
 
 template<typename T>
 class AnalogSensor: public Sensor<T> {
@@ -17,7 +20,7 @@ public:
     int getChannel() { return channel; }
     auto getData() -> T override;
 protected:
-    int channel;
+    UBYTE channel;
 };
 
 

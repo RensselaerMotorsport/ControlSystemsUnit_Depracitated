@@ -67,8 +67,8 @@ public:
 
     void execute(highResTime startTime, highResTime enqueueTime) override {
         // Read data from sensor and update the sensor's data log
-        T sensorData = sensor->getData();
-        std::cout << sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
+        I sensorData = sensor->getData();
+        // std::cout << sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
         sensor->update(sensorData);
 
         auto delay = startTime - enqueueTime;
