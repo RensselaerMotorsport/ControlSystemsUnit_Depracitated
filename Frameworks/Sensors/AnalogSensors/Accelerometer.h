@@ -30,7 +30,7 @@ public:
     //Constructors
     Accelerometer() : AnalogSensor<float>("Accelerometer",
         DataLogger<float>(), -1, -1)
-        { x = -1; y = -1; z = -1; }
+        { value = -1; }
     Accelerometer(int channel, int hZ) :
         AnalogSensor<float>("Accelerometer",
         DataLogger<float>(), channel, hZ)
