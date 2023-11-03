@@ -3,7 +3,7 @@
 //
 
 #include "ShockPot.h"
-#include "../AccelCalc.cpp"
+#include "AccelCalc.cpp"
 
 float ShockPot::get_acceleration(){
     std::map<highResTime, float>::const_iterator it = dataLog.getEnd();

@@ -5,8 +5,8 @@
 
 #include <iostream>
 #include <random>
-#include "../Frameworks/Sensors/ShockPot.h"
-#include "../Frameworks/Sensors/ShockPot.cpp"
+#include "../Frameworks/Sensors/AnalogSensors/ShockPot.h"
+#include "../Frameworks/Sensors/AnalogSensors/ShockPot.cpp"
 
 class ShockPotTest{
 public:

@@ -5,7 +5,7 @@
 #ifndef RENNSMOTORSPORT_ANALOGSENSOR_H
 #define RENNSMOTORSPORT_ANALOGSENSOR_H
 #include "Sensor.h"
-#include "../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
+#include "../../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
 
 // Maybe UDOUBLE maybe template, TODO: ask amar
 template<typename T>

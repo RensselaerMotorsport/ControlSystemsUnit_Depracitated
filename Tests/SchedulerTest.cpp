@@ -1,16 +1,16 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "../Frameworks/Scheduler.h"
+#include "../Frameworks/Sheduler/Scheduler.h"
 
 // Sensors
-#include "../Frameworks/Sensors/Accelerometer.h"
-#include "../Frameworks/Sensors/BrakePressure.h"
-#include "../Frameworks/Sensors/GPS.h"
-#include "../Frameworks/Sensors/ShockPot.h"
-#include "../Frameworks/Sensors/Temperature.h"
-#include "../Frameworks/Sensors/WheelFlux.h"
-#include "../Frameworks/Sensors/Imd.h"
+#include "../Frameworks/Sensors/AnalogSensors/Accelerometer.h"
+#include "../Frameworks/Sensors/AnalogSensors/BrakePressure.h"
+#include "../Frameworks/Sensors/DigitalSensors/GPS.h"
+#include "../Frameworks/Sensors/AnalogSensors/ShockPot.h"
+#include "../Frameworks/Sensors/AnalogSensors/Temperature.h"
+#include "../Frameworks/Sensors/AnalogSensors/WheelFlux.h"
+#include "../Frameworks/Sensors/CANSensors/Imd.h"
 
 class SchedulerTest {
 public:

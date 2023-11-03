@@ -24,7 +24,7 @@
 
 #ifndef CONTROLSYSTEMSUNIT_TEMPERATURE_H
 #define CONTROLSYSTEMSUNIT_TEMPERATURE_H
-#include "../../Frameworks/AnalogSensor.h"
+#include "../AnalogSensor.h"
 
 class Temperature : public AnalogSensor<float> {
 public:

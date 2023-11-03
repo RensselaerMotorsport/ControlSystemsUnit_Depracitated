@@ -16,9 +16,9 @@
 
 #include <cstring>
 #include <iostream>
-#include "../Frameworks/DataLogger.h"
+#include "../Frameworks/Sensors/DataLogger.h"
 #include "DataLoggerTest.cpp"
-#include "../Frameworks/Sensors/Temperature.h"
+#include "../Frameworks/Sensors/AnalogSensors/Temperature.h"
 #include "TemperatureTest.cpp"
 #include "MotorControllerTest.cpp"
 #include "SensorTest.cpp"

@@ -19,7 +19,7 @@
  *
  */
 #include <iostream>
-#include "../Frameworks/MotorController.cpp"
+#include "../Frameworks/Sensors/AnalogSensors/MotorController.cpp"
 
 class MotorControllerTest{
 public:

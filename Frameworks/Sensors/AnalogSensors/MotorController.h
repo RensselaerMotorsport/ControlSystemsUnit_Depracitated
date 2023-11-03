@@ -24,7 +24,7 @@
 #ifndef CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 #define CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 
-#include "Sensors/Temperature.h"
+#include "Temperature.h"
 
 class MotorController {
 public:

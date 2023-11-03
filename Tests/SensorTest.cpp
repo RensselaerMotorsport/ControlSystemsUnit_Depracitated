@@ -19,7 +19,7 @@
  */
 
 #include <iostream>
-#include "../Frameworks/Sensor.h"
+#include "../Frameworks/Sensors/Sensor.h"
 
 class SensorTest{
 public:

@@ -41,9 +41,9 @@
 #include <iostream>
 #include <queue>
 #include <memory>
-#include "Sensor.h"
-#include "AnalogSensor.h"
-#include "DataLogger.h" // For highResTime
+#include "../Sensors/Sensor.h"
+#include "../Sensors/AnalogSensor.h"
+#include "../Sensors/DataLogger.h" // For highResTime
 
 class TaskBase {
 public:

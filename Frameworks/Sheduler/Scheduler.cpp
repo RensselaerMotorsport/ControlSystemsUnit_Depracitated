@@ -1,7 +1,7 @@
 #include "Scheduler.h"
 #include <thread> // For Sleep
 #include "ThreadPool.h" // Complile with -lpthread
-#include "../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
+#include "../../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
 
 void Scheduler::run() {
     if (tasks.empty()) return;

@@ -23,7 +23,7 @@
 #include <iostream>
 #include <ctime>
 #include <unistd.h>
-#include "../Frameworks/DataLogger.cpp"
+#include "../Frameworks/Sensors/DataLogger.cpp"
 
 class DataLoggerTest{
 
