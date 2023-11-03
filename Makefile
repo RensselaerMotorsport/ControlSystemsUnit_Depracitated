@@ -5,8 +5,8 @@ CXX = g++
 CXXFLAGS = -g -O0 -lpthread -lm -IIncludes
 
 # Source files
-SOURCES = Frameworks/Sensor.cpp \
-          Frameworks/DataLogger.cpp \
+SOURCES = Frameworks/Sensors/Sensor.cpp \
+          Frameworks/Sensors/DataLogger.cpp \
           Frameworks/Sensors/AnalogSensors/Accelerometer.cpp \
           Frameworks/Sensors/AnalogSensors/BrakePressure.cpp \
           Frameworks/Sensors/AnalogSensors/ShockPot.cpp \
@@ -20,9 +20,12 @@ SOURCES = Frameworks/Sensor.cpp \
 # Output binary
 OUTPUT = SchedulerTest.out
 
+# Find all the C object files
+C_OBJECTS = $(wildcard $(High-Pricision_AD_HAT/c/bin)/*.o)
+
 # Build rule
 all: $(SOURCES) waveshare
-	$(CXX) $(SOURCES) -o $(OUTPUT) $(CXXFLAGS)
+	$(CXX) $(SOURCES) $(C_OBJECTS) -o $(OUTPUT) $(CXXFLAGS)
 
 waveshare:
 	make -C High-Pricision_AD_HAT/c

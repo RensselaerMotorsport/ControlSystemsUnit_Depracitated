@@ -12,7 +12,7 @@
 
 class WheelSpeed {
 public:
-    WheelSpped(WheelFlux f){ flux = f; speedLog = DataLogger<float>(); }
+    WheelSpeed(WheelFlux f) : flux(f), speedLog(DataLogger<float>()) {}
 
 private:
     float translate_flux_to_speed();

@@ -18,7 +18,7 @@
 const float kOffsetVolts = 2.5; // 2.5 V at 0 g
 const float kVoltsPerG = 0.440; // 440 mV/g
 
-float Accelerometer::transfer_function(float rawVal){
+float Accelerometer::transfer_function(UDOUBLE rawVal){
     return (rawVal - kOffsetVolts) / kVoltsPerG;
 }
 
