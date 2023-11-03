@@ -14,9 +14,9 @@ public:
             : CANSensor<std::vector<bool>, std::vector<float>>("Imd", DataLogger<std::vector<bool>>(), hz, id)
     { imd_status = false; running_flag = false; }
 
-    int get_status() { return imd_status; }
-    int get_running_flag() { return running_flag; }
-    int reset_running_flag() { running_flag = true; } //TODO: ask ammar if reset means true or false
+    bool get_status() { return imd_status; }
+    bool get_running_flag() { return running_flag; }
+    void reset_running_flag() { running_flag = true; } //TODO: ask ammar if reset means true or false
 
     void update(std::vector<float> var) override;
 

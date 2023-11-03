@@ -13,10 +13,9 @@
  * ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
  */
 #include "MotorController.h"
-#include "Temperature.h"
 
 float MotorController::getSensorValue(){
-    //function not implemented properly
+    //TODO: function not implemented properly
     /*plans??
      *  call function to get sensor value
      *  translate it??
@@ -26,12 +25,7 @@ float MotorController::getSensorValue(){
     return torque;
 }
 
-MotorController::MotorController(float to, float te){
-    torque = to;
-    temp = 0.0;
-}
-
-MotorController::MotorController() {
-    torque = 0.0;
-    temp = 0.0;
+MotorController::MotorController(Esc* e, App* a){
+    esc = e;
+    app = a;
 }

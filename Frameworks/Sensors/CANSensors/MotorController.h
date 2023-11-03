@@ -24,23 +24,24 @@
 #ifndef CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 #define CONTROLSYSTEMSUNIT_MOTORCONTROLLER_H
 
-#include "Temperature.h"
+#include "../AnalogSensors/App.h"
+#include "Esc.h"
+
+enum SYSTEM_STATE{ off , charging , chargedDisabled , chargedEnabled };
+enum MOTOR_STATE{ forward , reverse , disabled };
 
 class MotorController {
 public:
-    MotorController(float to, float te);
-
-    MotorController();
+    MotorController(Esc* e, App* a);
 
     float getSensorValue();
     float getMotorTemp();
 private:
-    //Member Variables:
-    //Motor torque in N/m
-    float torque;
+    Esc* esc;
+    App* app;
 
-    //Motor Temperature stored in Celsius
-    float temp;
+    SYSTEM_STATE system_state = off;
+    MOTOR_STATE motor_state = disabled;
 };
 
 
