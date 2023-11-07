@@ -1,6 +1,15 @@
-//
-// Created by harshk on 11/3/2023.
-//
+/*
+ *  ______  _____  _____
+ * |  ____|/ ____|/ ____|
+ * | |__  | (___ | |
+ * |  __|  \___ \| |
+ * | |____ ____) | |____
+ * |______|_____/ \_____|
+ *
+ * Electronic Speed Controller
+ * Measures motor revolutions and temperature
+ * Also controls the motor speed
+ */
 
 #ifndef CONTROLSYSTEMSUNIT_ESC_H
 #define CONTROLSYSTEMSUNIT_ESC_H

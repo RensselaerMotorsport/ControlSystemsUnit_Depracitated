@@ -1,8 +1,17 @@
-//
-// Created by harshk on 7/25/2023.
-//
+/*
+ *                       _  _____      _
+ *     /\               | |/ ____|    | |
+ *    /  \   ___ ___ ___| | |     __ _| | ___
+ *   / /\ \ / __/ __/ _ \ | |    / _` | |/ __|
+ *  / ____ \ (_| (_|  __/ | |___| (_| | | (__
+ * /_/    \_\___\___\___|_|\_____\__,_|_|\___|
+ *
+ * This file is used for approximating the second derivative of position values
+ */
 #include <vector>
 #include <cmath>
+
+
 
 //The vector should be of the form <least_recent_value, less_recent_value, most_recent_value, time_diff>
 

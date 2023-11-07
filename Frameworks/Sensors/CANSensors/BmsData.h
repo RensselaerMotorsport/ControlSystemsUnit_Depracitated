@@ -1,6 +1,7 @@
-//
-// Created by harshk on 10/13/2023.
-//
+/*
+ *
+ * Stores the collection of values output by the BMS
+ */
 
 #ifndef CONTROLSYSTEMSUNIT_BMSDATA_H
 #define CONTROLSYSTEMSUNIT_BMSDATA_H

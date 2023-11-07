@@ -1,8 +1,15 @@
 /*
- *
- *
+ *  __          ___               _    _____                     _
+ *  \ \        / / |             | |  / ____|                   | |
+ *   \ \  /\  / /| |__   ___  ___| | | (___  _ __   ___  ___  __| |
+ *    \ \/  \/ / | '_ \ / _ \/ _ \ |  \___ \| '_ \ / _ \/ _ \/ _` |
+ *     \  /\  /  | | | |  __/  __/ |  ____) | |_) |  __/  __/ (_| |
+ *      \/  \/   |_| |_|\___|\___|_| |_____/| .__/ \___|\___|\__,_|
+ *                                          | |
+ *                                          |_|
  *
  * Wrapper class for WheelFlux
+ * Calculates wheel speed based on number of times a hole was seen (boolean true) per second
  */
 
 #ifndef CONTROLSYSTEMSUNIT_WHEELSPEED_H

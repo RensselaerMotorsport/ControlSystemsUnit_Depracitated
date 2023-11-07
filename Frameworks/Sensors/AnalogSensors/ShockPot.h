@@ -1,6 +1,14 @@
-//
-// Created by harshk on 7/21/2023.
-//
+/*
+ *   _____ _                _    _____      _
+ *  / ____| |              | |  |  __ \    | |
+ * | (___ | |__   ___   ___| | _| |__) |__ | |_
+ *  \___ \| '_ \ / _ \ / __| |/ /  ___/ _ \| __|
+ *  ____) | | | | (_) | (__|   <| |  | (_) | |_
+ * |_____/|_| |_|\___/ \___|_|\_\_|   \___/ \__|
+ *
+ * Measures the position of the shock on a given wheel
+ * Acceleration can be estimated by using the previous 3 position values (function in AccelCalc.cpp)
+ */
 
 #ifndef CONTROLSYSTEMSUNIT_SHOCKPOT_H
 #define CONTROLSYSTEMSUNIT_SHOCKPOT_H

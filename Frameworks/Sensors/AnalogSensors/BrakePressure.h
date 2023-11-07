@@ -7,7 +7,7 @@
  *  | |_) | | | (_| |   <  __/ | |   | | |  __/\__ \__ \ |_| | | |  __/
  *  |____/|_|  \__,_|_|\_\___| |_|   |_|  \___||___/___/\__,_|_|  \___|
  *
- *
+ * The pressure on the breaks.
  */
 
 #ifndef RENNSMOTORSPORT_BRAKEPRESSURE_H

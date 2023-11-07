@@ -1,6 +1,14 @@
-//
-// Created by harshk on 9/29/2023.
-//
+/*
+ *  _____ __  __ _____
+ * |_   _|  \/  |  __ \
+ *   | | | \  / | |  | |
+ *   | | | |\/| | |  | |
+ *  _| |_| |  | | |__| |
+ * |_____|_|  |_|_____/
+ *
+ * Ignition Monitor Detector
+ * Monitors whether the car is an electric chair
+ */
 
 #ifndef CONTROLSYSTEMSUNIT_IMD_H
 #define CONTROLSYSTEMSUNIT_IMD_H

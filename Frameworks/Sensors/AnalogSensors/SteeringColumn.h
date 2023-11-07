@@ -1,6 +1,15 @@
-//
-// Created by harshk on 9/29/2023.
-//
+/*
+ *   _____ _                 _              _____      _
+ *  / ____| |               (_)            / ____|    | |
+ * | (___ | |_ ___  ___ _ __ _ _ __   __ _| |     ___ | |_   _ _ __ ___  _ __
+ *  \___ \| __/ _ \/ _ \ '__| | '_ \ / _` | |    / _ \| | | | | '_ ` _ \| '_ \
+ *  ____) | ||  __/  __/ |  | | | | | (_| | |___| (_) | | |_| | | | | | | | | |
+ * |_____/ \__\___|\___|_|  |_|_| |_|\__, |\_____\___/|_|\__,_|_| |_| |_|_| |_|
+ *                                    __/ |
+ *                                   |___/
+ *
+ * Measures the rotation angle of the steering wheel.
+ */
 
 #ifndef CONTROLSYSTEMSUNIT_STEERINGCOLUMN_H
 #define CONTROLSYSTEMSUNIT_STEERINGCOLUMN_H

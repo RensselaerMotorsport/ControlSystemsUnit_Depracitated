@@ -1,6 +1,13 @@
-//
-// Created by harshk on 10/13/2023.
-//
+/*
+ *  ____  __  __  _____
+ * |  _ \|  \/  |/ ____|
+ * | |_) | \  / | (___
+ * |  _ <| |\/| |\___ \
+ * | |_) | |  | |____) |
+ * |____/|_|  |_|_____/
+ *
+ * Batter Management System
+ */
 
 #ifndef CONTROLSYSTEMSUNIT_BMS_H
 #define CONTROLSYSTEMSUNIT_BMS_H
