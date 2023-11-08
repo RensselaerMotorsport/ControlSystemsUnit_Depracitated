@@ -14,17 +14,17 @@
 #include "Sensor.h"
 #include <fstream>
 
-template <typename T,
-          typename I>
-void Sensor<T, I>::writeDataToFile(std::string filename){
-    std::ofstream file;
-    file.open(filename);
-    typename std::map<highResTime, T>::const_iterator it;
-    typename std::map<highResTime, T>::const_iterator endIt = dataLog.end();
+// template <typename T,
+//           typename I>
+// void Sensor<T, I>::writeDataToFile(std::string filename){
+//     std::ofstream file;
+//     file.open(filename);
+//     typename std::map<highResTime, T>::const_iterator it;
+//     typename std::map<highResTime, T>::const_iterator endIt = dataLog.end();
 
-    for (it = dataLog.begin(); it != endIt; ++it){
-        file << it->first << "," << it->second << "\n";
-    }
+//     for (it = dataLog.begin(); it != endIt; ++it){
+//         file << it->first << "," << it->second << "\n";
+//     }
 
-    file.close();
-}
+//     file.close();
+// }

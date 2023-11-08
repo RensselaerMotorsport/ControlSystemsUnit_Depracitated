@@ -19,5 +19,9 @@ protected:
     int id;
 };
 
+template<typename T, typename U>
+auto CANSensor<T, U>::getData() -> U {
+    return U();
+}
 
 #endif //RENNSMOTORSPORT_CANSENSOR_H

@@ -27,6 +27,7 @@
 #ifndef RENNSMOTORSPORT_SENSOR_H
 #define RENNSMOTORSPORT_SENSOR_H
 #include <string>
+#include <fstream>
 #include "DataLogger.h"
 #include "IO.h"
 
@@ -45,7 +46,7 @@ public:
    const DataLogger<T>& getDataLog() const { return dataLog; }
    const std::string getSensorName() { return sensorName; }
    const int getHZ() const { return hz; }
-   virtual auto getData() -> I;
+   virtual I getData() { return I(); }
 
    //Setter
    virtual void update(I var) {} //This will be implemented in each individual sensor
@@ -66,6 +67,21 @@ protected: //This is protected instead of private so that subclasses can access 
 
 inline float timeToFloat(highResTime){
     return 1.0;
+}
+
+template <typename T, typename I>
+void Sensor<T, I>::writeDataToFile(std::string filename){
+    std::ofstream file;
+    file.open(filename);
+    typename std::map<highResTime, T>::const_iterator it;
+    typename std::map<highResTime, T>::const_iterator endIt = dataLog.getEnd();
+
+    for (it = dataLog.getStart(); it != endIt; ++it){
+        //TODO: Fix This
+        //file << it->first << "," << it->second << "\n";
+    }
+
+    file.close();
 }
 
 #endif //RENNSMOTORSPORT_SENSOR_H

@@ -29,8 +29,8 @@ public:
     void update(std::vector<float> var) override;
 
 private:
-    bool imd_status_transfer_function(float x);
-    bool running_flag_transfer_function(float x);
+    bool imd_status_transfer_function(float x); // TODO: Implement
+    bool running_flag_transfer_function(float x); // TODO: Implement
 
     bool imd_status;
     bool running_flag;

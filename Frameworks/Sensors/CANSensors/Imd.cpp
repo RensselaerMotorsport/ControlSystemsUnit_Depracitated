@@ -13,3 +13,11 @@ void Imd::update(std::vector<float> var) {
     vec[1] = this->running_flag;
     this->dataLog.addValue(callTime, vec);
 }
+
+bool Imd::imd_status_transfer_function(float x) {
+    return x > 0.5; // TODO: Implement
+}
+
+bool Imd::running_flag_transfer_function(float x) {
+    return x > 0.5; // TODO: Implement
+}

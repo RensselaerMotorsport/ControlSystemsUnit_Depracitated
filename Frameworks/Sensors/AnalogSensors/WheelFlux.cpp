@@ -12,7 +12,7 @@
 #include "WheelFlux.h"
 
 float WheelFlux::transfer_function(UDOUBLE rawVal) {
-    return rawVal; //TODO: implement
+    return 0.0f; //TODO: implement
 }
 
 void WheelFlux::update(UDOUBLE var) {

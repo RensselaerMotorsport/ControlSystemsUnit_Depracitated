@@ -20,7 +20,7 @@ public:
     //Getters:
     int getChannel() { return channel; }
     auto getData() -> UDOUBLE override {
-        UDOUBLE data = ADS1263_GetChannalValue(channel);
+        UDOUBLE data = 1;//ADS1263_GetChannalValue(channel);
         return data;
     }
 protected:

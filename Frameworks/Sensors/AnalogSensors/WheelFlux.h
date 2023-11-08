@@ -17,11 +17,12 @@
 
 enum WHEEL_LOCATION{ front_left, front_right, back_left, back_right };
 
-class WheelFlux : public AnalogSensor<float>{
+class WheelFlux : public AnalogSensor<float> {
 public:
     /*Constructors:*/
     WheelFlux(int channel, int hZ, float r, WHEEL_LOCATION w) :
-        AnalogSensor<float>("WheelFlux", DataLogger<float>(), channel, hZ) {
+        AnalogSensor<float>("WheelFlux", DataLogger<float>(), channel, hZ)
+    {
         flux = -1;
         radius = r;
         wheel_location = w;

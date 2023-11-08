@@ -28,6 +28,9 @@ void Temperature::update(UDOUBLE var) {
     this->dataLog.addValue(callTime, this->temp);
 }
 
+float Temperature::transfer_function(UDOUBLE rawVal) {
+    return 0.0; // TODO: Implement
+}
 
 
 
