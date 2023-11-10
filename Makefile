@@ -15,7 +15,8 @@ SOURCES = Frameworks/Sensors/Sensor.cpp \
           Frameworks/Sensors/CANSensors/Imd.cpp \
           Frameworks/Scheduler/Scheduler.cpp \
           Tests/SchedulerTest.cpp \
-          Frameworks/Scheduler/ThreadPool.cpp
+          Frameworks/Scheduler/ThreadPool.cpp \
+          Frameworks/Scheduler/SensorADC.cpp \
 
 # Output binary
 OUTPUT = SchedulerTest.out
