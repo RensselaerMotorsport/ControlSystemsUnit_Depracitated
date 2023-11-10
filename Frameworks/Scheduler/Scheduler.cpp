@@ -1,8 +1,51 @@
 #include "Scheduler.h"
 #include <thread> // For Sleep
+#include <signal.h> // signal()
 #include "ThreadPool.h" // Complile with -lpthread
 extern "C" {
 #include "../../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
+}
+
+// From SensorADC.c - by James Lev
+void Handler(int signo)
+{
+    //System Exit
+    printf("\r\n END \r\n");
+    DEV_Module_Exit();
+    exit(0);
+}
+
+//Start up the ADC
+void InitADC()
+{
+    // Exception handling:ctrl + c
+    signal(SIGINT, Handler);
+
+    printf("Initializing ADS1263... \r\n");
+    //sets up Jetson Nano GPIO
+    DEV_Module_Init();
+
+    // 0 is singleChannel, 1 is diffChannel
+    ADS1263_SetMode(0);
+
+    // The faster the rate, the worse the stability
+    // and the need to choose a suitable digital filter(REG_MODE1)
+    //contains reset, check chip id, config
+
+    // Modification
+    // ADC 1 & 2 Initilization
+    try {
+        // Initializing ADC's in Samples Per Second (SPS)
+        if (ADS1263_init_ADC1(ADS1263_4800SPS) != 0)
+            throw "ADC1 Initialization failed.";
+        if (ADS1263_init_ADC2(ADS1263_ADC2_800SPS) != 0)
+            throw "ADC2 Initialization failed.";
+    } catch (const char* errorMsg) {
+        printf("\r\n END \r\n");
+        DEV_Module_Exit();
+        std::cerr << errorMsg << std::endl;
+        exit(0);
+    }
 }
 
 void Scheduler::run() {
@@ -13,17 +56,7 @@ void Scheduler::run() {
     ThreadPool pool(numThreads);
     std::mutex tasksMutex;
 
-    // ADC 1 & 2 Initilization
-    try {
-        // Initializing ADC's at 1200 Samples Per Secons (SPS)
-        if (ADS1263_init_ADC1(ADS1263_4800SPS) != 0)
-            throw "ADC1 Initialization failed.";
-        if (ADS1263_init_ADC2(ADS1263_ADC2_800SPS) != 0)
-            throw "ADC2 Initialization failed.";
-    } catch (const char* errorMsg) {
-        std::cerr << errorMsg << std::endl;
-        return;
-    }
+    InitADC();
 
     running = true;
     while (running) {

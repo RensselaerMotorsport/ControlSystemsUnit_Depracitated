@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "type_traits": "c"
-    },
-    "githubPullRequests.ignoredPullRequestBranches": [
-        "master"
-    ]
-}

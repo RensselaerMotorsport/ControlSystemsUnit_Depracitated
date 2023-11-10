@@ -185,4 +185,5 @@ uint8_t SYSFS_software_spi_transfer(uint8_t value)
 		}
 		return Read_data;
 	}
+    return 0; // Modification to get rid of warning
 }
