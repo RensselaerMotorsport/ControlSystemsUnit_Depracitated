@@ -29,6 +29,9 @@ public:
     void update(int var) override;
 
 private:
+
+    std::string toString(std::vector<float> v) override;
+
     float temp_transfer_function(int x);
     float motor_revolutions_transfer_function(int x);
 

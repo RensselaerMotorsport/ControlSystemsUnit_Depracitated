@@ -28,3 +28,15 @@ friend ostream& BmsData::operator<<(ostream& os, const BmsData& bd){
             << bd.criticalFaults;
     return os;
 }
+
+std::string BmsData::toString() {
+    return std::to_string(chargeCurrentLimit) + ","
+         + std::to_string(dischargeCurrentLimit) + ","
+         + std::to_string(temperature) + ","
+         + std::to_string(stateOfCharge) + ","
+         + std::to_string(cellResistance) + ","
+         + std::to_string(packResistance) + ","
+         + std::to_string(cellVoltage) + ","
+         + std::to_string(packVoltage) + ","
+         + std::to_string(criticalFaults);
+}

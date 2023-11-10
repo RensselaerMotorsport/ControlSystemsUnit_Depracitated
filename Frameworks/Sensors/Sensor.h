@@ -52,9 +52,11 @@ public:
    virtual void update(I var) {} //This will be implemented in each individual sensor
 
    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
-                                              //Implemented by each sensor
 
 protected: //This is protected instead of private so that subclasses can access these
+
+    virtual std::string toString(T v) { return "ThisHasNotYetBeenImplemented"; }
+
     //member variables:
     //New values should be stored in the dataLog when they are gotten
     DataLogger<T> dataLog;
@@ -77,8 +79,7 @@ void Sensor<T, I>::writeDataToFile(std::string filename){
     typename std::map<highResTime, T>::const_iterator endIt = dataLog.getEnd();
 
     for (it = dataLog.getStart(); it != endIt; ++it){
-        //TODO: Fix This
-        //file << it->first << "," << it->second << "\n";
+        file << it->first << "," << toString(it->second) << "\n";
     }
 
     file.close();

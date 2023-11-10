@@ -23,7 +23,6 @@ public:
         pressure = -1;
     }
 
-    float transfer_function(UDOUBLE rawVal);
     float get_pressure();
 
     void update(UDOUBLE var) override;
@@ -32,6 +31,8 @@ private:
 
     float pressure;
 
+    float transfer_function(UDOUBLE rawVal);
+    std::string toString(float v) override { return std::to_string(v); }
 };
 
 

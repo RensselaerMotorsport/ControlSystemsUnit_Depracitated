@@ -39,6 +39,7 @@ public:
 
 private:
     float transfer_function(UDOUBLE rawVal); //TODO: needs to be implemented
+    std::string toString(float v) override { return std::to_string(v); }
 
     //Member Variables:
     //Stored in Celsius:

@@ -20,3 +20,12 @@ float Esc::temp_transfer_function(int x){
 float Esc::motor_revolutions_transfer_function(int x){
     return x + 0.0
 }
+
+std::string Esc::toString(std::vector<float> v){
+    std::string os = "";
+    for (int i = 0; i < v.size(); ++i) {
+        os += v[i];
+        if (i != vec.size() - 1) os += ",";
+    }
+    return os;
+}

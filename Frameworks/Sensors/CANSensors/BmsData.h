@@ -23,6 +23,7 @@ public:
     bool getCriticalFaults() { return criticalFaults; }
 
     friend ostream& operator<<(ostream& os, const BmsData& bd);
+    std::string toString();
 private:
     float chargeCurrentLimit;
     float dischargeCurrentLimit;

@@ -16,7 +16,7 @@
 #include "../CANSensor.h"
 #include <vector>
 
-class Imd : public CANSensor<std::vector<bool>, std::vector<float>>{
+class Imd : public CANSensor<std::vector<bool>, float>{
 public:
     Imd(int hz, int id)
             : CANSensor<std::vector<bool>, std::vector<float>>("Imd", DataLogger<std::vector<bool>>(), hz, id)
@@ -26,9 +26,12 @@ public:
     bool get_running_flag() { return running_flag; }
     void reset_running_flag() { running_flag = true; } //TODO: ask ammar if reset means true or false
 
-    void update(std::vector<float> var) override;
+    void update(float var) override;
 
 private:
+
+    std::string toString(std::vector<bool> v) override;
+
     bool imd_status_transfer_function(float x); // TODO: Implement
     bool running_flag_transfer_function(float x); // TODO: Implement
 
@@ -46,7 +49,7 @@ inline std::ostream& operator<<(std::ostream& os, const std::vector<bool>& vec) 
         } else {
             os << 0;
         }
-        if (i != vec.size() - 1) os << ", ";
+        if (i != vec.size() - 1) os << ",";
     }
     return os;
 }

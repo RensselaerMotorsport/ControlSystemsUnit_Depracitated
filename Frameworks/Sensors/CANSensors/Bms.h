@@ -26,6 +26,9 @@ public:
     void update(std::vector<float> var) override;
 
 private:
+
+    std::string toString(BmsData v) override { return v.toString(); }
+
     //This is going to have to construct a new BmsData object using the non-default constructor.
     BmsData transfer_function(std::vector<float> rawVal);
 
