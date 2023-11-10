@@ -19,14 +19,16 @@ SOURCES = Frameworks/Sensors/Sensor.cpp \
 
 # Output binary
 OUTPUT = SchedulerTest.out
+C_OBJECTS = High-Pricision_AD_HAT/c/bin/*.o
 
 # Build rule
 all: $(SOURCES) waveshare
-	$(CXX) $(SOURCES) -o $(OUTPUT) $(CXXFLAGS)
+	$(CXX) $(SOURCES) $(C_OBJECTS) -o $(OUTPUT) $(CXXFLAGS) -lbcm2835
 
 waveshare:
-	make -C High-Pricision_AD_HAT/c
+	make -C High-Pricision_AD_HAT/c JETSON
 
 # Clean rule
 clean:
 	rm -f $(OUTPUT)
+	make -C High-Pricision_AD_HAT/c clean
