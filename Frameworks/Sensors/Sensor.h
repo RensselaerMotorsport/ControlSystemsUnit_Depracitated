@@ -79,7 +79,7 @@ void Sensor<T, I>::writeDataToFile(std::string filename){
     typename std::map<highResTime, T>::const_iterator endIt = dataLog.getEnd();
 
     for (it = dataLog.getStart(); it != endIt; ++it){
-        file << it->first << "," << toString(it->second) << "\n";
+        file << toString(it->first) << "," << toString(it->second) << "\n";
     }
 
     file.close();
