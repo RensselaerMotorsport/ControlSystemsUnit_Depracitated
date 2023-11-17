@@ -16,11 +16,15 @@
 #include "../CANSensor.h"
 #include <vector>
 
-class Imd : public CANSensor<std::vector<bool>, float>{
+class Imd : public CANSensor<std::vector<bool>, float> {
 public:
-    Imd(int hz, int id)
-            : CANSensor<std::vector<bool>, std::vector<float>>("Imd", DataLogger<std::vector<bool>>(), hz, id)
-    { imd_status = false; running_flag = false; }
+    Imd(int hz, int id):
+        // NOTE: Changed std::vector<float> to float
+        CANSensor<std::vector<bool>, float>("Imd", DataLogger<std::vector<bool>>(), hz, id)
+    {
+        imd_status = false;
+        running_flag = false;
+    }
 
     bool get_status() { return imd_status; }
     bool get_running_flag() { return running_flag; }

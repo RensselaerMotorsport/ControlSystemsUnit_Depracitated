@@ -2,7 +2,7 @@
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -g -O0 -lpthread -lm -IIncludes
+CXXFLAGS = -g -O0 -lJetsonGPIO -lpthread -lm -IIncludes
 
 # Source files
 SOURCES = Frameworks/Sensors/Sensor.cpp \

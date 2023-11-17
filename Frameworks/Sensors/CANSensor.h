@@ -10,7 +10,9 @@ template<typename T, typename U>
 class CANSensor : public Sensor<T, U> {
 public:
     CANSensor()  : Sensor<T, U>() { id = -1; }
-    CANSensor(std::string name, DataLogger<T> log, int hZ, int i): Sensor<T, U>(name, log, hZ) { id = i; }
+    CANSensor(std::string name, DataLogger<T> log,
+     int hZ, int i): Sensor<T, U>(name, log, hZ)
+     { id = i; }
 
     //Getters:
     int getID() { return id; }

@@ -18,6 +18,10 @@ void InitADC(void)
     printf("Initializing ADS1263... \r\n");
     //sets up Jetson Nano GPIO
     DEV_Module_Init();
+    // Sets up Jetson Nano GPIO
+    GPIO::setmode(GPIO::BOARD);
+    GPIO::setup(GPIO_MUX_LSB, GPIO::OUT);
+    GPIO::setup(GPIO_MUX_MSB, GPIO::OUT);
 
     // 0 is singleChannel, 1 is diffChannel
     ADS1263_SetMode(0);
@@ -41,25 +45,21 @@ void InitADC(void)
 
 //Sets the correct channel group on the multiplexer
 void SetChannelGroup(int channelGroup){
-    //FIXME Not sure if this is the correct format for the Jetson Nano
-    UWORD LSB = GPIO_MUX_LSB;
-    UWORD MSB = GPIO_MUX_MSB;
-
     if(channelGroup == 1){
-        DEV_Digital_Write(MSB, 0);
-        DEV_Digital_Write(LSB, 0);
+        GPIO::output(GPIO_MUX_MSB, GPIO::LOW);
+        GPIO::output(GPIO_MUX_LSB, GPIO::LOW);
     }
     else if(channelGroup == 2){
-        DEV_Digital_Write(MSB, 0);
-        DEV_Digital_Write(LSB, 1);
+        GPIO::output(GPIO_MUX_MSB, GPIO::LOW);
+        GPIO::output(GPIO_MUX_LSB, GPIO::HIGH);
     }
     else if(channelGroup == 3){
-        DEV_Digital_Write(MSB, 1);
-        DEV_Digital_Write(LSB, 0);
+        GPIO::output(GPIO_MUX_MSB, GPIO::HIGH);
+        GPIO::output(GPIO_MUX_LSB, GPIO::LOW);
     }
     else if(channelGroup == 4){
-        DEV_Digital_Write(MSB, 1);
-        DEV_Digital_Write(LSB, 1);
+        GPIO::output(GPIO_MUX_MSB, GPIO::HIGH);
+        GPIO::output(GPIO_MUX_LSB, GPIO::HIGH);
     }
     //channel 0 is the "fake" channel, don't do anything
 
