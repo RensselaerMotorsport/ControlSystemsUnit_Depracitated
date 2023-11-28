@@ -28,8 +28,8 @@
 
 class Temperature : public AnalogSensor<float> {
 public:
-    Temperature(int channel, int hZ):
-        AnalogSensor<float>("Temperature", DataLogger<float>(), channel, hZ)
+    Temperature(int channel, int hZ, int muxChannel):
+        AnalogSensor<float>("Temperature", DataLogger<float>(), channel, hZ, muxChannel)
             { temp = 0.0; number = 0; }
 
     float getCelsius();

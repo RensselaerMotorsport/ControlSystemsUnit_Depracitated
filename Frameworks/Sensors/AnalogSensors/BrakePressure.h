@@ -18,8 +18,9 @@
 class BrakePressure : public AnalogSensor<float>{
 public:
 
-    BrakePressure(int channel, int hZ) :
-        AnalogSensor<float>("BrakePressure", DataLogger<float>(), channel, hZ) {
+    BrakePressure(int channel, int hZ, int muxChannel) :
+        AnalogSensor<float>("BrakePressure", DataLogger<float>(),
+            channel, hZ, muxChannel) {
         pressure = -1;
     }
 

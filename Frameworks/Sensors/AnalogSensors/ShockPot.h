@@ -17,8 +17,8 @@
 
 class ShockPot : public AnalogSensor<float>{
 public:
-    ShockPot(int channel, int hZ, WHEEL_LOCATION w)
-        : AnalogSensor<float>("ShockPot", DataLogger<float>(), channel, hZ)
+    ShockPot(int channel, int hZ, int muxChannel , WHEEL_LOCATION w)
+        : AnalogSensor<float>("ShockPot", DataLogger<float>(), channel, hZ, muxChannel)
         { distance = -1; shock_location = w; }
 
     float get_distance(){ return distance; }
