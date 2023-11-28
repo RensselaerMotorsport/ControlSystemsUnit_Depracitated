@@ -14,17 +14,19 @@ template<typename T>
 class AnalogSensor: public Sensor<T, UDOUBLE> {
 public:
     AnalogSensor() : Sensor<T, UDOUBLE>() { channel = -1; }
-    AnalogSensor(std::string name, DataLogger<T> log, int c, int h)
-        : Sensor<T, UDOUBLE>(name, log, h) { channel = c; }
+    AnalogSensor(std::string name, DataLogger<T> log, int c, int h, int m)
+        : Sensor<T, UDOUBLE>(name, log, h) { channel = c; muxChannel = m; }
 
     //Getters:
     int getChannel() { return channel; }
+    int getMuxChannel() { return muxChannel; }
     auto getData() -> UDOUBLE override {
         UDOUBLE data = ADS1263_GetChannalValue(channel);
         return data;
     }
 protected:
     UBYTE channel;
+    int muxChannel;
 };
 
 

@@ -17,8 +17,8 @@
 
 class App {
 public:
-    App(int channel, int hZ)
-            : AnalogSensor<float>("APP", DataLogger<float>(), channel, hZ)
+    App(int channel, int hZ, int muxChannel)
+            : AnalogSensor<float>("APP", DataLogger<float>(), channel, hZ, muxChannel)
     { position = -1; }
 
     float get_position(){ return position; }

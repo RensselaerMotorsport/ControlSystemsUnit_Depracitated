@@ -29,11 +29,11 @@ class Accelerometer : public AnalogSensor<float>{
 public:
     //Constructors
     Accelerometer() : AnalogSensor<float>("Accelerometer",
-        DataLogger<float>(), -1, -1)
+        DataLogger<float>(), -1, -1, -1)
         { value = -1; }
-    Accelerometer(int channel, int hZ) :
+    Accelerometer(int channel, int hZ, int muxChannel) :
         AnalogSensor<float>("Accelerometer",
-        DataLogger<float>(), channel, hZ)
+        DataLogger<float>(), channel, hZ, muxChannel)
         { value = -1; }
 
     //Member Functions

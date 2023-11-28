@@ -16,8 +16,8 @@
 
 class SteeringColumn : public AnalogSensor<float>{
 public:
-    SteeringColumn(int channel, int hZ, float off)
-            : AnalogSensor<float>("SteeringColumn", DataLogger<float>(), channel, hZ)
+    SteeringColumn(int channel, int hZ, int muxChannel,float off)
+            : AnalogSensor<float>("SteeringColumn", DataLogger<float>(), channel, hZ, muxChannel)
     { rotation_angle = -1; zero_offset = off; }
 
     float get_rotation_angle() { return rotation_angle; }
