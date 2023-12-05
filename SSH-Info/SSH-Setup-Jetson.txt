@@ -1,0 +1,31 @@
+First follow the instructions at the following website for initial boot:
+https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit
+
+Once you have booted the nano, you will need to connect a mouse, keyboard,
+and monitor to it.
+Create an account and password. In these instructions, I will refer to
+'motorsport' as the account name. Whenever you see this, substitute your
+own account name.
+
+Next you will need to enter the settings menu, and navigate to network
+settings.
+In here you will need to determine which connection corresponds to the
+ethernet port.
+Select the wired connection corresponding to the ethernet port and open
+the properties menu.
+
+Navigate to the IPv-4 tab in the properties menu and take a screenshot
+of the current settings so that you will be able to reset them if you
+need to.
+Once you have saved your screenshot somewhere useful, you will need to
+change the DNS server assignment from 'Automatic' to 'Manual'.
+From here, press the add button next to the three columns that say
+'Address', 'Subnet Mask', and 'Gateway'.
+Type in the row you have just created:
+    In the 'Address' column:        192.168.1.3
+    In the 'Subnet Mask' column:    255.255.255.0
+    In the 'Gateway' column:        192.168.1.1
+
+Save these settings.
+You should now be able to ssh into the nano.
+Open the SSH-Setup-PC.txt file for next steps.

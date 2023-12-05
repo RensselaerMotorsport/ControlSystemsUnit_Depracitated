@@ -1,0 +1,47 @@
+This file assumes that you have completed the directions in the
+SSH-Setup-Jetson.txt file.
+
+Turn on the Jetson Nano by connecting it to a power supply.
+You may have to wait a moment for it to boot.
+
+Connect the Jetson Nano to your PC via an Ethernet Cable. This may require
+an adaptor.
+
+Windows Instructions:
+Open Settings.
+Go to Network & Internet -> Ethernet
+One of the ethernet options should say 'Unknown Network' and 'no internet'
+Open the dropdown menu for this option.
+Take a screenshot of the current settings so that you can revert them later.
+Find the line that says 'DNS server assignment' and click the edit button on
+the right.
+Switch from 'Automatic' to 'Manual'.
+Turn on IPv-4
+
+Type in the boxes as they appear:
+    In the 'Address' box:        192.168.1.2
+    In the 'Subnet Mask' box:    255.255.255.0
+    In the 'Gateway' box:        192.168.1.1
+    In the 'Preferred DNS' box:  192.168.1.2
+Press Save.
+
+Open either 'Command Prompt' or 'Windows Powershell'
+To make sure that you are connected to the Jetson Nano, type the command:
+    ping 192.168.1.3
+You should get back 4 pings, and then some stats about them. If it says
+'request timed out', you will need to do some troubleshooting.
+
+Assuming that you get pings back as expected, you are good to attempt to ssh
+
+Type the command:
+    ssh motorsport@192.168.1.3
+(remember to substitute the name of your account on the Jetson Nano for 'motorsport')
+
+You should be prompted for a password. Enter the password for the account you
+set up on the Jetson Nano.
+You should see a welcome message, and then have your directory changed to
+'motorsport@COMPUTER_NAME~'
+You are now connected through ssh to the Jetson Nano.
+
+
+Linux and Mac to come. (should be quite similar to windows)

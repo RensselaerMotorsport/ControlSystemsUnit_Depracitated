@@ -1,0 +1,12 @@
+cd directoryName
+    for changing directories.
+
+exit
+    to exit the current SSH session
+
+sudo shutdown now
+    to turn off the Jetson Nano
+
+scp fileOnYourComputer motorsport@192.168.1.3:fileOnJetsonNano
+    to copy a file from your computer to the Jetson Nano
+    reverse the order of files to copy from the Nano to you Computer
