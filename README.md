@@ -6,8 +6,8 @@
 [Team Website](https://rensselaermotorsport.com/)
 
 ## Structure
-Frameworks contains the bulk of the code
-High-Pricision_AD_HAT contains the source code for the AD_HAT and is used to interface with the sensors
-Model contains UML diagrams and related documentation
-SSH_Info contains Information on SSHing into the Jetson Nano
-Tests is test files for sensors basic functionality
+ - Frameworks contains the bulk of the code
+ - High-Pricision_AD_HAT contains the source code for the AD_HAT and is used to interface with the sensors
+ - Model contains UML diagrams and related documentation
+ - SSH_Info contains Information on SSHing into the Jetson Nano
+ - Tests is test files for sensors basic functionality
