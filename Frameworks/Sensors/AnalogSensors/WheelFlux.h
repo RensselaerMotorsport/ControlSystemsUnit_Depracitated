@@ -32,7 +32,7 @@ public:
     float getRadius() { return radius; }
     WHEEL_LOCATION get_wheel_location(){ return wheel_location; }
 
-    void update(UDOUBLE var) override;
+    void update() override;
 
 private:
     //variables

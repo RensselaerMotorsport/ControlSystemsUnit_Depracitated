@@ -35,7 +35,7 @@ public:
     float getCelsius();
     float getFahrenheit();
 
-    void update(UDOUBLE var) override;
+    void update() override;
 
 private:
     float transfer_function(UDOUBLE rawVal); //TODO: needs to be implemented

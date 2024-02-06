@@ -37,8 +37,9 @@ float BrakePressure::transfer_function(UDOUBLE rawVal)
 }
 float BrakePressure::get_pressure() { return pressure; }
 
-void BrakePressure::update(UDOUBLE var)
+void BrakePressure::update()
 {
+    UDOUBLE var = this->getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->pressure = transfer_function(var);
     this->dataLog.addValue(callTime, this->pressure);

@@ -34,7 +34,7 @@ private:
 
 
     //functions:
-    float transfer_function(UDOUBLE rawVal);
+    float transfer_function();
     std::string toString(float v) override { return std::to_string(v); }
 };
 

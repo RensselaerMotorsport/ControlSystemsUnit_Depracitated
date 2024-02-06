@@ -39,7 +39,7 @@ public:
     //Member Functions
     float get_value(){ return value; }
 
-    void update(UDOUBLE var) override;
+    void update() override;
 
 private:
     //Member Variables

@@ -32,7 +32,8 @@ float ShockPot::transfer_function(UDOUBLE rawVal) {
     return 2.71965*(pow(rawVal,0.837683)) - 16.2622;
 }
 
-void ShockPot::update(UDOUBLE var) {
+void ShockPot::update() {
+    UDOUBLE var = this->getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->distance = transfer_function(var);
     this->dataLog.addValue(callTime, this->distance);

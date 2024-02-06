@@ -26,7 +26,7 @@ public:
 
     float get_pressure();
 
-    void update(UDOUBLE var) override;
+    void update() override;
 
 private:
 

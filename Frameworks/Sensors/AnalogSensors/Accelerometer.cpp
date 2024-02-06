@@ -22,7 +22,8 @@ float Accelerometer::transfer_function(UDOUBLE rawVal){
     return (rawVal - kOffsetVolts) / kVoltsPerG;
 }
 
-void Accelerometer::update(UDOUBLE var) {
+void Accelerometer::update() {
+    UDOUBLE var = this->getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->value = transfer_function(var);
     this->dataLog.addValue(callTime, this->value);

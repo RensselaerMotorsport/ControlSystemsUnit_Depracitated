@@ -14,6 +14,8 @@
 #ifndef CONTROLSYSTEMSUNIT_STEERINGCOLUMN_H
 #define CONTROLSYSTEMSUNIT_STEERINGCOLUMN_H
 
+#include "../AnalogSensor.h"
+
 class SteeringColumn : public AnalogSensor<float>{
 public:
     SteeringColumn(int channel, int hZ, int muxChannel,float off)
@@ -22,7 +24,7 @@ public:
 
     float get_rotation_angle() { return rotation_angle; }
 
-    void update(UDOUBLE var) override;
+    void update() override;
 
 private:
     float rotation_angle;

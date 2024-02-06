@@ -46,14 +46,18 @@ public:
    const DataLogger<T>& getDataLog() const { return dataLog; }
    const std::string getSensorName() { return sensorName; }
    const int getHZ() const { return hz; }
-   virtual I getData() { return I(); }
 
    //Setter
-   virtual void update(I var) {} //This will be implemented in each individual sensor
+   virtual void update() {} //This will be implemented in each individual sensor
 
    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
 
 protected: //This is protected instead of private so that subclasses can access these
+
+    //This is a helper function for update()
+    //This uses the stored sensor information to get the current value from the phisical
+    //sensor, and then update can use that.
+    virtual I getData() { return I(); }
 
     virtual std::string toString(T v) { return "ThisHasNotYetBeenImplemented"; }
 

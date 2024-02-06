@@ -22,7 +22,8 @@ float Temperature::getFahrenheit(){
     return temp * (9.0/5.0) + 32;
 }
 
-void Temperature::update(UDOUBLE var) {
+void Temperature::update() {
+    UDOUBLE var = this->getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->temp = this->transfer_function(var);
     this->dataLog.addValue(callTime, this->temp);

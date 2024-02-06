@@ -16,8 +16,11 @@ public:
 
     //Getters:
     int getID() { return id; }
-    auto getData() -> U override;
 protected:
+
+    //TODO: We need to figure out getData() and update() for CAN sensors
+    U getData() override;
+
     int id;
 };
 

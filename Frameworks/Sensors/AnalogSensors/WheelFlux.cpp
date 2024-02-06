@@ -15,7 +15,8 @@ float WheelFlux::transfer_function(UDOUBLE rawVal) {
     return 0.0f; //TODO: implement
 }
 
-void WheelFlux::update(UDOUBLE var) {
+void WheelFlux::update() {
+    UDOUBLE var = this->getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->flux = transfer_function(var);
     this->dataLog.addValue(callTime, this->flux);

@@ -9,7 +9,8 @@ float App::transfer_function(UDOUBLE rawVal) {
     return rawVal;
 }
 
-void App::update(UDOUBLE var) {
+void App::update() {
+    UDOUBLE var = this->getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->position = transfer_function(var);
     this->dataLog.addValue(callTime, this->position);

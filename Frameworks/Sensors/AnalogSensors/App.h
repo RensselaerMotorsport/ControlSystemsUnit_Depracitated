@@ -14,6 +14,7 @@
 #ifndef CONTROLSYSTEMSUNIT_APP_H
 #define CONTROLSYSTEMSUNIT_APP_H
 
+#include "../AnalogSensor.h"
 
 class App {
 public:
@@ -23,7 +24,7 @@ public:
 
     float get_position(){ return position; }
 
-    void update(UDOUBLE var) override;
+    void update() override;
 
 private:
     //variables
