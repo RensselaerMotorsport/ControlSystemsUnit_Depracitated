@@ -8,3 +8,5 @@
 /dataSources.local.xml
 # IDE configuration
 .vscode/
+# Jetson GPIO Library
+JetsonGPIO/
