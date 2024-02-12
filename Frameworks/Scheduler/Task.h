@@ -67,10 +67,7 @@ public:
         }
 
     void execute(highResTime startTime, highResTime enqueueTime) override {
-        // Read data from sensor and update the sensor's data log
-        I sensorData = sensor->getData();
-        // std::cout << sensor->getSensorName() << " Sensor Data: " << sensorData << std::endl;
-        sensor->update(sensorData);
+        sensor->update();
 
         auto delay = startTime - enqueueTime;
         if (delay > std::chrono::microseconds(1000)) {

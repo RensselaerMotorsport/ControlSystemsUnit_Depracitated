@@ -30,7 +30,7 @@ public:
     bool get_running_flag() { return running_flag; }
     void reset_running_flag() { running_flag = true; } //TODO: ask ammar if reset means true or false
 
-    void update(float var) override;
+    void update() override;
 
 private:
 

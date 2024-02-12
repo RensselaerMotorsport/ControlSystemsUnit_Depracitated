@@ -25,7 +25,7 @@ public:
     float get_acceleration();
     WHEEL_LOCATION get_wheel_location(){ return shock_location; }
 
-    void update(UDOUBLE var) override;
+    void update() override;
 
 private:
     //variables
@@ -34,7 +34,7 @@ private:
 
 
     //functions:
-    float transfer_function();
+    float transfer_function(UDOUBLE rawVal);
     std::string toString(float v) override { return std::to_string(v); }
 };
 
