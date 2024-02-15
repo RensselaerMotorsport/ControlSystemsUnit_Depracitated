@@ -49,12 +49,13 @@ class TaskBase {
 public:
     virtual ~TaskBase() = default;
     virtual bool operator<(const TaskBase& rhs) const = 0;
-    virtual void execute(highResTime startTime, highResTime enqueueTime) = 0;
+    virtual void execute() = 0;
     virtual auto getNextExecTime() const -> highResTime = 0;
     virtual auto setNextExecTime(highResTime time) -> void = 0;
     virtual void writeDataToFile(std::string filename) = 0;
     virtual auto getHZ() const -> int = 0;
     virtual auto getId() const -> int = 0;
+    virtual auto getDelay() const -> highResTime = 0;
 };
 
 template <typename T,
@@ -66,24 +67,23 @@ public:
             nextExecTime = std::chrono::high_resolution_clock::now();
         }
 
-    void execute(highResTime startTime, highResTime enqueueTime) override {
+    void execute() override {
         sensor->update();
-
-        auto delay = startTime - enqueueTime;
-        if (delay > std::chrono::microseconds(1000)) {
-            std::cout << "\033[31m"  // Set text color to red
-                    << "Execution delay: "
-                    << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
-                    << " microseconds"
-                    << "\033[0m" << std::endl;  // Reset text color
-        }
     }
+        // if (delay > std::chrono::microseconds(1000)) {
+        //     std::cout << "\033[31m"  // Set text color to red
+        //             << "Execution delay: "
+        //             << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
+        //             << " microseconds"
+        //             << "\033[0m" << std::endl;  // Reset text color
+        // }
 
     auto getNextExecTime() const -> highResTime { return nextExecTime; }
     auto setNextExecTime(highResTime time) -> void { nextExecTime = time; }
     void writeDataToFile(std::string filename) { sensor->writeDataToFile(filename); }
     auto getHZ() const -> int { return hZ; }
     auto getId() const -> int { return id; }
+    auto getDelay() const -> highResTime { return delay; }
 
     bool operator<(const TaskBase& rhs) const override {
         const Task& derivedRhs = static_cast<const Task&>(rhs);
@@ -93,6 +93,7 @@ public:
 private:
     int id;
     int hZ;
+    highResTime delay;
     std::shared_ptr<Sensor<T, I>> sensor;
     highResTime nextExecTime;
 };

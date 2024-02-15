@@ -39,6 +39,12 @@
 #include "../Sensors/Sensor.h"
 #include "../Sensors/AnalogSensor.h"
 #include "../Sensors/DataLogger.h" // For highResTime
+                                   
+#include <functional> // TODO: Remove if not used
+
+using DelayCallback = std::function<void(
+    std::chrono::high_resolution_clock::duration
+)>;
 
 class Scheduler {
 public:
@@ -49,11 +55,13 @@ public:
     void registerSensor(int id, Sensor<T, I>& sensor);
     void run();
     void stop() { running = false; }
+    void setDelayCallback(DelayCallback callback);
 
 private:
     std::priority_queue<std::shared_ptr<TaskBase>,
         std::vector<std::shared_ptr<TaskBase>>, TaskComparator> tasks;
     bool running = false;
+    DelayCallback delayCallback;
 
     auto getCurrentTime() const -> highResTime {
         return std::chrono::high_resolution_clock::now();

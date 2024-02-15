@@ -24,6 +24,20 @@ private:
     // This test should check if the scheduler runs tasks with accurate timing
     bool TestScheduler() {
         Scheduler scheduler;
+        int testTimeSeconds = 10;
+
+        // Callback for printing the delay between task enqueuing and execution
+        auto debugDelayCallback = [](std::chrono::high_resolution_clock::duration delay) {
+            int millisecondThreshold = 300;
+            if (delay > std::chrono::microseconds(millisecondThreshold)) {
+                std::cout << "\033[31m"  // Set text color to red
+                          << "Execution delay: "
+                          << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
+                          << " microseconds"
+                          << "\033[0m" << std::endl;  // Reset text color
+            }
+        };
+        scheduler.setDelayCallback(debugDelayCallback);
 
         // Register Sensors
         int id = 0;
@@ -42,7 +56,26 @@ private:
         Imd imd(500, 0); // Id 0
         scheduler.registerSensor(id++, imd);
 
-        scheduler.run();
+        std::cout << "Starting Scheduler" << std::endl;
+        // Start the scheduler in a separate thread
+        std::thread schedulerThread([&scheduler]() {
+            scheduler.run();
+        });
+        
+        auto startTime = std::chrono::high_resolution_clock::now();
+        while (true) {
+            auto currentTime = std::chrono::high_resolution_clock::now();
+            auto elapsed = std::chrono::duration_cast<std::chrono::seconds>
+                (currentTime - startTime);
+
+            if (elapsed.count() >= testTimeSeconds) { 
+                scheduler.stop();
+                break; 
+            }
+
+            // Sleep a bit to prevent this loop from consuming too much CPU!!!
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
 
         std::cout << "Timing accuracy test passed" << std::endl;
         return true;

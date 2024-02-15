@@ -3,17 +3,15 @@
 #include "SensorADC.h"
 #include "ThreadPool.h" // Complile with -lpthread
 
-
-
 void Scheduler::run() {
     if (tasks.empty()) return;
     // Init
     unsigned int numThreads = std::thread::hardware_concurrency();
     std::cout << "Number of threads: " << numThreads << std::endl;
-    ThreadPool pool(numThreads);
+    ThreadPool pool(1);
     std::mutex tasksMutex;
 
-    InitADC();
+    // InitADC();
 
     running = true;
     while (running) {
@@ -44,9 +42,15 @@ void Scheduler::run() {
         // Submit all tasks in the task buffer to the thread pool for execution
         auto enqueueTime = std::chrono::system_clock::now();
         for (auto& task : taskBuffer) {
-            pool.enqueue([task, enqueueTime] {
-                auto startTime = std::chrono::system_clock::now();
-                task->execute(startTime, enqueueTime);
+            pool.enqueue([this, task, enqueueTime] {
+                task->execute();
+
+                auto endTime = std::chrono::system_clock::now();
+                auto delay = endTime - enqueueTime;
+                // If a callback is set, call it with the delay
+                if (delayCallback) {
+                    delayCallback(delay);
+                }
             });
         }
 
@@ -62,6 +66,7 @@ void Scheduler::run() {
             std::chrono::milliseconds sleepTime(1);  // sleep for 1 millisecond
             std::this_thread::sleep_for(sleepTime);
         }
+        running = false;
     }
 }
 
@@ -73,4 +78,9 @@ Scheduler::~Scheduler() {
         task->writeDataToFile(filename);
         tasks.pop();
     }
+    std::cout << "Scheduler Shutdown Successful." << std::endl;
+}
+
+void Scheduler::setDelayCallback(DelayCallback callback) {
+    delayCallback = std::move(callback);
 }

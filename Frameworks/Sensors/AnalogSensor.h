@@ -31,7 +31,8 @@ protected:
 // This is in the header file because it is a template
 template<typename T>
 UDOUBLE AnalogSensor<T>::getData() {
-    UDOUBLE data = ADS1263_GetChannalValue(channel);
+    UDOUBLE data = 0; // XXX: Feel cute, might delete later
+    // UDOUBLE data = ADS1263_GetChannalValue(channel);
     // Perhaps this to get data
     // UDOUBLE rawData = ADS1263_GetChannalValue(channel);
     // if((rawData>>31) == 1)
