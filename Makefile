@@ -24,7 +24,8 @@ C_OBJECTS = High-Pricision_AD_HAT/c/bin/*.o
 
 # Build rule
 all: $(SOURCES) waveshare
-	$(CXX) $(SOURCES) $(C_OBJECTS) -o $(OUTPUT) $(CXXFLAGS) -lbcm2835
+    # Unused by JETSON (Remove comment if not added back in): -lbcm2835
+	$(CXX) $(SOURCES) $(C_OBJECTS) -o $(OUTPUT) $(CXXFLAGS)
 
 waveshare:
 	make -C High-Pricision_AD_HAT/c JETSON
