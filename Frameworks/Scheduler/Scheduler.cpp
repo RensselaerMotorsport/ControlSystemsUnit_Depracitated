@@ -8,7 +8,7 @@ void Scheduler::run() {
     // Init
     unsigned int numThreads = std::thread::hardware_concurrency();
     std::cout << "Number of threads: " << numThreads << std::endl;
-    ThreadPool pool(1);
+    ThreadPool pool(numThreads);
     std::mutex tasksMutex;
 
     // InitADC();
