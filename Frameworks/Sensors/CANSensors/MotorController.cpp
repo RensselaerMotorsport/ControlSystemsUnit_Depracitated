@@ -14,18 +14,15 @@
  */
 #include "MotorController.h"
 
-float MotorController::getSensorValue(){
-    //TODO: function not implemented properly
-    /*plans??
-     *  call function to get sensor value
-     *  translate it??
-     *  return an encoded value
-     *
-     */
-    return torque;
-}
-
 MotorController::MotorController(Esc* e, App* a){
     esc = e;
     app = a;
+}
+
+float MotorController::getPedalPosition(){
+    return this->app.get_position();
+}
+
+float MotorController::getMotorTemp(){
+    return this->esc.get_temp();
 }

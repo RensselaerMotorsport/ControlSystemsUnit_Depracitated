@@ -10,7 +10,7 @@
 
 class ShockPotTest{
 public:
-    ShockPotTest(){ sp = ShockPot(); }
+    ShockPotTest(){ sp = ShockPot(0, 0, 0, front_left); } //These are default testing values
     void runTests(){
         std::cout << "Running ShotPot tests" << std::endl;
         std::cout << "Testing 15 volts: " << (testShockPot(10, 15) ? "Passed" : "Failed") << std::endl;
@@ -22,7 +22,10 @@ public:
     }
 private:
     bool testShockPot(float expectedDistance_, float rawVal_){
-        sp.update(rawVal_);
+
+        //TODO: figure out how testing will work because we cannot define a raw value to input to the sensor
+
+        sp.update();
         //the error can be +- 2.5mm in some of the worst cases; more data needed for better accuracy
         if(sp.get_distance() - expectedDistance_ < 2.5){
             return true;

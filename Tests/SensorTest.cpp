@@ -24,14 +24,14 @@
 class SensorTest{
 public:
 
-    SensorTest(){ /*add sensor constructor here*/}
+    SensorTest(){ s = Sensor(); }
 
     void RunTests(){
         std::cout<<"Running Sensor Tests"<<std::endl;
-        //std::cout<<"Test Get Celsius status: "<< ( ? "Passed" : "Failed") <<std::endl;
+        std::cout<<"Test Get Name: "<< ((s.getSensorName() == "UNNAMED") ? "Passed" : "Failed") <<std::endl;
     }
 
 private:
-
+    Sensor s;
 
 };

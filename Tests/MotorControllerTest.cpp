@@ -24,21 +24,25 @@
 class MotorControllerTest{
 public:
 
-    MotorControllerTest(){ MC = MotorController(ExpectedTourqe, ExpectedTemp); }
+    MotorControllerTest(){ 
+        esc = Esc(-1, -1);
+        app = App(-1, -1, -1);
+        MC = MotorController(&esc, &app); 
+    }
 
     void RunTests(){
         std::cout<<"Running Motor Controller Tests"<<std::endl;
-        std::cout<<"Test Get Value status: "<< ( GetVal() ? "Passed" : "Failed") <<std::endl;
+        std::cout<<"Test Get Value status: "<< ( GetPos() ? "Passed" : "Failed") <<std::endl;
     }
 
 private:
-    bool GetVal(){
-        if((MC.getSensorValue() - ExpectedTourqe) < 0.01)
+    bool GetPos(){
+        if((MC.getPedalPosition() - 0/*Expected Pedal Postion*/) < 0.01)
             return true;
         return false;
     }
 
-    float ExpectedTourqe = 450.0;
-    float ExpectedTemp = 98.0;
+    Esc esc;
+    App app;
     MotorController MC;
 };
