@@ -23,7 +23,7 @@ public:
     { data = BmsData(); }
 };
 
-    void update(std::vector<float> var) override;
+    void update() override;
 
 private:
 

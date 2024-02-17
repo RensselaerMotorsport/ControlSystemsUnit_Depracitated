@@ -26,7 +26,7 @@ public:
     float get_temp() { return temp; }
     float get_motor_revolutions() { return motor_revolutions; }
 
-    void update(int var) override;
+    void update() override;
 
 private:
 

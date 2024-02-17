@@ -4,7 +4,8 @@
 
 #include "Esc.h"
 
-void Esc::update(int var) {
+void Esc::update() {
+    int var = this.getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->temp = temp_transfer_function(int);
     this->motor_revolutions = motor_revolutions_transfer_function(int);
