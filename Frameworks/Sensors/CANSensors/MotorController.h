@@ -34,7 +34,7 @@ class MotorController {
 public:
     MotorController(Esc* e, App* a);
 
-    float getSensorValue();
+    float getPedalPosition();
     float getMotorTemp();
 private:
     Esc* esc;

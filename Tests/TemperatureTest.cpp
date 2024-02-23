@@ -30,7 +30,7 @@ class TemperatureTest{
 public:
     TemperatureTest() { tmp = Temperature(0, 0, 0); }
     void RunTests() {
-        tmp.update(inputValue)
+        tmp.update()
         std::cout<<"Running Temperature Tests"<<std::endl;
         std::cout<<"Test Get Celsius status: "<< (getCel() ? "Passed" : "Failed") <<std::endl;
         std::cout<<"Test Get Fahrenheit  status: "<< (getFer() ? "Passed" : "Failed") <<std::endl;
