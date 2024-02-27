@@ -28,13 +28,30 @@ private:
 
         // Callback for printing the delay between task enqueuing and execution
         auto debugDelayCallback = [](std::chrono::high_resolution_clock::duration delay) {
-            int millisecondThreshold = 300;
-            if (delay > std::chrono::microseconds(millisecondThreshold)) {
+            int millisecondWarningThreshold = 300;
+            int millisecondFailThreshold = 500;
+            if (delay > std::chrono::microseconds(millisecondFailThreshold)) {
                 std::cout << "\033[31m"  // Set text color to red
-                          << "Execution delay: "
+                          << "Fail: Execution delay: "
                           << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
                           << " microseconds"
                           << "\033[0m" << std::endl;  // Reset text color
+                std::cerr << "Execution delay exceeded warning threshold" << std::endl;
+                DEV_Module_Exit();
+                exit(1);
+            }
+            else if (delay > std::chrono::microseconds(millisecondWarningThreshold)) {
+                std::cout << "\033[33m"  // Set text color to yellow
+                          << "Warning: Execution delay: "
+                          << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
+                          << " microseconds"
+                          << "\033[0m" << std::endl;  // Reset text color
+            }
+            else {
+                std::cout << "Execution delay: "
+                          << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
+                          << " microseconds"
+                          << std::endl;
             }
         };
         scheduler.setDelayCallback(debugDelayCallback);

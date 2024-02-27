@@ -11,7 +11,7 @@ void Scheduler::run() {
     ThreadPool pool(numThreads);
     std::mutex tasksMutex;
 
-    // InitADC();
+    InitADC();
 
     running = true;
     while (running) {
@@ -54,13 +54,6 @@ void Scheduler::run() {
             });
         }
 
-        // If there are no tasks ready to be executed, sleep until the next task is ready
-        // if (taskBuffer.empty() && !tasks.empty()) {
-        //     std::chrono::milliseconds sleepTime = std::chrono::duration_cast<std::chrono::milliseconds>(
-        //         tasks.top()->getNextExecTime() - currentTime);
-        //     std::this_thread::sleep_for(sleepTime);
-        // }
-
         // Sleep for 1 millisecond
         if (taskBuffer.empty() && !tasks.empty()) {
             std::chrono::milliseconds sleepTime(1);  // sleep for 1 millisecond
@@ -71,6 +64,7 @@ void Scheduler::run() {
 }
 
 Scheduler::~Scheduler() {
+    DEV_Module_Exit();
     while(!tasks.empty()) {
         auto task = tasks.top();
         // TODO: Maybe add sensor name when function is made for that.
