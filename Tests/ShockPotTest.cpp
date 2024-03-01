@@ -13,15 +13,15 @@ public:
     ShockPotTest(){ sp = ShockPot(0, 0, 0, front_left); } //These are default testing values
     void runTests(){
         std::cout << "Running ShotPot tests" << std::endl;
-        std::cout << "Testing 15 volts: " << (testShockPot(10, 15) ? "Passed" : "Failed") << std::endl;
-        std::cout << "Testing 30 volts: " << (testShockPot(30, 30) ? "Passed" : "Failed") << std::endl;
-        std::cout << "Testing 45 volts: " << (testShockPot(50, 45) ? "Passed" : "Failed") << std::endl;
-        std::cout << "Testing 65 volts: " << (testShockPot(75, 65) ? "Passed" : "Failed") << std::endl;
-        std::cout << "Testing 135 volts: " << (testShockPot(150, 135) ? "Passed" : "Failed") << std::endl;
+        std::cout << "Testing 15 volts: " << (testShockPot(10) ? "Passed" : "Failed") << std::endl;
+        std::cout << "Testing 30 volts: " << (testShockPot(30) ? "Passed" : "Failed") << std::endl;
+        std::cout << "Testing 45 volts: " << (testShockPot(50) ? "Passed" : "Failed") << std::endl;
+        std::cout << "Testing 65 volts: " << (testShockPot(75) ? "Passed" : "Failed") << std::endl;
+        std::cout << "Testing 135 volts: " << (testShockPot(150) ? "Passed" : "Failed") << std::endl;
 
     }
 private:
-    bool testShockPot(float expectedDistance_, float rawVal_){
+    bool testShockPot(float expectedDistance_){
 
         //TODO: figure out how testing will work because we cannot define a raw value to input to the sensor
 
