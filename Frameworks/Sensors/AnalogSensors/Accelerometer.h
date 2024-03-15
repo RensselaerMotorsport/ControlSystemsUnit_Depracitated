@@ -42,6 +42,9 @@ public:
     void update() override;
 
 private:
+    #ifdef TEST_MODE
+    UDOUBLE getData() override;
+    #endif
     //Member Variables
     float value;
 

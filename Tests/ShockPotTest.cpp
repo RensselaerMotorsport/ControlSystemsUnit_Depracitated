@@ -21,18 +21,17 @@ public:
 
     }
 private:
-    bool testShockPot(float expectedDistance_){
+    bool testShockPot(float expectedDistance){
 
         //TODO: figure out how testing will work because we cannot define a raw value to input to the sensor
 
         sp.update();
         //the error can be +- 2.5mm in some of the worst cases; more data needed for better accuracy
-        if(sp.get_distance() - expectedDistance_ < 2.5){
+        if(sp.get_distance() - expectedDistance < 2.5){
             return true;
         }
         return false;
     }
-    float expectedDistance;
     ShockPot sp;
 };
 

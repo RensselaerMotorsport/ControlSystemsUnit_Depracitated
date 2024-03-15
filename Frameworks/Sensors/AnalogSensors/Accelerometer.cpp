@@ -28,3 +28,10 @@ void Accelerometer::update() {
     this->value = transfer_function(var);
     this->dataLog.addValue(callTime, this->value);
 }
+
+#ifdef TEST_MODE
+UDOUBLE Accelerometer::getData() override{
+    //this is for an expected value of 17.04545454545...
+    return 10
+}
+#endif

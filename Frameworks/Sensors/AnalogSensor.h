@@ -22,6 +22,8 @@ public:
     int getMuxChannel() { return muxChannel; }
     
 protected:
+    //TODO: may end up needing this function to accept a parameter when TEST_MODE is on
+    //TODO: that will require update to accept a parameter when TEST_MODE is on
     UDOUBLE getData();
 
     UBYTE channel;

@@ -33,5 +33,12 @@ float Temperature::transfer_function(UDOUBLE rawVal) {
     return 0.0; // TODO: Implement
 }
 
+#ifdef TEST_MODE
+UDOUBLE Temperature::getData() override {
+    //TODO: need transfer function to properly implement this
+    return 0;
+}
+#endif
+
 
 

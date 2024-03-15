@@ -38,3 +38,11 @@ void ShockPot::update() {
     this->distance = transfer_function(var);
     this->dataLog.addValue(callTime, this->distance);
 }
+
+#ifdef TEST_MODE
+UDOUBLE ShockPot::getData() override{
+    return 15;
+    //TODO: This currently only works to test for one value
+    //      more information in AnalogSensor.h
+}
+#endif

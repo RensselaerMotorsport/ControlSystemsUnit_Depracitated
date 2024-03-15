@@ -38,6 +38,10 @@ public:
     void update() override;
 
 private:
+    #ifdef TEST_MODE
+    UDOUBLE getData() override;
+    #endif
+
     float transfer_function(UDOUBLE rawVal); //TODO: needs to be implemented
     std::string toString(float v) override { return std::to_string(v); }
 

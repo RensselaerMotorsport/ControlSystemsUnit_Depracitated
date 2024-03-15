@@ -43,7 +43,7 @@ void SensorT(){
     st.RunTests();
 }
 
-//This will require some way to pass expected values into the test classes at or before runtime
+//Complie with -D TEST_MODE in order to run these tests
 int main(int argc, char* argv[]) {
     for(int i = 1; i < argc; i++) {
         if (0 == strcmp(argv[i], "All")) {

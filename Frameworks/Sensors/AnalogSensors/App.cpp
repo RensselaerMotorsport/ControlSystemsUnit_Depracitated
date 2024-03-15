@@ -15,3 +15,9 @@ void App::update() {
     this->position = transfer_function(var);
     this->dataLog.addValue(callTime, this->position);
 }
+
+#ifdef TEST_MODE
+UDOUBLE App::getData() override{
+    return 10;
+}
+#endif
