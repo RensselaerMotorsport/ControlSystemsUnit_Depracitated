@@ -6,7 +6,7 @@
 #define RENNSMOTORSPORT_ANALOGSENSOR_H
 #include "Sensor.h"
 extern "C" {
-#include "../../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
+#include "../../High-Precision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
 }
 
 // Maybe UDOUBLE maybe template, TODO: ask amar

@@ -9,7 +9,7 @@ class AccelerometerTest{
 public:
     AccelerometerTest() { a = Accelerometer(); }
     void RunTests() {
-        a.update()
+        a.update();
         std::cout<<"Running Accelerometer Tests"<<std::endl;
         std::cout<<"Test Get Position status: "<< (getAccel() ? "Passed" : "Failed") <<std::endl;
     }

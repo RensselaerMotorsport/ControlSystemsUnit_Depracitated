@@ -16,19 +16,6 @@ BmsData::BmsData(float ccl, float dcl, float t, float sc, float cr, float pr, fl
     criticalFaults = cf;
 }
 
-friend ostream& BmsData::operator<<(ostream& os, const BmsData& bd){
-    os << bd.chargeCurrentLimit << ","
-            << bd.dischargeCurrentLimit << ","
-            << bd.temperature << ","
-            << bd.stateOfCharge << ","
-            << bd.cellResistance << ","
-            << bd.packResistance << ","
-            << bd.cellVoltage << ","
-            << bd.packVoltage << ","
-            << bd.criticalFaults;
-    return os;
-}
-
 std::string BmsData::toString() {
     return std::to_string(chargeCurrentLimit) + ","
          + std::to_string(dischargeCurrentLimit) + ","
@@ -39,4 +26,17 @@ std::string BmsData::toString() {
          + std::to_string(cellVoltage) + ","
          + std::to_string(packVoltage) + ","
          + std::to_string(criticalFaults);
+}
+
+std::ostream& operator<<(std::ostream& os, const BmsData& bd){
+    os << bd.chargeCurrentLimit << ","
+        << bd.dischargeCurrentLimit << ","
+        << bd.temperature << ","
+        << bd.stateOfCharge << ","
+        << bd.cellResistance << ","
+        << bd.packResistance << ","
+        << bd.cellVoltage << ","
+        << bd.packVoltage << ","
+        << bd.criticalFaults;
+    return os;
 }

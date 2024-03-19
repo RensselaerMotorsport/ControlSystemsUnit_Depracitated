@@ -24,7 +24,7 @@
 class SensorTest{
 public:
 
-    SensorTest(){ s = Sensor(); }
+    SensorTest() { s = Sensor<int, int>(); }
 
     void RunTests(){
         std::cout<<"Running Sensor Tests"<<std::endl;
@@ -32,6 +32,6 @@ public:
     }
 
 private:
-    Sensor s;
+    Sensor<int, int> s; // FIXME: This is a placeholder with int types
 
 };

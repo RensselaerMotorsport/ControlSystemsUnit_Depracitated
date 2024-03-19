@@ -25,22 +25,24 @@ void InitADC(void)
 
     // 0 is singleChannel, 1 is diffChannel
     ADS1263_SetMode(0);
+    DEV_Module_Exit();
+    exit(0);
 
     // The faster the rate, the worse the stability
     // and the need to choose a suitable digital filter(REG_MODE1)
     //contains reset, check chip id, config
-    // try {
-    //     // Initializing ADC's in Samples Per Second (SPS)
-    //     if (ADS1263_init_ADC1(ADS1263_4800SPS) != 0)
-    //         throw "ADC1 Initialization failed.";
-    //     if (ADS1263_init_ADC2(ADS1263_ADC2_800SPS) != 0)
-    //         throw "ADC2 Initialization failed.";
-    // } catch (const char* errorMsg) {
-    //     printf("\r\n END \r\n");
-    //     DEV_Module_Exit();
-    //     std::cerr << errorMsg << std::endl;
-    //     exit(0);
-    // }
+    // initializing adc's in samples per second (sps)
+    // XXX: 4800
+    if (ADS1263_init_ADC1(ADS1263_400SPS) != 0) {
+        printf("\r\n END \r\n");
+        DEV_Module_Exit();
+        exit(0);
+    }
+    if (ADS1263_init_ADC2(ADS1263_ADC2_800SPS) != 0) {
+        printf("\r\n END \r\n");
+        DEV_Module_Exit();
+        exit(0);
+    }
 }
 
 //Sets the correct channel group on the multiplexer

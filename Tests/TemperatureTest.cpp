@@ -28,22 +28,23 @@
 
 class TemperatureTest{
 public:
-    TemperatureTest() { tmp = Temperature(0, 0, 0); }
+    TemperatureTest() : tmp(0,0,0) {}
+
     void RunTests() {
-        tmp.update()
+        tmp.update();
         std::cout<<"Running Temperature Tests"<<std::endl;
         std::cout<<"Test Get Celsius status: "<< (getCel() ? "Passed" : "Failed") <<std::endl;
         std::cout<<"Test Get Fahrenheit  status: "<< (getFer() ? "Passed" : "Failed") <<std::endl;
     }
 private:
-    bool getCel(){
-        if((tmp.getCelsius() - expectedCel) < 0.01){
+    bool getCel() {
+        if((tmp.getCelsius() - expectedCel) < 0.01) {
             return true;
         }
         return false;
     }
-    bool getFer(){
-        if((tmp.getFahrenheit() - expectedFer) < 0.01){
+    bool getFer() {
+        if((tmp.getFahrenheit() - expectedFer) < 0.01) {
             return true;
         }
         return false;

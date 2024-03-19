@@ -3,7 +3,7 @@ CXX = g++
 CXXFLAGS = -g -O0 -IIncludes -lJetsonGPIO -lpthread -lm
 
 # SOURCES
-SRC_DIRS = $(shell find Frameworks -type d) Tests
+SRC_DIRS = $(shell find Frameworks -type d)
 SOURCES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 
 # OBJECTS
@@ -19,11 +19,12 @@ C_OBJECTS = High-Precision_AD_HAT/c/bin/*.o
 
 # BUILD RULES
 # Default build rule
-all: $(VCU_OUTPUT)
+all:
+	@echo "Specify a test to build, e.g., make SchedulerTest.out"
 
-# Pattern rule for any test
-%.out: $(OBJ_DIR)/%.o $(OBJECTS) waveshare
-	$(CXX) $< $(filter-out $(OBJ_DIR)/main.o,$(OBJECTS)) $(C_OBJECTS) -o $@ $(CXXFLAGS)
+# Rule for compiling tests
+%.out: Tests/%.cpp $(OBJECTS) waveshare
+	$(CXX) $< $(OBJECTS) $(C_OBJECTS) -o $@ $(CXXFLAGS)
 
 # Rule to compile .cpp to .o
 $(OBJ_DIR)/%.o: %.cpp
@@ -35,11 +36,11 @@ vpath %.cpp $(SRC_DIRS)
 
 # External library compilation
 waveshare:
-	make -C High-Pricision_AD_HAT/c JETSON
+	make -C High-Precision_AD_HAT/c JETSON
 
 # Clean rule
 clean:
-	rm -rf $(OBJ_DIR) $(TEST_OUTPUTS) $(VCU_OUTPUT)
+	rm -rf $(OBJ_DIR) $(VCU_OUTPUT) *.out
 	make -C High-Precision_AD_HAT/c clean
 
 -include $(DEPS)

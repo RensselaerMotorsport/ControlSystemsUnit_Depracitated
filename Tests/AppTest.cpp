@@ -7,9 +7,9 @@
 
 class AppTest{
 public:
-    AppTest() { a = App(0, 0, 0); }
+    AppTest() : a(0,0,0) {}
     void RunTests() {
-        a.update()
+        a.update();
         std::cout<<"Running PedalPosition Tests"<<std::endl;
         std::cout<<"Test Get Position status: "<< (getPosition() ? "Passed" : "Failed") <<std::endl;
     }

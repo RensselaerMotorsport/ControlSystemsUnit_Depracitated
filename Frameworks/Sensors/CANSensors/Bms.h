@@ -14,14 +14,14 @@
 
 #include "../CANSensor.h"
 #include "BmsData.h"
+#include <vector>
 
 class Bms: public CANSensor<BmsData, std::vector<float>> {
 
 public:
     Bms(int hz, int id)
-            : CANSensor<BmsData>("Bms", DataLogger<BmsData>(), hz, id)
+            : CANSensor<BmsData, std::vector<float>>("Bms", DataLogger<BmsData>(), hz, id)
     { data = BmsData(); }
-};
 
     void update() override;
 
@@ -33,6 +33,7 @@ private:
     BmsData transfer_function(std::vector<float> rawVal);
 
     BmsData data;
+};
 
 
 #endif //CONTROLSYSTEMSUNIT_BMS_H

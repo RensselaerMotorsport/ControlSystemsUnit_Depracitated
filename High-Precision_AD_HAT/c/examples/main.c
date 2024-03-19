@@ -11,7 +11,7 @@
 #define TEST_ADC1_RATE  0
 // ADC2 test part
 #define TEST_ADC2       0
-// RTD test part
+// RTD test part    
 #define TEST_RTD        0
 
 #define REF         5.08        //Modify according to actual voltage
@@ -30,16 +30,16 @@ int main(void)
     UDOUBLE ADC[10];
     UWORD i;
     double RES, TEMP;
-
+    
     // Exception handling:ctrl + c
     signal(SIGINT, Handler);
-
+    
     printf("ADS1263 Demo \r\n");
     DEV_Module_Init();
 
     // 0 is singleChannel, 1 is diffChannel
     ADS1263_SetMode(0);
-
+    
     // The faster the rate, the worse the stability
     // and the need to choose a suitable digital filter(REG_MODE1)
     if(ADS1263_init_ADC1(ADS1263_400SPS) == 1) {
@@ -47,17 +47,17 @@ int main(void)
         DEV_Module_Exit();
         exit(0);
     }
-
+    
     /* Test DAC */
-    // ADS1263_DAC(ADS1263_DAC_VLOT_3, Positive_A6, Open);
+    // ADS1263_DAC(ADS1263_DAC_VLOT_3, Positive_A6, Open);      
     // ADS1263_DAC(ADS1263_DAC_VLOT_2, Negative_A7, Open);
-
+    
     if(TEST_ADC1) {
         printf("TEST_ADC1\r\n");
-
+        
         #define ChannelNumber 5
         UBYTE ChannelList[ChannelNumber] = {0, 1, 2, 3, 4};    // The channel must be less than 10
-
+            
         UDOUBLE Value[ChannelNumber] = {0};
         while(1) {
             ADS1263_GetAll(ChannelList, Value, ChannelNumber);  // Get ADC1 value
@@ -92,7 +92,7 @@ int main(void)
     }
     else if(TEST_ADC1_RATE) {
         printf("TEST_ADC1_RATE\r\n");
-        struct timespec start={0, 0}, finish={0, 0};
+        struct timespec start={0, 0}, finish={0, 0}; 
         clock_gettime(CLOCK_REALTIME, &start);
         double time;
         UBYTE isSingleChannel = 0;

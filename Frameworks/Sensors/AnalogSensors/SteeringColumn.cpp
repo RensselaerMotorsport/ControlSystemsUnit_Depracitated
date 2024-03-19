@@ -10,3 +10,7 @@ void SteeringColumn::update() {
     this->rotation_angle = transfer_function(var);
     this->dataLog.addValue(callTime, this->rotation_angle);
 }
+
+float SteeringColumn::transfer_function(UDOUBLE rawVal) {
+    return rawVal; // TODO: Implement transfer function
+}

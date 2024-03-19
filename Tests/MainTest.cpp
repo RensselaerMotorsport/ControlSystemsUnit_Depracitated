@@ -35,7 +35,7 @@ void TemperatureT(){
 
 void MotorControllerT(){
     MotorControllerTest mct = MotorControllerTest();
-    mct.RunTests();
+    mct.RunTests(0.0f); // FIXME: Expected position placeholder
 }
 
 void SensorT(){

@@ -5,11 +5,13 @@
 
 #ifndef CONTROLSYSTEMSUNIT_BMSDATA_H
 #define CONTROLSYSTEMSUNIT_BMSDATA_H
+#include <iostream>
+#include <string>
 
 
 class BmsData {
 public:
-    BmsData();
+    BmsData() {}
     BmsData(float ccl, float dcl, float t, float sc, float cr, float pr, float cv, float pv, bool cf);
 
     float getChargeCurrentLimit() { return chargeCurrentLimit; }
@@ -22,8 +24,9 @@ public:
     float getPackVoltage() { return packVoltage; }
     bool getCriticalFaults() { return criticalFaults; }
 
-    friend ostream& operator<<(ostream& os, const BmsData& bd);
+    friend std::ostream& operator<<(std::ostream& os, const BmsData& bd);
     std::string toString();
+
 private:
     float chargeCurrentLimit;
     float dischargeCurrentLimit;

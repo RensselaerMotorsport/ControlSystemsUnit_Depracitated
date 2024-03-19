@@ -1,6 +1,6 @@
-DIR_Config   = ./waveshare-lib/Config
-DIR_DRIVER      = ./waveshare-lib/Driver
-DIR_Examples = ./
+DIR_Config   = ./lib/Config
+DIR_DRIVER      = ./lib/Driver
+DIR_Examples = ./examples
 DIR_BIN      = ./bin
 
 OBJ_C = $(wildcard ${DIR_DRIVER}/*.c ${DIR_Examples}/*.c )

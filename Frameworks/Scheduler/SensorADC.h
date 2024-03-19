@@ -9,9 +9,9 @@
 #include <iostream>     // For std::cout, std::cerr
 #include <JetsonGPIO.h> // For GPIO pin operations
 
-// Include the ADS1263 driver header
+// Include the ADS1263 driver header -- For Analog Sensor Read
 extern "C" {
-#include "../../High-Pricision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
+#include "../../High-Precision_AD_HAT/c/lib/Driver/ADS1263.h"
 }
 
 // GPIO pin definitions

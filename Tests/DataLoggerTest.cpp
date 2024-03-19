@@ -63,7 +63,7 @@ private:
     //This is to make sure that by calling getMap, we cannot edit the values.
     bool immutableRefTest() {
         std::map<highResTime, double>::const_iterator itr;
-        itr = dl.getMap();
+        itr = dl.getStart();
         if (itr->first != knownTime){
             return false;
         }

@@ -16,7 +16,7 @@
 
 #include "../AnalogSensor.h"
 
-class App {
+class App : public AnalogSensor<float> {
 public:
     App(int channel, int hZ, int muxChannel)
             : AnalogSensor<float>("APP", DataLogger<float>(), channel, hZ, muxChannel)

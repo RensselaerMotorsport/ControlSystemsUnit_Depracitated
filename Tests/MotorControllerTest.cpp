@@ -24,19 +24,15 @@
 class MotorControllerTest{
 public:
 
-    MotorControllerTest(){ 
-        esc = Esc(-1, -1);
-        app = App(-1, -1, -1);
-        MC = MotorController(&esc, &app); 
-    }
+    MotorControllerTest() : esc(-1, -1), app(-1, -1, -1), MC(&esc, &app) {}
 
-    void RunTests(float exPos){
+    void RunTests(float exPos) {
         std::cout<<"Running Motor Controller Tests"<<std::endl;
         std::cout<<"Test Get Value status: "<< ( GetPos(exPos) ? "Passed" : "Failed") <<std::endl;
     }
 
 private:
-    bool GetPos(float expectedPos){
+    bool GetPos(float expectedPos) {
         if((MC.getPedalPosition() - expectedPos) < 0.01)
             return true;
         return false;

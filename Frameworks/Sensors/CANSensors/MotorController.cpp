@@ -20,9 +20,9 @@ MotorController::MotorController(Esc* e, App* a){
 }
 
 float MotorController::getPedalPosition(){
-    return this->app.get_position();
+    return this->app->get_position();
 }
 
 float MotorController::getMotorTemp(){
-    return this->esc.get_temp();
+    return this->esc->get_temp();
 }

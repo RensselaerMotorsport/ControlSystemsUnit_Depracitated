@@ -5,7 +5,7 @@
 #include "Imd.h"
 
 void Imd::update() {
-    float var = this.getData();
+    float var = this->getData();
     highResTime callTime = std::chrono::system_clock::now();
     this->imd_status = imd_status_transfer_function(var);
     this->running_flag = running_flag_transfer_function(var);
