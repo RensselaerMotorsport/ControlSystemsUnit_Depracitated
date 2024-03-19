@@ -10,3 +10,16 @@
 .vscode/
 # Jetson GPIO Library
 JetsonGPIO/
+
+### Additional rules for build artifacts and directories ###
+
+# Object files and Dependencies
+*.o
+*.d
+*.out
+
+# Object directorys
+/obj/
+/High-Precision_AD_HAT/c/bin/
+
+### End of additional rules ###
