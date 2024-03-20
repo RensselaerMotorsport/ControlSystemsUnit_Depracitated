@@ -27,10 +27,11 @@ public:
 
     void update() override;
 
-private:
     #ifdef TEST_MODE
-    UDOUBLE getData() override;
+    void update(UDOUBLE rawVal) override;
     #endif
+
+private:
 
     //variables
     float distance;

@@ -9,7 +9,6 @@ extern "C" {
 #include "../../High-Precision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
 }
 
-// Maybe UDOUBLE maybe template, TODO: ask amar
 template<typename T>
 class AnalogSensor: public Sensor<T, UDOUBLE> {
 public:

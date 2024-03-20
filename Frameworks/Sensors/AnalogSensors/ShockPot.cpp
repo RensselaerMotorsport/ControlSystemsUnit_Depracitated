@@ -40,9 +40,9 @@ void ShockPot::update() {
 }
 
 #ifdef TEST_MODE
-UDOUBLE ShockPot::getData() override{
-    return 15;
-    //TODO: This currently only works to test for one value
-    //      more information in AnalogSensor.h
+void ShockPot::update(UDOUBLE rawVal) override{
+    highResTime callTime = std::chrono::system_clock::now();
+    this->distance = transfer_function(rawVal);
+    this->dataLog.addValue(callTime, this->distance);
 }
 #endif

@@ -45,6 +45,10 @@ void SensorT(){
 
 //Complie with -D TEST_MODE in order to run these tests
 int main(int argc, char* argv[]) {
+    #ifndef TEST_MODE
+    std::cerr << "ERROR: Test mode is not enabled\nPlease compile with '-D TEST_MODE' to enable test mode" << std::endl;
+    return 0;
+    #endif
     for(int i = 1; i < argc; i++) {
         if (0 == strcmp(argv[i], "All")) {
             DataLoggerT();

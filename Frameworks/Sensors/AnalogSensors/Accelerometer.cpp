@@ -30,8 +30,9 @@ void Accelerometer::update() {
 }
 
 #ifdef TEST_MODE
-UDOUBLE Accelerometer::getData() override{
-    //this is for an expected value of 17.04545454545...
-    return 10
+void Accelerometer::update(UDOUBLE rawVal) override{
+    highResTime callTime = std::chrono::system_clock::now();
+    this->value = transfer_function(rawVal);
+    this->dataLog.addValue(callTime, this->value);
 }
 #endif

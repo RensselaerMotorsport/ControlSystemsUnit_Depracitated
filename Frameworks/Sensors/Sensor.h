@@ -50,6 +50,10 @@ public:
    //Setter
    virtual void update() {} //This will be implemented in each individual sensor
 
+   #ifdef TEST_MODE
+    virtual void update(I rawVal) {}
+   #endif
+
    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
 
 protected: //This is protected instead of private so that subclasses can access these
