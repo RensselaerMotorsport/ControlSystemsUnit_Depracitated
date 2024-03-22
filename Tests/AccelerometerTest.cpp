@@ -5,6 +5,9 @@
 #include "../Frameworks/Sensors/AnalogSensors/Accelerometer.h"
 #include "../Frameworks/Sensors/AnalogSensors/Accelerometer.cpp"
 
+#ifndef RENNSMOTORSPORT_ACCELEROMETER_TEST_CPP
+#define RENNSMOTORSPORT_ACCELEROMETER_TEST_CPP
+
 class AccelerometerTest{
 public:
     AccelerometerTest() { a = Accelerometer(); }
@@ -27,3 +30,5 @@ private:
                                //      this should be updated to acurately test the transfer function
     Accelerometer a;
 };
+
+#endif

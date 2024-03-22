@@ -5,6 +5,9 @@
 #include "../Frameworks/Sensors/AnalogSensors/App.h"
 #include "../Frameworks/Sensors/AnalogSensors/App.cpp"
 
+#ifndef RENNSMOTORSPORT_APP_TEST_CPP
+#define RENNSMOTORSPORT_APP_TEST_CPP
+
 class AppTest{
 public:
     AppTest() : a(0,0,0) {}
@@ -27,3 +30,5 @@ private:
                                //      this should be updated to acurately test the transfer function
     App a;
 };
+
+#endif

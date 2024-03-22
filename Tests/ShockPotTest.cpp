@@ -8,6 +8,9 @@
 #include "../Frameworks/Sensors/AnalogSensors/ShockPot.h"
 #include "../Frameworks/Sensors/AnalogSensors/ShockPot.cpp"
 
+#ifndef RENNSMOTORSPORT_SHOCKPOT_TEST_CPP
+#define RENNSMOTORSPORT_SHOCKPOT_TEST_CPP
+
 class ShockPotTest{
 public:
     ShockPotTest() : sp(0, 0, 0, front_left) {} //These are default testing values
@@ -35,8 +38,4 @@ private:
     ShockPot sp;
 };
 
-int main(){
-    ShockPotTest spt;
-    spt.runTests();
-    return 0;
-}
+#endif

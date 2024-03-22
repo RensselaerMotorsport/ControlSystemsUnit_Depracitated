@@ -21,6 +21,9 @@
 #include <iostream>
 #include "../Frameworks/Sensors/Sensor.h"
 
+#ifndef RENNSMOTORSPORT_SENSOR_TEST_CPP
+#define RENNSMOTORSPORT_SENSOR_TEST_CPP
+
 class SensorTest{
 public:
 
@@ -35,3 +38,5 @@ private:
     Sensor<int, int> s; // FIXME: This is a placeholder with int types
 
 };
+
+#endif

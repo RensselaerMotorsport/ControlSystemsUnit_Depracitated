@@ -25,6 +25,9 @@
 #include <unistd.h>
 #include "../Frameworks/Sensors/DataLogger.cpp"
 
+#ifndef RENNSMOTORSPORT_DATA_LOGGER_TEST_CPP
+#define RENNSMOTORSPORT_DATA_LOGGER_TEST_CPP
+
 class DataLoggerTest{
 
 public:
@@ -75,3 +78,5 @@ private:
     highResTime knownTime;
     DataLogger<double> dl;
 };
+
+#endif

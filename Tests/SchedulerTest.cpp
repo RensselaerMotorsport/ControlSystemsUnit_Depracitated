@@ -12,6 +12,9 @@
 #include "../Frameworks/Sensors/AnalogSensors/WheelFlux.h"
 #include "../Frameworks/Sensors/CANSensors/Imd.h"
 
+#ifndef RENNSMOTORSPORT_SCHEDULER_TEST_CPP
+#define RENNSMOTORSPORT_SCHEDULER_TEST_CPP
+
 class SchedulerTest {
 public:
     void RunTests() {
@@ -104,3 +107,5 @@ int main() {
     schedulerTest.RunTests();
     return 0;
 }
+
+#endif

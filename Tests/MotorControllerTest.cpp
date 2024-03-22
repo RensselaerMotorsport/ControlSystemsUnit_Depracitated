@@ -21,6 +21,9 @@
 #include <iostream>
 #include "../Frameworks/Sensors/CANSensors/MotorController.cpp"
 
+#ifndef RENNSMOTORSPORT_MOTOR_CONTROLLER_TEST_CPP
+#define RENNSMOTORSPORT_MOTOR_CONTROLLER_TEST_CPP
+
 class MotorControllerTest{
 public:
 
@@ -42,3 +45,5 @@ private:
     App app;
     MotorController MC;
 };
+
+#endif
