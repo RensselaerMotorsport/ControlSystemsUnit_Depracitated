@@ -22,7 +22,7 @@
 #include "TemperatureTest.cpp"
 #include "MotorControllerTest.cpp"
 #include "SensorTest.cpp"
-#include "ShockPot.h"
+#include "ShockPotTest.cpp"
 
 void DataLoggerT(){
     DataLoggerTest dlt = DataLoggerTest();
