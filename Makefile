@@ -24,7 +24,7 @@ all:
 
 # Rule for compiling tests
 %.out: Tests/%.cpp $(OBJECTS) waveshare
-	$(CXX) $< $(OBJECTS) $(C_OBJECTS) -o $@ $(CXXFLAGS)
+	$(CXX) $< $(OBJECTS) $(C_OBJECTS) -o $@ $(CXXFLAGS) -D TEST_MODE
 
 # Rule to compile .cpp to .o
 $(OBJ_DIR)/%.o: %.cpp

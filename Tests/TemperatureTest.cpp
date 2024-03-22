@@ -24,10 +24,6 @@
 #include <ctime>
 #include <unistd.h>
 #include "../Frameworks/Sensors/AnalogSensors/Temperature.h"
-#include "../Frameworks/Sensors/AnalogSensors/Temperature.cpp"
-
-#ifndef RENNSMOTORSPORT_TEMPERATURE_TEST_CPP
-#define RENNSMOTORSPORT_TEMPURATURE_TEST_CPP
 
 class TemperatureTest{
 public:
@@ -56,5 +52,3 @@ private:
     int expectedCel = 0.0; //TODO: This is currently freezing because the transfer function in Tempurature.cpp is not implemented
     float expectedFer = 32.0;
 };
-
-#endif

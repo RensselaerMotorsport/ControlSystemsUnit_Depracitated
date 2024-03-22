@@ -16,7 +16,7 @@ extern "C" {
 
 // GPIO pin definitions
 #define GPIO_MUX_LSB 38 // 20 on the ADC, 38 on the Jetson Nano
-#define GPIO_MUX_MSB 21 // 21 on the ADC, 40 on the Jetson Nano
+#define GPIO_MUX_MSB 40 // 21 on the ADC, 40 on the Jetson Nano
 
 // ADC test parts
 #define TEST_ADC1       1

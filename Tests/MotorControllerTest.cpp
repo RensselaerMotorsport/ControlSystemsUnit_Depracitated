@@ -19,10 +19,7 @@
  *
  */
 #include <iostream>
-#include "../Frameworks/Sensors/CANSensors/MotorController.cpp"
-
-#ifndef RENNSMOTORSPORT_MOTOR_CONTROLLER_TEST_CPP
-#define RENNSMOTORSPORT_MOTOR_CONTROLLER_TEST_CPP
+#include "../Frameworks/Sensors/CANSensors/MotorController.h"
 
 class MotorControllerTest{
 public:
@@ -45,5 +42,3 @@ private:
     App app;
     MotorController MC;
 };
-
-#endif

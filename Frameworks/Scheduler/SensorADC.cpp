@@ -25,8 +25,6 @@ void InitADC(void)
 
     // 0 is singleChannel, 1 is diffChannel
     ADS1263_SetMode(0);
-    DEV_Module_Exit();
-    exit(0);
 
     // The faster the rate, the worse the stability
     // and the need to choose a suitable digital filter(REG_MODE1)

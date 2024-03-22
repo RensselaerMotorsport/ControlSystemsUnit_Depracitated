@@ -23,10 +23,7 @@
 #include <iostream>
 #include <ctime>
 #include <unistd.h>
-#include "../Frameworks/Sensors/DataLogger.cpp"
-
-#ifndef RENNSMOTORSPORT_DATA_LOGGER_TEST_CPP
-#define RENNSMOTORSPORT_DATA_LOGGER_TEST_CPP
+#include "../Frameworks/Sensors/DataLogger.h"
 
 class DataLoggerTest{
 
@@ -78,5 +75,3 @@ private:
     highResTime knownTime;
     DataLogger<double> dl;
 };
-
-#endif

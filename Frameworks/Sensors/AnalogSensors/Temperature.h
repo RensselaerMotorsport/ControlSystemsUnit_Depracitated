@@ -42,7 +42,7 @@ public:
     #endif
 private:
 
-    float transfer_function(UDOUBLE rawVal); //TODO: needs to be implemented
+    float transfer_function(UDOUBLE rawVal);
     std::string toString(float v) override { return std::to_string(v); }
 
     //Member Variables:
