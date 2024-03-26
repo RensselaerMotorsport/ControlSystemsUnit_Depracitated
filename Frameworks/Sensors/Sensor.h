@@ -43,18 +43,18 @@ public:
     void clear();
     */
 
-   const DataLogger<T>& getDataLog() const { return dataLog; }
-   const std::string getSensorName() { return sensorName; }
-   const int getHZ() const { return hz; }
+    const DataLogger<T>& getDataLog() const { return dataLog; }
+    const std::string getSensorName() { return sensorName; }
+    const int getHZ() const { return hz; }
 
-   //Setter
-   virtual void update() {} //This will be implemented in each individual sensor
+    //Setter
+    virtual void update() {} //This will be implemented in each individual sensor
 
-   #ifdef TEST_MODE
+    #ifdef TEST_MODE
     virtual void update(I rawVal) {}
-   #endif
+    #endif
 
-   void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
+    void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format
 
 protected: //This is protected instead of private so that subclasses can access these
 

@@ -30,7 +30,7 @@ void Accelerometer::update() {
 }
 
 #ifdef TEST_MODE
-void Accelerometer::update(UDOUBLE rawVal) override{
+void Accelerometer::update(UDOUBLE rawVal) {
     highResTime callTime = std::chrono::system_clock::now();
     this->value = transfer_function(rawVal);
     this->dataLog.addValue(callTime, this->value);

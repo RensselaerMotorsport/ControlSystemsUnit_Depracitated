@@ -17,7 +17,7 @@ void App::update() {
 }
 
 #ifdef TEST_MODE
-void App::update(UDOUBLE rawVal) override{
+void App::update(UDOUBLE rawVal) {
     highResTime callTime = std::chrono::system_clock::now();
     this->position = transfer_function(rawVal);
     this->dataLog.addValue(callTime, this->position);

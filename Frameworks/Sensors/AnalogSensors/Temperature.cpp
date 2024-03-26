@@ -34,7 +34,7 @@ float Temperature::transfer_function(UDOUBLE rawVal) {
 }
 
 #ifdef TEST_MODE
-void Temperature::update(UDOUBLE rawVal) override {
+void Temperature::update(UDOUBLE rawVal) {
     highResTime callTime = std::chrono::system_clock::now();
     this->temp = this->transfer_function(rawVal);
     this->dataLog.addValue(callTime, this->temp);

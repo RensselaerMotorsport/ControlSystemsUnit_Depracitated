@@ -28,7 +28,8 @@ void ThreadPool::enqueue(std::function<void()> task) {
         tasks.emplace(task);
 
         if(tasks.size() > workers.size()) {
-            std::cerr << "\033[33mWarning: More tasks enqueued than available worker threads.\033[0m" << std::endl;
+            // Warning: More tasks enqueued than available worker threads
+            // std::cerr << "\033[33mWarning: More tasks enqueued than available worker threads.\033[0m" << std::endl;
         }
     }
     condition.notify_one();

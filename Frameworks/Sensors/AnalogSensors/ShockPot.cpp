@@ -40,7 +40,7 @@ void ShockPot::update() {
 }
 
 #ifdef TEST_MODE
-void ShockPot::update(UDOUBLE rawVal) override{
+void ShockPot::update(UDOUBLE rawVal) {
     highResTime callTime = std::chrono::system_clock::now();
     this->distance = transfer_function(rawVal);
     this->dataLog.addValue(callTime, this->distance);
