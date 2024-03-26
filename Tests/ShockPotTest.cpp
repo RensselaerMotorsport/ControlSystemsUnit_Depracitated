@@ -6,10 +6,6 @@
 #include <iostream>
 #include <random>
 #include "../Frameworks/Sensors/AnalogSensors/ShockPot.h"
-#include "../Frameworks/Sensors/AnalogSensors/ShockPot.cpp"
-
-#ifndef RENNSMOTORSPORT_SHOCKPOT_TEST_CPP
-#define RENNSMOTORSPORT_SHOCKPOT_TEST_CPP
 
 class ShockPotTest{
 public:
@@ -37,5 +33,3 @@ private:
     }
     ShockPot sp;
 };
-
-#endif

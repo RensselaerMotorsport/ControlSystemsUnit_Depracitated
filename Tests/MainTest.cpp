@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
             TemperatureT();
             MotorControllerT();
             SensorT();
-            ShockPotT()
+            ShockPotT();
         } else if (0 == strcmp(argv[i], "DataLogger")) {
             DataLoggerT();
         } else if (0 == strcmp(argv[i], "Temperature")) {

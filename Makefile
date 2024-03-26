@@ -26,10 +26,11 @@ all:
 %.out: Tests/%.cpp $(OBJECTS) waveshare
 	$(CXX) $< $(OBJECTS) $(C_OBJECTS) -o $@ $(CXXFLAGS) -D TEST_MODE
 
+# FIXME: Remove TEST_MODE
 # Rule to compile .cpp to .o
 $(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -MMD -c $< -o $@
+	$(CXX) $(CXXFLAGS) -MMD -c $< -o $@ -D TEST_MODE
 
 # Include source directories in vpath to find corresponding .cpp files
 vpath %.cpp $(SRC_DIRS)

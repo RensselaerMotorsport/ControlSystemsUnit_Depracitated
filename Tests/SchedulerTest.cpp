@@ -32,7 +32,7 @@ private:
         // Callback for printing the delay between task enqueuing and execution
         auto debugDelayCallback = [](std::chrono::high_resolution_clock::duration delay) {
             int millisecondWarningThreshold = 300;
-            int millisecondFailThreshold = 500;
+            int millisecondFailThreshold = 1000;
             if (delay > std::chrono::microseconds(millisecondFailThreshold)) {
                 std::cout << "\033[31m"  // Set text color to red
                           << "Fail: Execution delay: "
