@@ -12,22 +12,23 @@ class AppTest{
 public:
     AppTest() : a(0,0,0) {}
     void RunTests() {
-        a.update();
         std::cout<<"Running PedalPosition Tests"<<std::endl;
-        std::cout<<"Test Get Position status: "<< (getPosition() ? "Passed" : "Failed") <<std::endl;
+        std::cout<<"Test Get Position 1 volt: "<< (getPosition(1, -33.75) ? "Passed" : "Failed") <<std::endl;
+        std::cout<<"Test Get Position 2 volts: "<< (getPosition(2, -11.25) ? "Passed" : "Failed") <<std::endl;
+        std::cout<<"Test Get Position 3 volts: "<< (getPosition(3, 11.25) ? "Passed" : "Failed") <<std::endl;
+        std::cout<<"Test Get Position 4 volts: "<< (getPosition(4, 33.75) ? "Passed" : "Failed") <<std::endl;
     }
 private:
-    bool getPosition(){
-        if((a.get_position() - expectedPos) < 0.01){
+    bool getPosition(UDOUBLE rawVal, float expectedPos){
+        a.update(rawVal);
+        if((a.get_position() - expectedPos) < error){
             return true;
         }
         return false;
     }
 
-    float expectedPos = 10;
+    float error = 2.0; //This might need adjusting when we calibrate the actual car
 
-    uint32_t inputValue = 0.0; //TODO: once the transfer function is implemented in Temperature.cpp,
-                               //      this should be updated to acurately test the transfer function
     App a;
 };
 

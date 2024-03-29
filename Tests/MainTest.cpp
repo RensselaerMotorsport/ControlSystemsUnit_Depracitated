@@ -23,6 +23,7 @@
 #include "MotorControllerTest.cpp"
 #include "SensorTest.cpp"
 #include "ShockPotTest.cpp"
+#include "AppTest.cpp"
 
 void DataLoggerT(){
     DataLoggerTest dlt = DataLoggerTest();
@@ -49,6 +50,11 @@ void ShockPotT(){
     spt.runTests();
 }
 
+void AppT(){
+    AppTest at = AppTest();
+    at.runTests();
+}
+
 //Complie with -D TEST_MODE in order to run these tests
 int main(int argc, char* argv[]) {
     #ifndef TEST_MODE
@@ -57,6 +63,7 @@ int main(int argc, char* argv[]) {
     #endif
     for(int i = 1; i < argc; i++) {
         if (0 == strcmp(argv[i], "All")) {
+            AppT();
             DataLoggerT();
             TemperatureT();
             MotorControllerT();
@@ -72,11 +79,14 @@ int main(int argc, char* argv[]) {
             SensorT();
         } else if (0 == strcmp(argv[i], "ShockPot")) {
             ShockPotT();
+        } else if (0 == strcmp(argv[i], "App")) {
+            AppT();
         } else {
             std::cerr << "INCORRECT USAGE:\n" <<
                       "USAGE: ./MainTest.o \"Test\"\n" <<
                       "Available Tests:\n" <<
                       "All\n" <<
+                      "App\n" <<
                       "DataLogger\n" <<
                       "Temperature\n" <<
                       "MotorController\n" <<
