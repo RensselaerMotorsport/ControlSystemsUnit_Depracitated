@@ -21,13 +21,12 @@ float ShockPot::get_acceleration(){
 }
 
 float ShockPot::transfer_function(UDOUBLE rawVal) {
-    //TODO: this will need to be updated to work with UDOUBLEs
     if (rawVal < 15) {
-        return -1;
         std::cerr << "ShockPot::transfer_function rawValue is too low" << std::endl;
-    } else if (rawVal > 135) {
         return -1;
+    } else if (rawVal > 135) {
         std::cerr << "ShockPot::transfer_function rawValue is too high" << std::endl;
+        return -1;
     }
     return 2.71965*(pow(rawVal,0.837683)) - 16.2622;
 }

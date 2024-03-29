@@ -5,8 +5,15 @@
 #include "App.h"
 
 float App::transfer_function(UDOUBLE rawVal) {
-    //TODO: needs implementation
-    return rawVal;
+    //This is a +-45 degree sensor
+    if (rawVal < 0.5) {
+        std::cerr << "App::transfer_function rawValue is too low" << std::endl;
+        return -1;
+    } else if (rawVal > 4.5) {
+        std::cerr << "App::transfer_function rawValue is too high" << std::endl;
+        return -1;
+    }
+    return (22.5*rawVal)-56.25;
 }
 
 void App::update() {
