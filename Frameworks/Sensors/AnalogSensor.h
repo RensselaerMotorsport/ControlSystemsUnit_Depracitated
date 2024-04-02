@@ -5,9 +5,10 @@
 #ifndef RENNSMOTORSPORT_ANALOGSENSOR_H
 #define RENNSMOTORSPORT_ANALOGSENSOR_H
 #include "Sensor.h"
-extern "C" {
-#include "../../High-Precision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
-}
+#include "../Scheduler/SensorADC.h"
+// extern "C" {
+// #include "../../High-Precision_AD_HAT/c/lib/Driver/ADS1263.h" // For Analog Sensor Read
+// }
 
 template<typename T>
 class AnalogSensor: public Sensor<T, UDOUBLE> {
@@ -32,16 +33,9 @@ protected:
 // This is in the header file because it is a template
 template<typename T>
 UDOUBLE AnalogSensor<T>::getData() {
-    UDOUBLE data = 0; // XXX: Feel cute, might delete later
-    // UDOUBLE data = ADS1263_GetChannalValue(channel);
-    // Perhaps this to get data
-    // UDOUBLE rawData = ADS1263_GetChannalValue(channel);
-    // if((rawData>>31) == 1)
-    //     return (REF*2 - rawData/2147483648.0 * REF);      //7fffffff + 1
-    // else
-    //     return (rawData/2147483647.0 * REF);       //7fffffff
-
-    return data;
+    // Switch to fetch sensor for muxing, no need for muxing if amar lets us adcs
+    // return FetchSensor(muxChannel, channel);
+    // return ADS1263_GetChannalValue(channel);
 }
 
 

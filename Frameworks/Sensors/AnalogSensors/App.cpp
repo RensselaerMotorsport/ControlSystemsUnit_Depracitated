@@ -3,6 +3,8 @@
 //
 
 #include "App.h"
+// Temp inxlude for testing app sensor
+#include <iostream>
 
 float App::transfer_function(UDOUBLE rawVal) {
     //This is a +-45 degree sensor
@@ -18,6 +20,7 @@ float App::transfer_function(UDOUBLE rawVal) {
 
 void App::update() {
     UDOUBLE var = this->getData();
+    std::cout << "App data: " << var << std::endl;
     highResTime callTime = std::chrono::system_clock::now();
     this->position = transfer_function(var);
     this->dataLog.addValue(callTime, this->position);

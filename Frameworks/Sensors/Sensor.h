@@ -48,10 +48,15 @@ public:
     const int getHZ() const { return hz; }
 
     //Setter
-    virtual void update() {} //This will be implemented in each individual sensor
+    //This will be implemented in each individual sensor
+    virtual void update() {
+        std::cerr << "\033[33mWarning: Calling Sensor Update Function.\033[0m" << std::endl;
+    }
 
     #ifdef TEST_MODE
-    virtual void update(I rawVal) {}
+    virtual void update(I rawVal) {
+        std::cerr << "\033[33mWarning: Calling Sensor Test Mode Update Function.\033[0m" << std::endl;
+    }
     #endif
 
     void writeDataToFile(std::string filename); //This outputs the data stored in datalogger in a csv format

@@ -35,6 +35,7 @@
 #include <iostream>
 #include <queue>
 #include <memory>
+#include <atomic>
 #include "Task.h"
 #include "../Sensors/Sensor.h"
 #include "../Sensors/AnalogSensor.h"
@@ -69,12 +70,10 @@ private:
 };
 
 // Template definitions
-
-template <typename T
-         ,typename I>
+// Note: This function assumes that you don't delete the sensor object
+template <typename T ,typename I>
 void Scheduler::registerSensor(int id, Sensor<T, I>& sensor) {
-    auto sensorPtr = std::make_shared<Sensor<T, I>>(sensor);
-    auto task = std::make_shared<Task<T, I>>(id, sensor.getHZ(), sensorPtr);
+    auto task = std::make_shared<Task<T, I>>(id, sensor.getHZ(), sensor);
     tasks.push(task);
 }
 

@@ -4,13 +4,14 @@
 #include "../Frameworks/Scheduler/Scheduler.h"
 
 // Sensors
-#include "../Frameworks/Sensors/AnalogSensors/Accelerometer.h"
-#include "../Frameworks/Sensors/AnalogSensors/BrakePressure.h"
-#include "../Frameworks/Sensors/DigitalSensors/GPS.h"
-#include "../Frameworks/Sensors/AnalogSensors/ShockPot.h"
-#include "../Frameworks/Sensors/AnalogSensors/Temperature.h"
-#include "../Frameworks/Sensors/AnalogSensors/WheelFlux.h"
-#include "../Frameworks/Sensors/CANSensors/Imd.h"
+// #include "../Frameworks/Sensors/AnalogSensors/Accelerometer.h"
+// #include "../Frameworks/Sensors/AnalogSensors/BrakePressure.h"
+// #include "../Frameworks/Sensors/DigitalSensors/GPS.h"
+// #include "../Frameworks/Sensors/AnalogSensors/ShockPot.h"
+// #include "../Frameworks/Sensors/AnalogSensors/Temperature.h"
+// #include "../Frameworks/Sensors/AnalogSensors/WheelFlux.h"
+// #include "../Frameworks/Sensors/CANSensors/Imd.h"
+#include "../Frameworks/Sensors/AnalogSensors/App.h"
 
 #ifndef RENNSMOTORSPORT_SCHEDULER_TEST_CPP
 #define RENNSMOTORSPORT_SCHEDULER_TEST_CPP
@@ -31,7 +32,7 @@ private:
 
         // Callback for printing the delay between task enqueuing and execution
         auto debugDelayCallback = [](std::chrono::high_resolution_clock::duration delay) {
-            int millisecondWarningThreshold = 300;
+            int millisecondWarningThreshold = 0;
             int millisecondFailThreshold = 1000;
             if (delay > std::chrono::microseconds(millisecondFailThreshold)) {
                 std::cout << "\033[31m"  // Set text color to red
@@ -61,22 +62,24 @@ private:
 
         // Register Sensors
         int id = 0;
-        Accelerometer accelerometer(0, 100, -1);
-        scheduler.registerSensor(id++, accelerometer);
-        BrakePressure brakePressure(0, 100, -1);
-        scheduler.registerSensor(id++, brakePressure);
+        App app(0, 200, 1);
+        scheduler.registerSensor(id++, app);
+        // Accelerometer accelerometer(0, 100, -1);
+        // scheduler.registerSensor(id++, accelerometer);
+        // BrakePressure brakePressure(0, 100, -1);
+        // scheduler.registerSensor(id++, brakePressure);
         // GPS gps(0, 0, 10);
         // scheduler.registerAnalogSensor(id++, gps);
-        ShockPot shockPot(0, 1000, -1, front_left);
-        scheduler.registerSensor(id++, shockPot); // Theres gonna be 4 of these
-        Temperature temperature(0, 10, -1);
-        scheduler.registerSensor(id++, temperature); // Might not be 10 HZ
-        WheelFlux wheelFlux(0, 200, -1, 3.4f, front_left);
-        scheduler.registerSensor(id++, wheelFlux); // 4 here too
-        Imd imd(500, 0); // Id 0
-        scheduler.registerSensor(id++, imd);
+        // ShockPot shockPot(0, 1000, -1, front_left);
+        // scheduler.registerSensor(id++, shockPot); // Theres gonna be 4 of these
+        // Temperature temperature(0, 10, -1);
+        // scheduler.registerSensor(id++, temperature); // Might not be 10 HZ
+        // WheelFlux wheelFlux(0, 200, -1, 3.4f, front_left);
+        // scheduler.registerSensor(id++, wheelFlux); // 4 here too
+        // Imd imd(500, 0); // Id 0
+        // scheduler.registerSensor(id++, imd);
 
-        std::cout << "Starting Scheduler" << std::endl;
+        std::cout << "\nStarting Scheduler" << std::endl;
         // Start the scheduler in a separate thread
         std::thread schedulerThread([&scheduler]() {
             scheduler.run();
@@ -96,6 +99,11 @@ private:
             // Sleep a bit to prevent this loop from consuming too much CPU!!!
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
+
+        // Ensure the scheduler thread has finished execution
+        // if (schedulerThread.joinable()) {
+        //     schedulerThread.join();
+        // }
 
         std::cout << "Timing accuracy test passed" << std::endl;
         return true;

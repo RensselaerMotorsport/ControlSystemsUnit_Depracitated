@@ -38,7 +38,7 @@
 #define RENNSMOTORSPORT_TASK_H
 
 // TODO: Filter the ones used
-#include <iostream>
+// #include <iostream>
 #include <queue>
 #include <memory>
 #include "../Sensors/Sensor.h"
@@ -62,25 +62,18 @@ template <typename T,
           typename I>
 class Task : public TaskBase {
 public:
-    Task(int id, int hZ, std::shared_ptr<Sensor<T, I>> sensorPtr)
-        : id(id), hZ(hZ), sensor(sensorPtr) {
+    Task(int id, int hZ, Sensor<T, I>& sensorRef)
+        : id(id), hZ(hZ), sensor(sensorRef) {
             nextExecTime = std::chrono::high_resolution_clock::now();
         }
 
     void execute() override {
-        sensor->update();
+        sensor.update();
     }
-        // if (delay > std::chrono::microseconds(1000)) {
-        //     std::cout << "\033[31m"  // Set text color to red
-        //             << "Execution delay: "
-        //             << std::chrono::duration_cast<std::chrono::microseconds>(delay).count()
-        //             << " microseconds"
-        //             << "\033[0m" << std::endl;  // Reset text color
-        // }
 
     auto getNextExecTime() const -> highResTime { return nextExecTime; }
     auto setNextExecTime(highResTime time) -> void { nextExecTime = time; }
-    void writeDataToFile(std::string filename) { sensor->writeDataToFile(filename); }
+    void writeDataToFile(std::string filename) { sensor.writeDataToFile(filename); }
     auto getHZ() const -> int { return hZ; }
     auto getId() const -> int { return id; }
     auto getDelay() const -> highResTime { return delay; }
@@ -94,7 +87,7 @@ private:
     int id;
     int hZ;
     highResTime delay;
-    std::shared_ptr<Sensor<T, I>> sensor;
+    Sensor<T, I>& sensor;
     highResTime nextExecTime;
 };
 

@@ -59,7 +59,6 @@ void Scheduler::run() {
             std::chrono::milliseconds sleepTime(1);  // sleep for 1 millisecond
             std::this_thread::sleep_for(sleepTime);
         }
-        running = false;
     }
 }
 
